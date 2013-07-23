@@ -25,3 +25,25 @@ FORM ObjectTree
 		item 	Item[]
 	}
 }
+
+; get object X, the actual object is fetched in the
+; specific form. This getObject call we currently need
+; to switch the tab widget to the proper page.
+
+FORM seeObject
+{
+	object
+	{
+		id 	int
+		type 	string
+	}
+}
+
+FORM Object
+{
+	object
+	{
+		id 	int
+		page 	string
+	}	
+}

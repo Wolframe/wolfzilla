@@ -5,18 +5,28 @@ BEGIN
 	INTO item DO
 		SELECT 0 AS "id", 'user' AS "type", 'Users' AS "text",
 			'' AS "details";
+-- here we would like to continue to select into the first level 'item'
+-- instead of finishing the one above and creating a dummy empty one here
 	INTO item/item DO
 		SELECT ID AS "id", 'user' AS "type", login AS "text",
 			firstName || ' ' || lastName AS "details"  FROM User;
+-- here we go out one level, next item
 	INTO item DO
 		SELECT 0 AS "id", 'project' AS "type", 'Projects' AS "text",
 			'' AS "details";
+-- same as above, can select into same 'item/item' substructure here
 	INTO item/item DO
-		SELECT ID AS "id", 'user' AS "type", login AS "text",
-			firstName || ' ' || lastName AS "details"  FROM User;
---		SELECT ID AS "id", 'project' AS "type", name AS "text",
---			description AS "details" FROM Project;
+		SELECT ID AS "id", 'project' AS "type", name AS "text",
+			description AS "details" FROM Project;
 
+END
+
+TRANSACTION seeObject
+BEGIN
+	INTO id DO
+		SELECT $(id) AS "_";
+	INTO page DO
+		SELECT $(type) AS "_";
 END
 
 -- User

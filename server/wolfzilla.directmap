@@ -1,6 +1,7 @@
 # Object
 
 listObjects = listObjects( xml ) : ObjectTree;
+seeObject = seeObject( xml ) : Object;
 
 # User
 

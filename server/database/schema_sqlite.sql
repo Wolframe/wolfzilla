@@ -1,5 +1,5 @@
 -- User
---
+-- this should be linked (or be completly) in AAAA
 CREATE TABLE User (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	login		TEXT		NOT NULL,
@@ -145,7 +145,10 @@ CREATE TABLE Milestone (
 	projectID	INTEGER		REFERENCES Project( ID )
 );
 
+-- TODOS
+-- roles
 -- time measurement
 -- FSM for state transitions
 -- arbitrary attachable fields (e.g. use case ID)
 -- arbitrary tagging for a tagcloud (for sure for issues)
+-- linking issues to other issues

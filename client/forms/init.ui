@@ -69,7 +69,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject</string>

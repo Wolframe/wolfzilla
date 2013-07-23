@@ -2,14 +2,21 @@
 
 TRANSACTION listObjects
 BEGIN
-
-	INTO users/object DO
+	INTO item DO
+		SELECT 0 AS "id", 'user' AS "type", 'Users' AS "text",
+			'' AS "details";
+	INTO item/item DO
 		SELECT ID AS "id", 'user' AS "type", login AS "text",
 			firstName || ' ' || lastName AS "details"  FROM User;
+	INTO item DO
+		SELECT 0 AS "id", 'project' AS "type", 'Projects' AS "text",
+			'' AS "details";
+	INTO item/item DO
+		SELECT ID AS "id", 'user' AS "type", login AS "text",
+			firstName || ' ' || lastName AS "details"  FROM User;
+--		SELECT ID AS "id", 'project' AS "type", name AS "text",
+--			description AS "details" FROM Project;
 
-	INTO projects/object DO
-		SELECT ID AS "id", 'project' AS "type", name AS "text",
-			description AS "details" FROM Project;
 END
 
 -- User

@@ -7,31 +7,21 @@ FORM listObjects
 	}
 }
 
-STRUCT Object
+; output can not be validated
+
+STRUCT Item
 {
-	id @int
-	type string
-	text string
-	details string
+	id		@int
+	type		string
+	text		string
+	details		string
+	item		Item[]
 }
 
 FORM ObjectTree
 {
-	objects
+	tree
 	{
-		users
-		{
-			object []
-			{
-				_ Object
-			}
-		}
-		projects
-		{
-			object []
-			{
-				_ Object
-			}
-		}
+		item 	Item[]
 	}
 }

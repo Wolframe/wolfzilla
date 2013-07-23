@@ -31,10 +31,6 @@
      <property name="action" stdset="0">
       <string>listObjects objects {}</string>
      </property>
-     <property name="answer" stdset="0">
-      <string>ObjectTree objects { users { object[] { id={row.id}; type {?}; text {{row.text}}; details {{row.details}} } }; projects { object[] { id={row.id}; type {?}; text {{row.text}}; details {{row.details}} } } }
-</string>
-     </property>
      <attribute name="headerVisible">
       <bool>false</bool>
      </attribute>
@@ -44,6 +40,11 @@
      <column>
       <property name="text">
        <string>text</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>type</string>
       </property>
      </column>
      <column>

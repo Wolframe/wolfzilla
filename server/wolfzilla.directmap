@@ -1,0 +1,10 @@
+# Objects
+
+listObjects = listObjects( xml ) : ObjectTree;
+
+# User
+
+createUser = createUser( xml );
+readUser = readUser( xml ) : User;
+updateUser = updateUser( xml );
+deleteUser = deleteUser( xml );

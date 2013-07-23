@@ -1,0 +1,37 @@
+; list of all objects forming the tree on the left
+
+FORM listObjects
+{
+	objects
+	{
+	}
+}
+
+STRUCT Object
+{
+	id @int
+	type string
+	text string
+	details string
+}
+
+FORM ObjectTree
+{
+	objects
+	{
+		users
+		{
+			object []
+			{
+				_ Object
+			}
+		}
+		projects
+		{
+			object []
+			{
+				_ Object
+			}
+		}
+	}
+}

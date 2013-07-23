@@ -1,0 +1,31 @@
+-- Objects
+
+TRANSACTION listObjects
+BEGIN
+
+	INTO users/object DO
+		SELECT ID AS "id", 'user' AS "type", login AS "text",
+			firstName || ' ' || lastName AS "details"  FROM User;
+
+	INTO projects/object DO
+		SELECT ID AS "id", 'project' AS "type", name AS "text",
+			description AS "details" FROM Project;
+END
+
+-- User
+
+TRANSACTION createUser
+BEGIN
+END
+
+TRANSACTION readUser
+BEGIN
+END
+
+TRANSACTION updateUser
+BEGIN
+END
+
+TRANSACTION deleteUser
+BEGIN
+END

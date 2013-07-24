@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
+    <width>613</width>
     <height>410</height>
    </rect>
   </property>
@@ -14,6 +14,231 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QStackedWidget" name="content">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="dataslot" stdset="0">
+      <string>seeObject,readUser</string>
+     </property>
+     <property name="action:seeObject" stdset="0">
+      <string>seeObject object {id {{main.objects.selected}}; type {{objects.selected_type}} }</string>
+     </property>
+     <property name="answer" stdset="0">
+      <string>Object object {id {{?}}; page {{page}} }</string>
+     </property>
+     <property name="action:readUser" stdset="0">
+      <string>seeObject object {id {{users.userList.selected:1}}; type='user' }</string>
+     </property>
+     <widget class="QWidget" name="info">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>200</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>200</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/wolfzilla.jpg</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="users">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="0">
+        <widget class="QTreeWidget" name="userList">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="action" stdset="0">
+          <string>listUsers users {}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>UserList users { user[] { id={row.id}; login {{row.login}}; firstName {{row.firstName}}; lastName {{row.lastName}} }</string>
+         </property>
+         <column>
+          <property name="text">
+           <string>login</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>firstName</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>lastName</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="newButton">
+           <property name="text">
+            <string>New</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editButton">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>readUser</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteButton">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/user.png</pixmap>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="projects">
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>41</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../wolfzilla.qrc">:/images/recipes.png</pixmap>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="user">
+      <property name="action:readUser" stdset="0">
+       <string>readUser user { id={users.userList.selected} }</string>
+      </property>
+      <property name="dataslot" stdset="0">
+       <string>readUser</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>Login:</string>
+         </property>
+         <property name="buddy">
+          <cstring>login</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="login">
+         <property name="initialFocus" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>First name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="firstName"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Last name:</string>
+         </property>
+         <property name="buddy">
+          <cstring>lastName</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lastName"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Email:</string>
+         </property>
+         <property name="buddy">
+          <cstring>email</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="email"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="project"/>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QTreeWidget" name="objects">
      <property name="maximumSize">
@@ -57,104 +282,34 @@
      </column>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QStackedWidget" name="content">
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <property name="dataslot" stdset="0">
-      <string>seeObject</string>
-     </property>
-     <property name="action:seeObject" stdset="0">
-      <string>seeObject object {id {{objects.selected}}; type {{objects.selected_type}} }</string>
-     </property>
-     <property name="answer" stdset="0">
-      <string>Object object {id {{?}}; page {{page}} }</string>
-     </property>
-     <widget class="QWidget" name="info">
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>200</width>
-         <height>200</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>200</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>200</width>
-         <height>200</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../wolfzilla.qrc">:/images/wolfzilla.jpg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="user">
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>41</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../wolfzilla.qrc">:/images/user.png</pixmap>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="project">
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>41</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../wolfzilla.qrc">:/images/recipes.png</pixmap>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>objects</tabstop>
+  <tabstop>editButton</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>newButton</tabstop>
+  <tabstop>userList</tabstop>
+ </tabstops>
  <resources>
   <include location="../wolfzilla.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>userList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>editButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>380</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

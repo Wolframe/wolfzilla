@@ -3,7 +3,7 @@
 TRANSACTION listObjects
 BEGIN
 	INTO item DO
-		SELECT 0 AS "id", 'user' AS "type", 'Users' AS "text",
+		SELECT 0 AS "id", 'users' AS "type", 'Users' AS "text",
 			'' AS "details";
 -- here we would like to continue to select into the first level 'item'
 -- instead of finishing the one above and creating a dummy empty one here
@@ -12,13 +12,16 @@ BEGIN
 			firstName || ' ' || lastName AS "details"  FROM User;
 -- here we go out one level, next item
 	INTO item DO
-		SELECT 0 AS "id", 'project' AS "type", 'Projects' AS "text",
+		SELECT 0 AS "id", 'projects' AS "type", 'Projects' AS "text",
 			'' AS "details";
 -- same as above, can select into same 'item/item' substructure here
 	INTO item/item DO
 		SELECT ID AS "id", 'project' AS "type", name AS "text",
 			description AS "details" FROM Project;
-
+-- the about/info page (weird, I know)
+	INTO item DO
+		SELECT 0 AS "id", 'info' AS "type", 'Info' AS "text",
+			'About Wolfzilla' AS "details";
 END
 
 TRANSACTION seeObject
@@ -31,12 +34,23 @@ END
 
 -- User
 
+TRANSACTION listUsers
+BEGIN
+	INTO user DO
+		SELECT ID as "id", login, firstName AS "firstName",
+			lastName AS "lastName" FROM User;
+END
+
 TRANSACTION createUser
 BEGIN
 END
 
 TRANSACTION readUser
 BEGIN
+	INTO . DO
+		SELECT ID as "id", login, firstName AS "firstName",
+			lastName AS "lastName", email FROM User
+			WHERE ID = $(id);
 END
 
 TRANSACTION updateUser

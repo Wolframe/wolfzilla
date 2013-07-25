@@ -82,7 +82,7 @@ FORM readUser
 		id		@int
 	}
 }
-
+	
 FORM User
 {
 	user
@@ -93,4 +93,9 @@ FORM User
 		lastName	string
 		email		string
 	}
+}
+
+FORM updateUser
+{
+	_	User
 }

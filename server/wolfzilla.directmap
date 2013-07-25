@@ -6,7 +6,6 @@ seeObject = seeObject( xml ) : Object;
 # User
 
 listUsers = listUsers( xml ) : UserList;
-createUser = createUser( xml );
 readUser = readUser( xml ) : User;
 updateUser = updateUser( xml );
 deleteUser = deleteUser( xml );

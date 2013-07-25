@@ -41,9 +41,21 @@ BEGIN
 			lastName AS "lastName" FROM User;
 END
 
-TRANSACTION createUser
+TRANSACTION updateUser
 BEGIN
+	DO UPDATE User SET login = $(login), firstName = $(firstName),
+		lastName = $(lastName), email = $(email)
+		WHERE ID = $(id);
+	DO INSERT OR IGNORE INTO User( login, firstName, lastName, email )
+		VALUES( $(login), $(firstName), $(lastName), $(email) );
 END
+
+--TRANSACTION updateUser
+--BEGIN
+--	DO UPDATE User SET login = $(login), firstName = $(firstName),
+--		lastName = $(lastName), email = $(email)
+--		WHERE ID = $(id);
+--END
 
 TRANSACTION readUser
 BEGIN
@@ -51,10 +63,6 @@ BEGIN
 		SELECT ID as "id", login, firstName AS "firstName",
 			lastName AS "lastName", email FROM User
 			WHERE ID = $(id);
-END
-
-TRANSACTION updateUser
-BEGIN
 END
 
 TRANSACTION deleteUser

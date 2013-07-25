@@ -3,7 +3,7 @@
 CREATE TABLE User (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	login		TEXT		NOT NULL,
-	pass		TEXT		NOT NULL,
+	pass		TEXT		NULL,
 	firstName	TEXT		NULL,
 	lastName	TEXT		NULL,
 	email		TEXT		NULL,

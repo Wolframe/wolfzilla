@@ -26,7 +26,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser</string>
@@ -181,10 +181,13 @@
      </widget>
      <widget class="QWidget" name="user">
       <property name="action:readUser" stdset="0">
-       <string>readUser user { id={users.userList.selected} }</string>
+       <string>readUser user { id={users.userList.selected:0} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readUser</string>
+      </property>
+      <property name="answer" stdset="0">
+       <string>User user { id={?}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
       </property>
       <layout class="QFormLayout" name="formLayout_2">
        <property name="fieldGrowthPolicy">
@@ -350,6 +353,22 @@
     <hint type="destinationlabel">
      <x>464</x>
      <y>380</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newButton</sender>
+   <signal>pressed()</signal>
+   <receiver>userList</receiver>
+   <slot>clearSelection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>380</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>393</x>
+     <y>305</y>
     </hint>
    </hints>
   </connection>

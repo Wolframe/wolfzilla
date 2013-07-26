@@ -55,7 +55,10 @@ BEGIN
 	INTO . DO
 		SELECT ID as "id", login, firstName AS "firstName",
 			lastName AS "lastName", email FROM User
-			WHERE ID = $(id);
+			WHERE ID = $(id)
+		UNION
+		SELECT 0, '', '', '', '' FROM User
+			WHERE NOT EXISTS (SELECT ID FROM User WHERE ID=$(id));
 END
 
 TRANSACTION deleteUser

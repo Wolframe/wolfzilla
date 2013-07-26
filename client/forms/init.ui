@@ -142,6 +142,9 @@
            <property name="text">
             <string>Delete</string>
            </property>
+           <property name="form" stdset="0">
+            <string>user_delete?id={main.content.users.userList.selected}</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -294,6 +297,9 @@
      </property>
      <property name="datasignal:clicked" stdset="0">
       <string>seeObject</string>
+     </property>
+     <property name="dataslot" stdset="0">
+      <string>refreshUsers</string>
      </property>
      <attribute name="headerVisible">
       <bool>false</bool>

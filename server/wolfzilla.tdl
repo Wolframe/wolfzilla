@@ -50,13 +50,6 @@ BEGIN
 		VALUES( $(login), $(firstName), $(lastName), $(email) );
 END
 
---TRANSACTION updateUser
---BEGIN
---	DO UPDATE User SET login = $(login), firstName = $(firstName),
---		lastName = $(lastName), email = $(email)
---		WHERE ID = $(id);
---END
-
 TRANSACTION readUser
 BEGIN
 	INTO . DO
@@ -67,4 +60,5 @@ END
 
 TRANSACTION deleteUser
 BEGIN
+	DO DELETE FROM User WHERE ID = $(id);
 END

@@ -35,7 +35,7 @@
       <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
      </property>
      <property name="answer" stdset="0">
-      <string>Object object {id {{?}}; page {{page}} }</string>
+      <string>Object object {id {{main.objects.selected}}; page {{page}} }</string>
      </property>
      <property name="action:readUser" stdset="0">
       <string>seeObject object {id ={users.userList.selected:1}; type='user' }</string>
@@ -263,6 +263,16 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Show all users</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshUsers,showUserList</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton">

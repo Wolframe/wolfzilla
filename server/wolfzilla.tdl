@@ -9,10 +9,11 @@ BEGIN
 -- instead of finishing the one above and creating a dummy empty one here
 	INTO item/item DO
 		SELECT ID AS "id", 'user' AS "type", login AS "text",
-			firstName || ' ' || lastName AS "details"  FROM User;
+			firstName || ' ' || lastName AS "details"  FROM User
+			ORDER BY ID ASC;
 -- here we go out one level, next item
 	INTO item DO
-		SELECT 0 AS "id", 'projects' AS "type", 'Projects' AS "text",
+		SELECT 10000 AS "id", 'projects' AS "type", 'Projects' AS "text",
 			'' AS "details";
 -- same as above, can select into same 'item/item' substructure here
 	INTO item/item DO
@@ -20,7 +21,7 @@ BEGIN
 			description AS "details" FROM Project;
 -- the about/info page (weird, I know)
 	INTO item DO
-		SELECT 0 AS "id", 'info' AS "type", 'Info' AS "text",
+		SELECT 99999999 AS "id", 'info' AS "type", 'Info' AS "text",
 			'About Wolfzilla' AS "details";
 END
 
@@ -38,7 +39,8 @@ TRANSACTION listUsers
 BEGIN
 	INTO user DO
 		SELECT ID as "id", login, firstName AS "firstName",
-			lastName AS "lastName" FROM User;
+			lastName AS "lastName" FROM User
+			ORDER BY ID ASC;
 END
 
 TRANSACTION updateUser

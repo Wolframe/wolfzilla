@@ -29,16 +29,19 @@
       <number>3</number>
      </property>
      <property name="dataslot" stdset="0">
-      <string>seeObject,readUser</string>
+      <string>seeObject,readUser,showUserList</string>
      </property>
      <property name="action:seeObject" stdset="0">
-      <string>seeObject object {id {{main.objects.selected}}; type {{objects.selected_type}} }</string>
+      <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
      </property>
      <property name="answer" stdset="0">
       <string>Object object {id {{?}}; page {{page}} }</string>
      </property>
      <property name="action:readUser" stdset="0">
-      <string>seeObject object {id {{users.userList.selected:1}}; type='user' }</string>
+      <string>seeObject object {id ={users.userList.selected:1}; type='user' }</string>
+     </property>
+     <property name="action:showUserList" stdset="0">
+      <string>seeObject object {id='0' ; type='users' }</string>
      </property>
      <widget class="QWidget" name="info">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -187,7 +190,7 @@
        <string>readUser</string>
       </property>
       <property name="answer" stdset="0">
-       <string>User user { id={?}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
+       <string>User user { id={main.objects.selected}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
       </property>
       <layout class="QFormLayout" name="formLayout_2">
        <property name="fieldGrowthPolicy">
@@ -270,7 +273,7 @@
             <string>updateUser user { id={main.content.users.userList.selected:?}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
            </property>
            <property name="datasignal:clicked" stdset="0">
-            <string>refreshUsers</string>
+            <string>refreshUsers,showUserList</string>
            </property>
           </widget>
          </item>

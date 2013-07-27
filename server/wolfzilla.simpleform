@@ -37,8 +37,8 @@ FORM seeObject
 {
 	object
 	{
-		id 	int
-		type 	string
+		id 	@int
+		type 	@string
 	}
 }
 

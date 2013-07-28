@@ -133,6 +133,7 @@ FORM ProjectList
 			owner
 			{
 				id	@int
+				login	string
 			}
 		}
 	}
@@ -158,6 +159,7 @@ FORM Project
 		owner
 		{
 			id	@int
+			login	string
 		}
 	}
 }

@@ -39,12 +39,12 @@ CREATE TABLE Project (
 	shortcut	TEXT		NOT NULL,
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NULL,
-	description	TEXT		NOT NULL DEFAULT '',
-	ownerID		INTEGER		REFERENCES User( ID ),
+	description	TEXT		NULL,
+	ownerID		INTEGER		NOT NULL REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK ( rgt > lft ),
 	CONSTRAINt project_shortcut_unique UNIQUE( shortcut ),
 --	CONSTRAINT project_name_unique UNIQUE( normalizedName, parentID ),
-	CONSTRAINT project_name_unique UNIQUE( name, parentID )
+	CONSTRAINT project_name_unique UNIQUE( name )
 );
 -- make sure the autoincrement for projects starts with 10001
 INSERT INTO Project( ID, parentID, name, normalizedName, shortcut, ownerID )
@@ -56,15 +56,17 @@ DELETE FROM Project WHERE ID = 10000;
 CREATE TABLE Component (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	parentID	INTEGER		REFERENCES Component( ID ),
-	lft		INTEGER		NOT NULL,
-	rgt		INTEGER		NOT NULL,
+	lft		INTEGER		NULL,		-- TODO: later
+	rgt		INTEGER		NULL,		-- TODO: later
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
 	ownerID		INTEGER		REFERENCES User( ID ),
 	projectID	INTEGER		REFERENCES Project( ID ),
-	CONSTRAINT order_check CHECK( rgt > lft ),
-	CONSTRAINT component_name_unique UNIQUE( normalizedName, parentID )
+--	CONSTRAINT order_check CHECK( rgt > lft ),
+--	CONSTRAINT component_name_unique UNIQUE( normalizedName, parentID )
+--	CONSTRAINT component_name_unique UNIQUE( name, parentID )
+	CONSTRAINT component_name_unique UNIQUE( name )
 );
 
 -- IssueType
@@ -220,5 +222,4 @@ CREATE TABLE Milestone (
 -- schemas for bug types and the operations between them
 -- arbitrary attachable fields (e.g. use case ID)
 -- arbitrary tagging for a tagcloud (for sure for issues)
--- linking issues to other issues
 -- translations for all data (e.g. description of bugs)

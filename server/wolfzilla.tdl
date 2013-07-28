@@ -87,22 +87,26 @@ END
 TRANSACTION updateProject
 BEGIN
 	DO UPDATE Project SET shortcut = $(shortcut), name = $(name),
-		description = $(description)
+		description = $(description), ownerID = $(owner/id)
 		WHERE ID = $(id);
-	DO INSERT OR IGNORE INTO Project( shortcut, name, description )
-		VALUES( $(shortcut), $(name), $(description) );
+	DO INSERT OR IGNORE INTO Project( shortcut, name, description, ownerID )
+		VALUES( $(shortcut), $(name), $(description), $(owner/id) );
 END
 
 -- KLUDGE: id2 is a hack around multiple value assignment to widgets
 TRANSACTION readProject
 BEGIN
 	INTO . DO
-		SELECT ID as "id", ID as "id2", shortcut, name,
-			description FROM Project
+		SELECT ID as "id", ID as "id2", shortcut, name, description
+			FROM Project
 			WHERE ID = $(id)
 		UNION
 		SELECT $(id), $(id), '', '', '' FROM Project
 			WHERE NOT EXISTS (SELECT ID FROM Project WHERE ID=$(id));
+	INTO owner DO
+		SELECT User.ID as "id", login FROM Project LEFT JOIN User
+			WHERE Project.ownerID = User.ID
+			AND Project.ID = $(id);
 END
 
 TRANSACTION deleteProject

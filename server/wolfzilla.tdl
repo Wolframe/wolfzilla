@@ -80,26 +80,28 @@ END
 TRANSACTION listProjects
 BEGIN
 	INTO project DO
-		SELECT ID as "id", shortcut, name FROM Project
+		SELECT ID as "id", shortcut, name, description FROM Project
 			ORDER BY ID ASC;
 END
 
 TRANSACTION updateProject
 BEGIN
-	DO UPDATE Project SET shortcut = $(shortcut), name = $(name)
+	DO UPDATE Project SET shortcut = $(shortcut), name = $(name),
+		description = $(description)
 		WHERE ID = $(id);
-	DO INSERT OR IGNORE INTO Project( shortcut, name )
-		VALUES( $(shortcut), $(name) );
+	DO INSERT OR IGNORE INTO Project( shortcut, name, description )
+		VALUES( $(shortcut), $(name), $(description) );
 END
 
 -- KLUDGE: id2 is a hack around multiple value assignment to widgets
 TRANSACTION readProject
 BEGIN
 	INTO . DO
-		SELECT ID as "id", ID as "id2", shortcut, name FROM Project
+		SELECT ID as "id", ID as "id2", shortcut, name,
+			description FROM Project
 			WHERE ID = $(id)
 		UNION
-		SELECT $(id), $(id), '', '' FROM Project
+		SELECT $(id), $(id), '', '', '' FROM Project
 			WHERE NOT EXISTS (SELECT ID FROM Project WHERE ID=$(id));
 END
 

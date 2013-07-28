@@ -78,7 +78,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList</string>
@@ -137,6 +137,9 @@
          <property name="rootIsDecorated">
           <bool>false</bool>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
          <property name="action" stdset="0">
           <string>listUsers users {}</string>
          </property>
@@ -146,6 +149,9 @@
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
          </property>
+         <attribute name="headerShowSortIndicator" stdset="0">
+          <bool>true</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>login</string>
@@ -238,6 +244,9 @@
         <widget class="QTreeWidget" name="projectList">
          <property name="rootIsDecorated">
           <bool>false</bool>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
          </property>
          <property name="action" stdset="0">
           <string>listProjects projects {}</string>
@@ -457,7 +466,7 @@
        <string>readProject,switchProject</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}} }</string>
+       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}} }</string>
       </property>
       <property name="action:switchProject" stdset="0">
        <string>readProject project { id={main.objects.selected:0} }</string>
@@ -504,7 +513,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <spacer name="horizontalSpacer_4">
@@ -535,7 +544,7 @@
             <string>Save changes</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}} }</string>
+            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}} }</string>
            </property>
            <property name="datasignal:clicked" stdset="0">
             <string>refreshProjects,showProjectList</string>
@@ -543,6 +552,16 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="3" column="1">
+        <widget class="QTextEdit" name="projectDescription"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Description:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

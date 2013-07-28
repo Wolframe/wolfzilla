@@ -39,7 +39,7 @@ CREATE TABLE Project (
 	shortcut	TEXT		NOT NULL,
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NULL,
-	description	TEXT		NULL,
+	description	TEXT		NOT NULL DEFAULT '',
 	ownerID		INTEGER		REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK ( rgt > lft ),
 	CONSTRAINt project_shortcut_unique UNIQUE( shortcut ),

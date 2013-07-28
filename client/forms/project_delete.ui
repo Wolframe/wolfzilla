@@ -27,13 +27,13 @@
    <item row="2" column="1">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Do you really want to delete user  '%1' ?</string>
+      <string>Do you really want to delete project  '%1' ?</string>
      </property>
      <property name="action" stdset="0">
-      <string>readUser user {id={main.id}}</string>
+      <string>readProject project {id={main.id}}</string>
      </property>
      <property name="answer" stdset="0">
-      <string>User user {id={?}; id2={?}; login{{1}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+      <string>Project project {id={?}; id2={?}; shortcut{{1}}; name{{?}} }</string>
      </property>
     </widget>
    </item>
@@ -58,10 +58,10 @@
         <string>Delete</string>
        </property>
        <property name="action" stdset="0">
-        <string>deleteUser user {id={main.id}}</string>
+        <string>deleteProject project {id={main.id}}</string>
        </property>
        <property name="datasignal:clicked" stdset="0">
-        <string notr="true">refreshUsers</string>
+        <string notr="true">refreshProjects</string>
        </property>
        <property name="form" stdset="0">
         <string>_CLOSE_</string>

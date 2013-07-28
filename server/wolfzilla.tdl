@@ -19,6 +19,10 @@ BEGIN
 	INTO item/item DO
 		SELECT ID AS "id", 'project' AS "type", name AS "text",
 			description AS "details" FROM Project;
+-- system settings
+	INTO item DO
+		SELECT 1000000 AS "id", 'settings' AS "type", 'Settings' AS "text",
+			'' AS "details";
 -- the about/info page (weird, I know)
 	INTO item DO
 		SELECT 99999999 AS "id", 'info' AS "type", 'Info' AS "text",
@@ -52,18 +56,52 @@ BEGIN
 		VALUES( $(login), $(firstName), $(lastName), $(email) );
 END
 
+-- KLUDGE: id2 is a hack around multiple value assignment to widgets
 TRANSACTION readUser
 BEGIN
 	INTO . DO
-		SELECT ID as "id", login, firstName AS "firstName",
+		SELECT ID as "id", ID as "id2", login, firstName AS "firstName",
 			lastName AS "lastName", email FROM User
 			WHERE ID = $(id)
 		UNION
-		SELECT $(id), '', '', '', '' FROM User
+		SELECT $(id), $(id), '', '', '', '' FROM User
 			WHERE NOT EXISTS (SELECT ID FROM User WHERE ID=$(id));
 END
 
 TRANSACTION deleteUser
 BEGIN
 	DO DELETE FROM User WHERE ID = $(id);
+END
+
+-- Project
+
+TRANSACTION listProjects
+BEGIN
+	INTO project DO
+		SELECT ID as "id", shortcut, name FROM Project
+			ORDER BY ID ASC;
+END
+
+TRANSACTION updateProject
+BEGIN
+	DO UPDATE Project SET shortcut = $(shortcut), name = $(name)
+		WHERE ID = $(id);
+	DO INSERT OR IGNORE INTO Project( shortcut, name )
+		VALUES( $(shortcut), $(name) );
+END
+
+-- KLUDGE: id2 is a hack around multiple value assignment to widgets
+TRANSACTION readProject
+BEGIN
+	INTO . DO
+		SELECT ID as "id", ID as "id2", shortcut, name FROM Project
+			WHERE ID = $(id)
+		UNION
+		SELECT $(id), $(id), '', '' FROM Project
+			WHERE NOT EXISTS (SELECT ID FROM Project WHERE ID=$(id));
+END
+
+TRANSACTION deleteProject
+BEGIN
+	DO DELETE FROM Project WHERE ID = $(id);
 END

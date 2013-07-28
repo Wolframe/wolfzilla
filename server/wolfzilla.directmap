@@ -9,3 +9,10 @@ listUsers = listUsers( xml ) : UserList;
 readUser = readUser( xml ) : User;
 updateUser = updateUser( xml );
 deleteUser = deleteUser( xml );
+
+# Project
+
+listProjects = listProjects( xml ) : ProjectList;
+readProject = readProject( xml ) : Project;
+updateProject = updateProject( xml );
+deleteProject = deleteProject( xml );

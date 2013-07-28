@@ -14,6 +14,55 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTreeWidget" name="objects">
+     <property name="maximumSize">
+      <size>
+       <width>400</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="autoExpandDelay">
+      <number>-1</number>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>true</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>true</bool>
+     </property>
+     <property name="action" stdset="0">
+      <string>listObjects objects {}</string>
+     </property>
+     <property name="datasignal:clicked" stdset="0">
+      <string>seeObject,switchUser,switchProject</string>
+     </property>
+     <property name="dataslot" stdset="0">
+      <string>refreshUsers,refreshProjects</string>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="headerShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>text</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>type</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>details</string>
+      </property>
+     </column>
+    </widget>
+   </item>
    <item row="0" column="1">
     <widget class="QStackedWidget" name="content">
      <property name="autoFillBackground">
@@ -26,10 +75,10 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="dataslot" stdset="0">
-      <string>seeObject,readUser,showUserList</string>
+      <string>seeObject,readUser,showUserList,readProject,showProjectList</string>
      </property>
      <property name="action:seeObject" stdset="0">
       <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
@@ -42,6 +91,12 @@
      </property>
      <property name="action:showUserList" stdset="0">
       <string>seeObject object {id='0' ; type='users' }</string>
+     </property>
+     <property name="action:showProjectList" stdset="0">
+      <string>seeObject object {id='10000' ; type='projects' }</string>
+     </property>
+     <property name="action:readProject" stdset="0">
+      <string>seeObject object {id ={projects.projectList.selected:10000}; type='project' }</string>
      </property>
      <widget class="QWidget" name="info">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -158,18 +213,105 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../wolfzilla.qrc">:/images/user.png</pixmap>
+          <pixmap resource="../wolfzilla.qrc">:/images/users.png</pixmap>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="projects">
-      <widget class="QLabel" name="label_2">
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/project.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QTreeWidget" name="projectList">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="action" stdset="0">
+          <string>listProjects projects {}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>ProjectList projects { project[] { id={row.id}; shortcut {{row.shortcut}}; name {{row.name}}; description {?} } }</string>
+         </property>
+         <property name="dataslot" stdset="0">
+          <string>refreshProjects</string>
+         </property>
+         <column>
+          <property name="text">
+           <string>shortcut</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>name</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="newButton_2">
+           <property name="text">
+            <string>New</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>readProject</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editButton_2">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>readProject</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteButton_2">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>project_delete?id={main.content.projects.projectList.selected}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settings">
+      <widget class="QLabel" name="label_5">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>10</y>
+         <x>20</x>
+         <y>20</y>
          <width>41</width>
          <height>41</height>
         </rect>
@@ -178,7 +320,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../wolfzilla.qrc">:/images/recipes.png</pixmap>
+        <pixmap resource="../wolfzilla.qrc">:/images/settings.png</pixmap>
        </property>
       </widget>
      </widget>
@@ -190,7 +332,7 @@
        <string>readUser,switchUser</string>
       </property>
       <property name="answer" stdset="0">
-       <string>User user { id={main.objects.selected}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
+       <string>User user { id={main.objects.selected}; id2={main.content.users.userList.selected}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
       </property>
       <property name="action:switchUser" stdset="0">
        <string>readUser user { id={main.objects.selected:0} }</string>
@@ -199,7 +341,7 @@
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
           <string>Login:</string>
@@ -209,24 +351,24 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QLineEdit" name="login">
          <property name="initialFocus" stdset="0">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>First name:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="firstName"/>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
           <string>Last name:</string>
@@ -236,10 +378,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="lastName"/>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
           <string>Email:</string>
@@ -249,10 +391,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QLineEdit" name="email"/>
        </item>
-       <item row="4" column="1">
+       <item row="5" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <spacer name="horizontalSpacer_2">
@@ -292,55 +434,115 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/users.png</pixmap>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="project"/>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QTreeWidget" name="objects">
-     <property name="maximumSize">
-      <size>
-       <width>400</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="rootIsDecorated">
-      <bool>true</bool>
-     </property>
-     <property name="itemsExpandable">
-      <bool>true</bool>
-     </property>
-     <property name="action" stdset="0">
-      <string>listObjects objects {}</string>
-     </property>
-     <property name="datasignal:clicked" stdset="0">
-      <string>seeObject,switchUser</string>
-     </property>
-     <property name="dataslot" stdset="0">
-      <string>refreshUsers</string>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="headerShowSortIndicator" stdset="0">
-      <bool>false</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>text</string>
+     <widget class="QWidget" name="project">
+      <property name="action:readProject" stdset="0">
+       <string>readProject project { id={projects.projectList.selected:0} }</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>type</string>
+      <property name="dataslot" stdset="0">
+       <string>readProject,switchProject</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>details</string>
+      <property name="answer" stdset="0">
+       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}} }</string>
       </property>
-     </column>
+      <property name="action:switchProject" stdset="0">
+       <string>readProject project { id={main.objects.selected:0} }</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout_3">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/project.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="projectName">
+         <property name="initialFocus" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Shortcut:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="projectShortcut">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Show all projects</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshProjects,showProjectList</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>Save changes</string>
+           </property>
+           <property name="action" stdset="0">
+            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}} }</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshProjects,showProjectList</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -369,12 +571,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>463</x>
-     <y>184</y>
+     <x>359</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>464</x>
-     <y>380</y>
+     <x>359</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -385,12 +587,44 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>380</y>
+     <x>359</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>393</x>
-     <y>305</y>
+     <x>359</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>projectList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>editButton_2</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>projectList</receiver>
+   <slot>clearSelection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>400</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>227</y>
     </hint>
    </hints>
   </connection>

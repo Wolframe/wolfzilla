@@ -88,6 +88,7 @@ FORM User
 	user
 	{
 		id 		@int
+		id2		?@int		;HACK for duplicate assignments
 		login 		string
 		firstName	string
 		lastName	string
@@ -103,6 +104,71 @@ FORM updateUser
 FORM deleteUser
 {
 	user
+	{
+		id		@int
+	}
+}
+
+; Project
+; --
+
+FORM listProjects
+{
+	projects
+	{
+	}
+}
+
+FORM ProjectList
+{
+	projects
+	{
+		project []
+		{
+			id 		@int
+			name 		string
+			description	string
+			shortcut	string
+			owner
+			{
+				id	@int
+			}
+		}
+	}
+}
+
+FORM readProject
+{
+	project
+	{
+		id		@int
+	}
+}
+	
+FORM Project
+{
+	project
+	{
+		id 		@int
+		id2		?@int		;HACK for duplicate assignments
+		name 		string
+		description	string
+		shortcut	string
+		owner
+		{
+			id	@int
+		}
+	}
+}
+
+FORM updateProject
+{
+	_	Project
+}
+
+FORM deleteProject
+{
+	project
 	{
 		id		@int
 	}

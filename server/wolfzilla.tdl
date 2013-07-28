@@ -59,7 +59,7 @@ BEGIN
 			lastName AS "lastName", email FROM User
 			WHERE ID = $(id)
 		UNION
-		SELECT 0, '', '', '', '' FROM User
+		SELECT $(id), '', '', '', '' FROM User
 			WHERE NOT EXISTS (SELECT ID FROM User WHERE ID=$(id));
 END
 

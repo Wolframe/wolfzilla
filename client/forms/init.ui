@@ -26,7 +26,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList</string>
@@ -187,10 +187,13 @@
        <string>readUser user { id={users.userList.selected:0} }</string>
       </property>
       <property name="dataslot" stdset="0">
-       <string>readUser</string>
+       <string>readUser,switchUser</string>
       </property>
       <property name="answer" stdset="0">
        <string>User user { id={main.objects.selected}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
+      </property>
+      <property name="action:switchUser" stdset="0">
+       <string>readUser user { id={main.objects.selected:0} }</string>
       </property>
       <layout class="QFormLayout" name="formLayout_2">
        <property name="fieldGrowthPolicy">
@@ -312,7 +315,7 @@
       <string>listObjects objects {}</string>
      </property>
      <property name="datasignal:clicked" stdset="0">
-      <string>seeObject</string>
+      <string>seeObject,switchUser</string>
      </property>
      <property name="dataslot" stdset="0">
       <string>refreshUsers</string>
@@ -344,10 +347,16 @@
  </widget>
  <tabstops>
   <tabstop>objects</tabstop>
+  <tabstop>userList</tabstop>
+  <tabstop>newButton</tabstop>
   <tabstop>editButton</tabstop>
   <tabstop>deleteButton</tabstop>
-  <tabstop>newButton</tabstop>
-  <tabstop>userList</tabstop>
+  <tabstop>login</tabstop>
+  <tabstop>firstName</tabstop>
+  <tabstop>lastName</tabstop>
+  <tabstop>email</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton</tabstop>
  </tabstops>
  <resources>
   <include location="../wolfzilla.qrc"/>

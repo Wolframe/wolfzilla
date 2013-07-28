@@ -36,15 +36,15 @@ CREATE TABLE Project (
 	parentID	INTEGER		REFERENCES Project( ID ),
 	lft		INTEGER		NULL,		-- TODO: later
 	rgt		INTEGER		NULL,		-- TODO: later
-	name		TEXT		NOT NULL,
-	description	TEXT		NULL,
-	normalizedName	TEXT		NULL,
 	shortcut	TEXT		NOT NULL,
+	name		TEXT		NOT NULL,
+	normalizedName	TEXT		NULL,
+	description	TEXT		NULL,
 	ownerID		INTEGER		REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK ( rgt > lft ),
+	CONSTRAINt project_shortcut_unique UNIQUE( shortcut ),
 --	CONSTRAINT project_name_unique UNIQUE( normalizedName, parentID ),
-	CONSTRAINT project_name_unique UNIQUE( name, parentID ),
-	CONSTRAINt project_shortcut_unique UNIQUE( shortcut )
+	CONSTRAINT project_name_unique UNIQUE( name, parentID )
 );
 -- make sure the autoincrement for projects starts with 10001
 INSERT INTO Project( ID, parentID, name, normalizedName, shortcut, ownerID )

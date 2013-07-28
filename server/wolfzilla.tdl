@@ -4,29 +4,31 @@ TRANSACTION listObjects
 BEGIN
 	INTO item DO
 		SELECT 0 AS "id", 'users' AS "type", 'Users' AS "text",
-			'' AS "details";
+			'' AS "details", ':/images/users.png' AS icon;
 -- here we would like to continue to select into the first level 'item'
 -- instead of finishing the one above and creating a dummy empty one here
 	INTO item/item DO
 		SELECT ID AS "id", 'user' AS "type", login AS "text",
-			firstName || ' ' || lastName AS "details"  FROM User
+			firstName || ' ' || lastName AS "details",
+			':/images/users.png' AS icon FROM User
 			ORDER BY ID ASC;
 -- here we go out one level, next item
 	INTO item DO
 		SELECT 10000 AS "id", 'projects' AS "type", 'Projects' AS "text",
-			'' AS "details";
+			'' AS "details", ':/images/project.png' AS icon;
 -- same as above, can select into same 'item/item' substructure here
 	INTO item/item DO
 		SELECT ID AS "id", 'project' AS "type", name AS "text",
-			description AS "details" FROM Project;
+			description AS "details",
+			':/images/project.png' AS icon FROM Project;
 -- system settings
 	INTO item DO
 		SELECT 1000000 AS "id", 'settings' AS "type", 'Settings' AS "text",
-			'' AS "details";
+			'' AS "details", ':/images/settings.png' AS icon;
 -- the about/info page (weird, I know)
 	INTO item DO
 		SELECT 99999999 AS "id", 'info' AS "type", 'Info' AS "text",
-			'About Wolfzilla' AS "details";
+			'About Wolfzilla' AS "details", ':/images/bug.png' AS icon;
 END
 
 TRANSACTION seeObject

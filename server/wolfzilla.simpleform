@@ -18,6 +18,7 @@ STRUCT Item
 	type		string
 	text		string
 	details		string
+	icon		string
 	item		Item[]
 }
 

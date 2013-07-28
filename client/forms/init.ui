@@ -31,6 +31,9 @@
      <property name="itemsExpandable">
       <bool>true</bool>
      </property>
+     <property name="headerHidden">
+      <bool>false</bool>
+     </property>
      <property name="action" stdset="0">
       <string>listObjects objects {}</string>
      </property>
@@ -41,7 +44,7 @@
       <string>refreshUsers,refreshProjects</string>
      </property>
      <attribute name="headerVisible">
-      <bool>false</bool>
+      <bool>true</bool>
      </attribute>
      <attribute name="headerShowSortIndicator" stdset="0">
       <bool>false</bool>

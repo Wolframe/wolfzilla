@@ -14,68 +14,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Select manufacturer</string>
+   <string>Select a user</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/building.png</normaloff>:/images/building.png</iconset>
+   <iconset resource="../wolfzilla.qrc">
+    <normaloff>:/images/users.png</normaloff>:/images/users.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QTableWidget" name="user">
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAsNeeded</enum>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="showGrid">
-      <bool>true</bool>
-     </property>
-     <property name="gridStyle">
-      <enum>Qt::DotLine</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="action" stdset="0">
-      <string>listUsers users {}</string>
-     </property>
-     <property name="answer" stdset="0">
-      <string>UserList users { user[] { id={row.id}; login {{row.login}}; firstName {{row.firstName}}; lastName {{row.lastName}} }</string>
-     </property>
-     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderStretchLastSection">
-      <bool>false</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>login</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>firstName</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>lastName</string>
-      </property>
-     </column>
-    </widget>
-   </item>
    <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -106,6 +51,50 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QTreeWidget" name="user">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="action" stdset="0">
+      <string>listUsers users {}</string>
+     </property>
+     <property name="answer" stdset="0">
+      <string>UserList users { user[] { id={row.id}; login {{row.login}}; firstName {{row.firstName}}; lastName {{row.lastName}} }</string>
+     </property>
+     <attribute name="headerShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>login</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>firstName</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>lastName</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../wolfzilla.qrc">:/images/users.png</pixmap>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -124,12 +113,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>108</y>
+     <x>90</x>
+     <y>116</y>
     </hint>
     <hint type="destinationlabel">
-     <x>51</x>
-     <y>247</y>
+     <x>91</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>

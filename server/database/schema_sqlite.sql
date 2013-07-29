@@ -61,8 +61,9 @@ CREATE TABLE Component (
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
-	ownerID		INTEGER		REFERENCES User( ID ),
 	projectID	INTEGER		REFERENCES Project( ID ),
+	leadID		INTEGER		REFERENCES User( ID ),
+	defaultAssigneeID INTEGER	REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK( rgt > lft ),
 --	CONSTRAINT component_name_unique UNIQUE( normalizedName, parentID )
 --	CONSTRAINT component_name_unique UNIQUE( name, parentID )

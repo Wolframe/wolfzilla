@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>274</width>
+    <width>290</width>
     <height>76</height>
    </rect>
   </property>
@@ -33,7 +33,7 @@
       <string>readProject project {id={main.id}}</string>
      </property>
      <property name="answer" stdset="0">
-      <string>Project project {id={?}; id2={?}; shortcut{{1}}; name{{?}} }</string>
+      <string>Project project {id={?}; id2={?}; shortcut{{1}}; name{{?}}; description{{?}}; owner{id={?}; login{{?}} } }</string>
      </property>
     </widget>
    </item>

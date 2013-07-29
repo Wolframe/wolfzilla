@@ -518,7 +518,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="7" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <spacer name="horizontalSpacer_4">
@@ -637,6 +637,86 @@
          </property>
         </widget>
        </item>
+       <item row="5" column="1">
+        <widget class="QTreeWidget" name="projectComponents">
+         <column>
+          <property name="text">
+           <string>name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>description</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_6">
+           <property name="text">
+            <string>Remove component</string>
+           </property>
+           <property name="state:enabled" stdset="0">
+            <string>{required_features.selected}&gt;0</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>remove_feature_required@main.required_features</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_7">
+           <property name="text">
+            <string>Edit component..</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>feature_select_required_edit?widgetid={main.widgetid}_feature_required&amp;id={required_features.selected}&amp;minQuantity={required_features.selected_min}&amp;maxQuantity={required_features.selected_max}</string>
+           </property>
+           <property name="datasignal:destroyed" stdset="0">
+            <string>close@{main.widgetid}_feature_required</string>
+           </property>
+           <property name="state:enabled" stdset="0">
+            <string>{required_features.selected}&gt;0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_8">
+           <property name="text">
+            <string>Add component..</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>component_edit?widgetid={main.widgetid}_projectComponent&amp;id={main.content.projects.projectList.selected}</string>
+           </property>
+           <property name="datasignal:destroyed" stdset="0">
+            <string>close@{main.widgetid}_projectComponent</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Component:</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -671,7 +751,7 @@
      <y>86</y>
     </hint>
     <hint type="destinationlabel">
-     <x>511</x>
+     <x>374</x>
      <y>389</y>
     </hint>
    </hints>
@@ -683,7 +763,7 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>430</x>
+     <x>293</x>
      <y>389</y>
     </hint>
     <hint type="destinationlabel">
@@ -699,11 +779,11 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
+     <x>336</x>
      <y>196</y>
     </hint>
     <hint type="destinationlabel">
-     <x>477</x>
+     <x>340</x>
      <y>266</y>
     </hint>
    </hints>
@@ -715,7 +795,7 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
+     <x>263</x>
      <y>268</y>
     </hint>
     <hint type="destinationlabel">

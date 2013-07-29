@@ -411,7 +411,17 @@
        <item row="4" column="1">
         <widget class="QLineEdit" name="email"/>
        </item>
-       <item row="5" column="1">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/users.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <spacer name="horizontalSpacer_2">
@@ -450,16 +460,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../wolfzilla.qrc">:/images/users.png</pixmap>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -518,53 +518,20 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <spacer name="horizontalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="text">
-            <string>Show all projects</string>
-           </property>
-           <property name="datasignal:clicked" stdset="0">
-            <string>refreshProjects,showProjectList</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_4">
-           <property name="text">
-            <string>Save changes</string>
-           </property>
-           <property name="action" stdset="0">
-            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.id} } }</string>
-           </property>
-           <property name="datasignal:clicked" stdset="0">
-            <string>refreshProjects,showProjectList</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="1">
-        <widget class="QTextEdit" name="projectDescription"/>
-       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>Description:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QTextEdit" name="projectDescription"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Owner:</string>
          </property>
         </widget>
        </item>
@@ -630,28 +597,287 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_10">
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_13">
          <property name="text">
-          <string>Owner:</string>
+          <string>Component:</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QTreeWidget" name="projectComponents">
-         <column>
-          <property name="text">
-           <string>name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>description</string>
-          </property>
-         </column>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QTreeWidget" name="projectComponents">
+           <column>
+            <property name="text">
+             <string>name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>description</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QPushButton" name="pushButton_8">
+             <property name="text">
+              <string>Add..</string>
+             </property>
+             <property name="form" stdset="0">
+              <string>component_edit?widgetid={main.widgetid}_projectComponent&amp;id={main.content.projects.projectList.selected}</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="text">
+              <string>Edit..</string>
+             </property>
+             <property name="form" stdset="0">
+              <string>feature_select_required_edit?widgetid={main.widgetid}_feature_required&amp;id={required_features.selected}&amp;minQuantity={required_features.selected_min}&amp;maxQuantity={required_features.selected_max}</string>
+             </property>
+             <property name="datasignal:destroyed" stdset="0">
+              <string>close@{main.widgetid}_feature_required</string>
+             </property>
+             <property name="state:enabled" stdset="0">
+              <string>{required_features.selected}&gt;0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="text">
+              <string>Remove</string>
+             </property>
+             <property name="state:enabled" stdset="0">
+              <string>{required_features.selected}&gt;0</string>
+             </property>
+             <property name="datasignal:clicked" stdset="0">
+              <string>remove_feature_required@main.required_features</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Show all projects</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshProjects,showProjectList</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>Save changes</string>
+           </property>
+           <property name="action" stdset="0">
+            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.id} } }</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshProjects,showProjectList</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="component">
+      <layout class="QFormLayout" name="formLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../wolfzilla.qrc">:/images/component.png</pixmap>
+         </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="name"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>Description:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QTextEdit" name="description"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>Lead:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="lead">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="sizeIncrement">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="dataslot" stdset="0">
+            <string>select_user ({main.widgetid}_projectOwner)</string>
+           </property>
+           <property name="answer" stdset="0">
+            <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
+</string>
+           </property>
+           <property name="action:select_user" stdset="0">
+            <string>readUser user { id={user_change.user.selected} }</string>
+           </property>
+           <property name="link:user_change" stdset="0">
+            <string>{main.widgetid}_projectOwner</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_9">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>user_select?widgetid={main.widgetid}_componentLead&amp;id={main.id}</string>
+           </property>
+           <property name="datasignal:destroyed" stdset="0">
+            <string>close@{main.widgetid}_projectOwner</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Default assignee:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QLabel" name="defaultAssignee">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="sizeIncrement">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="dataslot" stdset="0">
+            <string>select_user ({main.widgetid}_projectOwner)</string>
+           </property>
+           <property name="answer" stdset="0">
+            <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
+</string>
+           </property>
+           <property name="action:select_user" stdset="0">
+            <string>readUser user { id={user_change.user.selected} }</string>
+           </property>
+           <property name="link:user_change" stdset="0">
+            <string>{main.widgetid}_projectOwner</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_10">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>user_select?widgetid={main.widgetid}_defaultAssignee&amp;id={main.id}</string>
+           </property>
+           <property name="datasignal:destroyed" stdset="0">
+            <string>close@{main.widgetid}_projectOwner</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <spacer name="horizontalSpacer_6">
@@ -667,55 +893,38 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="select">
            <property name="text">
-            <string>Remove component</string>
+            <string>&amp;Ok</string>
            </property>
-           <property name="state:enabled" stdset="0">
-            <string>{required_features.selected}&gt;0</string>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+           <property name="form" stdset="0">
+            <string>_CLOSE_</string>
            </property>
            <property name="datasignal:clicked" stdset="0">
-            <string>remove_feature_required@main.required_features</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_7">
-           <property name="text">
-            <string>Edit component..</string>
-           </property>
-           <property name="form" stdset="0">
-            <string>feature_select_required_edit?widgetid={main.widgetid}_feature_required&amp;id={required_features.selected}&amp;minQuantity={required_features.selected_min}&amp;maxQuantity={required_features.selected_max}</string>
-           </property>
-           <property name="datasignal:destroyed" stdset="0">
-            <string>close@{main.widgetid}_feature_required</string>
+            <string>select_user</string>
            </property>
            <property name="state:enabled" stdset="0">
-            <string>{required_features.selected}&gt;0</string>
+            <string>{user.selected}&gt;0</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="cancel">
            <property name="text">
-            <string>Add component..</string>
+            <string>&amp;Cancel</string>
            </property>
            <property name="form" stdset="0">
-            <string>component_edit?widgetid={main.widgetid}_projectComponent&amp;id={main.content.projects.projectList.selected}</string>
-           </property>
-           <property name="datasignal:destroyed" stdset="0">
-            <string>close@{main.widgetid}_projectComponent</string>
+            <string notr="true">_CLOSE_</string>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Component:</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

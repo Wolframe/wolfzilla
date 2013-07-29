@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>component</class>
+ <widget class="QWidget" name="component">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>390</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../wolfzilla.qrc">:/images/component.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="name"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QTextEdit" name="description"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Description:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="lead">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="dataslot" stdset="0">
+        <string>select_user ({main.widgetid}_projectOwner)</string>
+       </property>
+       <property name="answer" stdset="0">
+        <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
+</string>
+       </property>
+       <property name="action:select_user" stdset="0">
+        <string>readUser user { id={user_change.user.selected} }</string>
+       </property>
+       <property name="link:user_change" stdset="0">
+        <string>{main.widgetid}_projectOwner</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>Edit</string>
+       </property>
+       <property name="form" stdset="0">
+        <string>user_select?widgetid={main.widgetid}_componentLead&amp;id={main.id}</string>
+       </property>
+       <property name="datasignal:destroyed" stdset="0">
+        <string>close@{main.widgetid}_projectOwner</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="defaultAssignee">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="dataslot" stdset="0">
+        <string>select_user ({main.widgetid}_projectOwner)</string>
+       </property>
+       <property name="answer" stdset="0">
+        <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
+</string>
+       </property>
+       <property name="action:select_user" stdset="0">
+        <string>readUser user { id={user_change.user.selected} }</string>
+       </property>
+       <property name="link:user_change" stdset="0">
+        <string>{main.widgetid}_projectOwner</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>Edit</string>
+       </property>
+       <property name="form" stdset="0">
+        <string>user_select?widgetid={main.widgetid}_defaultAssignee&amp;id={main.id}</string>
+       </property>
+       <property name="datasignal:destroyed" stdset="0">
+        <string>close@{main.widgetid}_projectOwner</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Lead:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Default assignee:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="select">
+       <property name="text">
+        <string>&amp;Ok</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="form" stdset="0">
+        <string>_CLOSE_</string>
+       </property>
+       <property name="datasignal:clicked" stdset="0">
+        <string>select_user</string>
+       </property>
+       <property name="state:enabled" stdset="0">
+        <string>{user.selected}&gt;0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancel">
+       <property name="text">
+        <string>&amp;Cancel</string>
+       </property>
+       <property name="form" stdset="0">
+        <string notr="true">_CLOSE_</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>description</tabstop>
+  <tabstop>pushButton_5</tabstop>
+  <tabstop>pushButton_6</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../wolfzilla.qrc"/>
+ </resources>
+ <connections/>
+</ui>

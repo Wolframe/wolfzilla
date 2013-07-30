@@ -78,7 +78,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList</string>
@@ -471,7 +471,7 @@
        <string>readProject,switchProject</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.id:0}; login {{main.content.project.projectOwner.text:}} } }</string>
+       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected:0}; login {{?}} } }</string>
       </property>
       <property name="action:switchProject" stdset="0">
        <string>readProject project { id={main.objects.selected:0} }</string>
@@ -538,62 +538,14 @@
        <item row="4" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLabel" name="projectOwner">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="dataslot" stdset="0">
-            <string>select_user ({main.widgetid}_projectOwner)</string>
+          <widget class="QComboBox" name="projectOwner">
+           <property name="action" stdset="0">
+            <string>listUsers users { }</string>
            </property>
            <property name="answer" stdset="0">
-            <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
-</string>
-           </property>
-           <property name="action:select_user" stdset="0">
-            <string>readUser user { id={user_change.user.selected} }</string>
-           </property>
-           <property name="link:user_change" stdset="0">
-            <string>{main.widgetid}_projectOwner</string>
+            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_5">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-           <property name="form" stdset="0">
-            <string>user_select?widgetid={main.widgetid}_projectOwner&amp;id={main.content.project.projectOwner.id}</string>
-           </property>
-           <property name="datasignal:destroyed" stdset="0">
-            <string>close@{main.widgetid}_projectOwner</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -696,7 +648,7 @@
             <string>Save changes</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.id} } }</string>
+            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected} } }</string>
            </property>
            <property name="datasignal:clicked" stdset="0">
             <string>refreshProjects,showProjectList</string>

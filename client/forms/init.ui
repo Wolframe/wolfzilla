@@ -78,7 +78,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>4</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList</string>
@@ -447,6 +447,22 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton_6">
+           <property name="text">
+            <string>Save new user</string>
+           </property>
+           <property name="action" stdset="0">
+            <string>updateUser user { id={main.content.users.userList.selected:?}; login {{main.content.user.login}}; firstName {{main.content.user.firstName}}; lastName {{main.content.user.lastName}}; email {{main.content.user.email}} }</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshUsers,showUserList</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}=0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pushButton">
            <property name="text">
             <string>Save changes</string>
@@ -456,6 +472,22 @@
            </property>
            <property name="datasignal:clicked" stdset="0">
             <string>refreshUsers,showUserList</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}&gt;0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteButton_4">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>user_delete?id={main.content.users.userList.selected}</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}&gt;0</string>
            </property>
           </widget>
          </item>
@@ -554,12 +586,18 @@
          <property name="text">
           <string>Components:</string>
          </property>
+         <property name="state:visible" stdset="0">
+          <string>{main.objects.selected}&gt;10000</string>
+         </property>
         </widget>
        </item>
        <item row="5" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="QTreeWidget" name="projectComponents">
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}&gt;10000</string>
+           </property>
            <column>
             <property name="text">
              <string>name</string>
@@ -588,7 +626,7 @@
              <property name="checked">
               <bool>false</bool>
              </property>
-             <property name="state:enabled" stdset="0">
+             <property name="state:visible" stdset="0">
               <string>{main.objects.selected}&gt;10000</string>
              </property>
             </widget>
@@ -601,6 +639,9 @@
              <property name="state:enabled" stdset="0">
               <string>{main.content.project.projectComponents.selected:0}&gt;0</string>
              </property>
+             <property name="state:visible" stdset="0">
+              <string>{main.objects.selected}&gt;10000</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -610,6 +651,9 @@
              </property>
              <property name="state:enabled" stdset="0">
               <string>{main.content.project.projectComponents.selected}&gt;0</string>
+             </property>
+             <property name="state:visible" stdset="0">
+              <string>{main.objects.selected}&gt;10000</string>
              </property>
             </widget>
            </item>
@@ -656,6 +700,22 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton_5">
+           <property name="text">
+            <string>&amp;Save new project</string>
+           </property>
+           <property name="action" stdset="0">
+            <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected} } }</string>
+           </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>refreshProjects,showProjectList</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}=10000</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pushButton_4">
            <property name="text">
             <string>&amp;Save changes</string>
@@ -665,6 +725,22 @@
            </property>
            <property name="datasignal:clicked" stdset="0">
             <string>refreshProjects,showProjectList</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}&gt;10000</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteButton_3">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+           <property name="form" stdset="0">
+            <string>project_delete?id={main.content.projects.projectList.selected}</string>
+           </property>
+           <property name="state:visible" stdset="0">
+            <string>{main.objects.selected}&gt;10000</string>
            </property>
           </widget>
          </item>

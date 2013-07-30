@@ -43,6 +43,12 @@
      <property name="dataslot" stdset="0">
       <string>refreshUsers,refreshProjects</string>
      </property>
+     <property name="column:0:width" stdset="0">
+      <UInt>200</UInt>
+     </property>
+     <property name="column:1:width" stdset="0">
+      <UInt>1</UInt>
+     </property>
      <attribute name="headerVisible">
       <bool>true</bool>
      </attribute>
@@ -78,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList</string>

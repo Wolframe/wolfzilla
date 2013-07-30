@@ -552,7 +552,7 @@
        <item row="5" column="0">
         <widget class="QLabel" name="label_13">
          <property name="text">
-          <string>Component:</string>
+          <string>Components:</string>
          </property>
         </widget>
        </item>
@@ -575,43 +575,56 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="addComponentButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="text">
               <string>Add..</string>
              </property>
-             <property name="form" stdset="0">
-              <string>component_edit?widgetid={main.widgetid}_projectComponent&amp;id={main.content.projects.projectList.selected}</string>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="state:enabled" stdset="0">
+              <string>{main.objects.selected}&gt;10000</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="editComponentButton">
              <property name="text">
               <string>Edit..</string>
              </property>
-             <property name="form" stdset="0">
-              <string>feature_select_required_edit?widgetid={main.widgetid}_feature_required&amp;id={required_features.selected}&amp;minQuantity={required_features.selected_min}&amp;maxQuantity={required_features.selected_max}</string>
-             </property>
-             <property name="datasignal:destroyed" stdset="0">
-              <string>close@{main.widgetid}_feature_required</string>
-             </property>
              <property name="state:enabled" stdset="0">
-              <string>{required_features.selected}&gt;0</string>
+              <string>{main.content.project.projectComponents.selected:0}&gt;0</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="removeComponentButton">
              <property name="text">
               <string>Remove</string>
              </property>
              <property name="state:enabled" stdset="0">
-              <string>{required_features.selected}&gt;0</string>
-             </property>
-             <property name="datasignal:clicked" stdset="0">
-              <string>remove_feature_required@main.required_features</string>
+              <string>{main.content.project.projectComponents.selected}&gt;0</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </item>
@@ -645,7 +658,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_4">
            <property name="text">
-            <string>Save changes</string>
+            <string>&amp;Save changes</string>
            </property>
            <property name="action" stdset="0">
             <string>updateProject project { id={main.content.projects.projectList.selected:?}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}};  description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected} } }</string>
@@ -679,7 +692,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="name"/>
+        <widget class="QLineEdit" name="componentName"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_19">
@@ -689,7 +702,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QTextEdit" name="description"/>
+        <widget class="QTextEdit" name="componentDescription"/>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_20">
@@ -698,136 +711,12 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QLabel" name="lead">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="dataslot" stdset="0">
-            <string>select_user ({main.widgetid}_projectOwner)</string>
-           </property>
-           <property name="answer" stdset="0">
-            <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
-</string>
-           </property>
-           <property name="action:select_user" stdset="0">
-            <string>readUser user { id={user_change.user.selected} }</string>
-           </property>
-           <property name="link:user_change" stdset="0">
-            <string>{main.widgetid}_projectOwner</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_9">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-           <property name="form" stdset="0">
-            <string>user_select?widgetid={main.widgetid}_componentLead&amp;id={main.id}</string>
-           </property>
-           <property name="datasignal:destroyed" stdset="0">
-            <string>close@{main.widgetid}_projectOwner</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_17">
          <property name="text">
           <string>Default assignee:</string>
          </property>
         </widget>
-       </item>
-       <item row="4" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <widget class="QLabel" name="defaultAssignee">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="dataslot" stdset="0">
-            <string>select_user ({main.widgetid}_projectOwner)</string>
-           </property>
-           <property name="answer" stdset="0">
-            <string>User user { id={id}; id2={?}; login {{text}}; firstName {{?}}; lastName {{?}}; email {{?}} }
-</string>
-           </property>
-           <property name="action:select_user" stdset="0">
-            <string>readUser user { id={user_change.user.selected} }</string>
-           </property>
-           <property name="link:user_change" stdset="0">
-            <string>{main.widgetid}_projectOwner</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_10">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-           <property name="form" stdset="0">
-            <string>user_select?widgetid={main.widgetid}_defaultAssignee&amp;id={main.id}</string>
-           </property>
-           <property name="datasignal:destroyed" stdset="0">
-            <string>close@{main.widgetid}_projectOwner</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_8">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
        </item>
        <item row="5" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -847,7 +736,7 @@
          <item>
           <widget class="QPushButton" name="select">
            <property name="text">
-            <string>&amp;Ok</string>
+            <string>&amp;Save changes</string>
            </property>
            <property name="autoDefault">
             <bool>false</bool>
@@ -855,28 +744,29 @@
            <property name="default">
             <bool>false</bool>
            </property>
-           <property name="form" stdset="0">
-            <string>_CLOSE_</string>
-           </property>
-           <property name="datasignal:clicked" stdset="0">
-            <string>select_user</string>
-           </property>
-           <property name="state:enabled" stdset="0">
-            <string>{user.selected}&gt;0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="cancel">
-           <property name="text">
-            <string>&amp;Cancel</string>
-           </property>
-           <property name="form" stdset="0">
-            <string notr="true">_CLOSE_</string>
-           </property>
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="componentLead">
+         <property name="action" stdset="0">
+          <string>listUsers users { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="componentDefaultAssignee">
+         <property name="action" stdset="0">
+          <string>listUsers users { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -912,7 +802,7 @@
      <y>86</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
+     <x>507</x>
      <y>389</y>
     </hint>
    </hints>
@@ -924,7 +814,7 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>293</x>
+     <x>426</x>
      <y>389</y>
     </hint>
     <hint type="destinationlabel">
@@ -944,8 +834,8 @@
      <y>196</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>266</y>
+     <x>507</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>
@@ -956,8 +846,8 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>263</x>
-     <y>268</y>
+     <x>426</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>

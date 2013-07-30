@@ -12,3 +12,4 @@ INSERT INTO "Project" VALUES(10002,NULL,NULL,NULL,'WOLFCLIENT','Wolfclient',NULL
 INSERT INTO "Project" VALUES(10003,NULL,NULL,NULL,'CONFIGURATOR','Configurator',NULL,'Configurator',3);
 INSERT INTO "Project" VALUES(10004,NULL,NULL,NULL,'CRM','Crm',NULL,'Customer relations management',3);
 INSERT INTO "Project" VALUES(10005,NULL,NULL,NULL,'WOLFZILLA','Wolfzilla',NULL,'Bug reporting',3);
+INSERT INTO "Project" VALUES(10006,NULL,NULL,NULL,'WERP','Werp',NULL,'Simple ERP implementation using Wolframe',3);

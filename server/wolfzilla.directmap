@@ -16,3 +16,7 @@ listProjects = listProjects( xml ) : ProjectList;
 readProject = readProject( xml ) : Project;
 updateProject = updateProject( xml );
 deleteProject = deleteProject( xml );
+
+# Component
+
+updateComponent = updateComponent( xml );

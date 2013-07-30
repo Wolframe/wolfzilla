@@ -38,7 +38,7 @@ CREATE TABLE Project (
 	rgt		INTEGER		NULL,		-- TODO: later
 	shortcut	TEXT		NOT NULL,
 	name		TEXT		NOT NULL,
-	normalizedName	TEXT		NULL,
+	normalizedName	TEXT		NULL,		-- TODO: later
 	description	TEXT		NULL,
 	ownerID		INTEGER		NOT NULL REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK ( rgt > lft ),
@@ -59,7 +59,7 @@ CREATE TABLE Component (
 	lft		INTEGER		NULL,		-- TODO: later
 	rgt		INTEGER		NULL,		-- TODO: later
 	name		TEXT		NOT NULL,
-	normalizedName	TEXT		NOT NULL,
+	normalizedName	TEXT		NULL,		-- TODO: later
 	description	TEXT		NULL,
 	projectID	INTEGER		REFERENCES Project( ID ),
 	leadID		INTEGER		REFERENCES User( ID ),
@@ -69,6 +69,10 @@ CREATE TABLE Component (
 --	CONSTRAINT component_name_unique UNIQUE( name, parentID )
 	CONSTRAINT component_name_unique UNIQUE( name )
 );
+-- make sure the autoincrement for components starts with 11001
+INSERT INTO Component( ID, name, normalizedName )
+	VALUES ( 11000, '_ROOT_', '_ROOT_' );
+DELETE FROM Component WHERE ID = 11000;
 
 -- IssueType
 -- basically an enum of customizable bug type, default entries

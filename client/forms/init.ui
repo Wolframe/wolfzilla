@@ -87,7 +87,7 @@
       <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
-      <string>seeObject,readUser,showUserList,readProject,showProjectList</string>
+      <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent</string>
      </property>
      <property name="action:seeObject" stdset="0">
       <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
@@ -106,6 +106,9 @@
      </property>
      <property name="action:readProject" stdset="0">
       <string>seeObject object {id ={projects.projectList.selected:10000}; type='project' }</string>
+     </property>
+     <property name="action:readComponent" stdset="0">
+      <string>seeObject object {id ={project.projectComponents.selected:11000}; type='component' }</string>
      </property>
      <widget class="QWidget" name="info">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -443,16 +446,6 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>Show all users</string>
-           </property>
-           <property name="datasignal:clicked" stdset="0">
-            <string>refreshUsers,showUserList</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="pushButton_6">
            <property name="text">
             <string>Save new user</string>
@@ -635,6 +628,9 @@
              <property name="state:visible" stdset="0">
               <string>{main.objects.selected}&gt;10000</string>
              </property>
+             <property name="datasignal:clicked" stdset="0">
+              <string>readComponent</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -647,6 +643,9 @@
              </property>
              <property name="state:visible" stdset="0">
               <string>{main.objects.selected}&gt;10000</string>
+             </property>
+             <property name="datasignal:clicked" stdset="0">
+              <string>readComponent</string>
              </property>
             </widget>
            </item>
@@ -694,16 +693,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="text">
-            <string>Show all projects</string>
-           </property>
-           <property name="datasignal:clicked" stdset="0">
-            <string>refreshProjects,showProjectList</string>
-           </property>
-          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_5">
@@ -755,6 +744,9 @@
       </layout>
      </widget>
      <widget class="QWidget" name="component">
+      <property name="dataslot" stdset="0">
+       <string>readComponent</string>
+      </property>
       <layout class="QFormLayout" name="formLayout_4">
        <item row="0" column="0">
         <widget class="QLabel" name="label_18">
@@ -826,6 +818,12 @@
            <property name="default">
             <bool>false</bool>
            </property>
+           <property name="datasignal:clicked" stdset="0">
+            <string>readProject,switchProject</string>
+           </property>
+           <property name="action" stdset="0">
+            <string>updateComponent component { id={main.content.project.projectComponents.selected:0}; project { id={main.objects.selected} }; name {{main.content.component.componentName}};  description {{main.content.component.componentDescription}}; lead{id={main.content.component.componentLead.selected}}; defaultAssignee {id={main.content.component.componentDefaultAssignee.selected}} }</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -866,7 +864,6 @@
   <tabstop>firstName</tabstop>
   <tabstop>lastName</tabstop>
   <tabstop>email</tabstop>
-  <tabstop>pushButton_2</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources>

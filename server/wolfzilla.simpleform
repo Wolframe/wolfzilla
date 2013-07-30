@@ -97,6 +97,12 @@ FORM User
 	}
 }
 
+STRUCT UserReference
+{
+	id	@int
+	login	?string
+}
+
 FORM updateUser
 {
 	_	User
@@ -132,8 +138,7 @@ FORM ProjectList
 			shortcut	string
 			owner
 			{
-				id	@int
-				login	string
+				_	UserReference
 			}
 		}
 	}
@@ -158,8 +163,7 @@ FORM Project
 		shortcut	string
 		owner
 		{
-			id	@int
-			login	string
+			_	UserReference
 		}
 	}
 }
@@ -175,4 +179,34 @@ FORM deleteProject
 	{
 		id		@int
 	}
+}
+
+; Component
+; --
+
+FORM Component
+{
+	component
+	{
+		id 		@int
+		name 		string
+		description	string
+		project
+		{
+			id	@int
+		}
+		lead
+		{
+			_	UserReference
+		}
+		defaultAssignee
+		{
+			_	UserReference
+		}
+	}
+}
+
+FORM updateComponent
+{
+	_	Component
 }

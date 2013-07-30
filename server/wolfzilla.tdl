@@ -115,3 +115,14 @@ BEGIN
 END
 
 -- Component
+
+TRANSACTION updateComponent
+BEGIN
+	DO UPDATE Component SET name = $(name), description = $(description),
+		projectID = $(project/id),
+		leadID = $(lead/id), defaultAssigneeID = $(defaultAssignee/id)
+		WHERE ID = $(id);
+	DO INSERT OR IGNORE INTO Component( name, description, projectID, leadID, defaultAssigneeID )
+		VALUES( $(name), $(description), $(project/id), $(lead/id), $(defaultAssignee/id) );
+
+END

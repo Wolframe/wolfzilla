@@ -97,15 +97,21 @@ END
 TRANSACTION readProject
 BEGIN
 	INTO . DO
-		SELECT ID as "id", ID as "id2", shortcut, name, description
+		SELECT ID as "id", ID as "id2", ID as "id3",
+			shortcut, name, description
 			FROM Project
 			WHERE ID = $(id)
 		UNION
-		SELECT $(id), $(id), '', '', '' FROM Project
+		SELECT $(id), $(id), $(id), '', '', '' FROM Project
 			WHERE NOT EXISTS (SELECT ID FROM Project WHERE ID=$(id));
 	INTO owner DO
 		SELECT User.ID as "id", login FROM Project LEFT JOIN User
 			WHERE Project.ownerID = User.ID
+			AND Project.ID = $(id);
+	INTO component DO
+		SELECT Component.ID as "id", Component.name, Component.description
+			FROM Component, Project
+			WHERE Component.projectID = Project.ID
 			AND Project.ID = $(id);
 END
 
@@ -125,4 +131,28 @@ BEGIN
 	DO INSERT OR IGNORE INTO Component( name, description, projectID, leadID, defaultAssigneeID )
 		VALUES( $(name), $(description), $(project/id), $(lead/id), $(defaultAssignee/id) );
 
+END
+
+TRANSACTION readComponent
+BEGIN
+	INTO . DO
+		SELECT ID as "id", name, description
+			FROM Component
+			WHERE ID = $(id)
+		UNION
+		SELECT $(id), '', '' From Component
+			WHERE NOT EXISTS (SELECT ID FROM Component WHERE ID=$(id));
+	INTO project DO
+		SELECT ProjectID AS "id" FROM Component
+			WHERE ID = $(id);
+	INTO lead DO
+		SELECT User.ID as "id", User.login AS "login"
+			FROM Component LEFT JOIN User
+			WHERE Component.leadID = User.ID
+			AND Component.ID = $(id);
+	INTO defaultAssignee DO
+		SELECT User.ID as "id", User.login AS "login"
+			FROM Component LEFT JOIN User
+			WHERE Component.defaultAssigneeID = User.ID
+			AND Component.ID = $(id);	
 END

@@ -502,7 +502,7 @@
        <string>readProject,switchProject</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected:0}; login {{?}} } }</string>
+       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; id3={main.content.component.componentProject.id}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected:0}; login {{?}} }; component[] { id={projectComponents.row.id}; name {{projectComponents.row.name}}; description {{projectComponents.row.description}} } }</string>
       </property>
       <property name="action:switchProject" stdset="0">
        <string>readProject project { id={main.objects.selected:0} }</string>
@@ -594,8 +594,14 @@
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="QTreeWidget" name="projectComponents">
+           <property name="rootIsDecorated">
+            <bool>false</bool>
+           </property>
            <property name="state:visible" stdset="0">
             <string>{main.objects.selected}&gt;10000</string>
+           </property>
+           <property name="column:0:width" stdset="0">
+            <UInt>200</UInt>
            </property>
            <column>
             <property name="text">
@@ -639,7 +645,7 @@
               <string>Edit..</string>
              </property>
              <property name="state:enabled" stdset="0">
-              <string>{main.content.project.projectComponents.selected:0}&gt;0</string>
+              <string>{main.content.project.projectComponents.selected}&gt;0</string>
              </property>
              <property name="state:visible" stdset="0">
               <string>{main.objects.selected}&gt;10000</string>
@@ -747,7 +753,16 @@
       <property name="dataslot" stdset="0">
        <string>readComponent</string>
       </property>
+      <property name="action:readComponent" stdset="0">
+       <string>readComponent component { id={main.content.project.projectComponents.selected}}</string>
+      </property>
+      <property name="answer" stdset="0">
+       <string>Component component { id={main.content.component.componentID.id}; name {{main.content.component.componentName}}; description {{main.content.component.componentDescription}}; project { id={main.content.component.componentProject.id} }; lead { id={main.content.component.componentLead.selected}; login {{?}} }; defaultAssignee { id={main.content.component.componentDefaultAssignee.selected}; login {{?}} } }</string>
+      </property>
       <layout class="QFormLayout" name="formLayout_4">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label_18">
          <property name="text">
@@ -785,10 +800,30 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="componentLead">
+         <property name="action" stdset="0">
+          <string>listUsers users { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+         </property>
+        </widget>
+       </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_17">
          <property name="text">
           <string>Default assignee:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="componentDefaultAssignee">
+         <property name="action" stdset="0">
+          <string>listUsers users { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
          </property>
         </widget>
        </item>
@@ -822,29 +857,23 @@
             <string>readProject,switchProject</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateComponent component { id={main.content.project.projectComponents.selected:0}; project { id={main.objects.selected} }; name {{main.content.component.componentName}};  description {{main.content.component.componentDescription}}; lead{id={main.content.component.componentLead.selected}}; defaultAssignee {id={main.content.component.componentDefaultAssignee.selected}} }</string>
+            <string>updateComponent component { id={main.content.component.componentID.id:0}; project { id={main.content.component.componentProject.id:0} }; name {{main.content.component.componentName}};  description {{main.content.component.componentDescription}}; lead{id={main.content.component.componentLead.selected}}; defaultAssignee {id={main.content.component.componentDefaultAssignee.selected}} }</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="componentLead">
-         <property name="action" stdset="0">
-          <string>listUsers users { }</string>
-         </property>
-         <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+       <item row="6" column="1">
+        <widget class="QLabel" name="componentProject">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="componentDefaultAssignee">
-         <property name="action" stdset="0">
-          <string>listUsers users { }</string>
-         </property>
-         <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+       <item row="6" column="0">
+        <widget class="QLabel" name="componentID">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -877,12 +906,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>369</x>
-     <y>86</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>507</x>
-     <y>389</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -893,12 +922,12 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>426</x>
-     <y>389</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>369</x>
-     <y>86</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -909,12 +938,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>196</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>507</x>
-     <y>279</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -925,12 +954,28 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>426</x>
-     <y>279</y>
+     <x>311</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>399</x>
-     <y>227</y>
+     <x>311</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>projectComponents</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>editComponentButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>542</x>
+     <y>294</y>
     </hint>
    </hints>
   </connection>

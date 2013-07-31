@@ -116,6 +116,25 @@ FORM deleteUser
 	}
 }
 
+STRUCT ComponentContent
+{
+	id 		@int
+	name 		string
+	description	string
+	project
+	{
+		id	@int
+	}
+	lead
+	{
+		_	UserReference
+	}
+	defaultAssignee
+	{
+		_	UserReference
+	}
+}
+
 ; Project
 ; --
 
@@ -158,12 +177,17 @@ FORM Project
 	{
 		id 		@int
 		id2		?@int		;HACK for duplicate assignments
+		id3		?@int		;another hack for the same
 		name 		string
 		description	string
 		shortcut	string
 		owner
 		{
 			_	UserReference
+		}
+		component []
+		{
+			_	ComponentContent
 		}
 	}
 }
@@ -188,25 +212,27 @@ FORM Component
 {
 	component
 	{
-		id 		@int
-		name 		string
-		description	string
-		project
-		{
-			id	@int
-		}
-		lead
-		{
-			_	UserReference
-		}
-		defaultAssignee
-		{
-			_	UserReference
-		}
+		_	ComponentContent
+	}
+}
+
+FORM readComponent
+{
+	component
+	{
+		id		@int
 	}
 }
 
 FORM updateComponent
 {
 	_	Component
+}
+
+FORM deleteComponent
+{
+	component
+	{
+		id		@int
+	}
 }

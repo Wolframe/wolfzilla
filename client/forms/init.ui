@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent</string>
@@ -665,6 +665,9 @@
              </property>
              <property name="state:visible" stdset="0">
               <string>{main.objects.selected}&gt;10000</string>
+             </property>
+             <property name="form" stdset="0">
+              <string>component_delete?id={main.content.project.projectComponents.selected}</string>
              </property>
             </widget>
            </item>

@@ -156,3 +156,8 @@ BEGIN
 			WHERE Component.defaultAssigneeID = User.ID
 			AND Component.ID = $(id);	
 END
+
+TRANSACTION deleteComponent
+BEGIN
+	DO DELETE FROM Component WHERE ID = $(id);
+END

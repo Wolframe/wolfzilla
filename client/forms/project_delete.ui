@@ -33,7 +33,7 @@
       <string>readProject project {id={main.id}}</string>
      </property>
      <property name="answer" stdset="0">
-      <string>Project project {id={?}; id2={?}; shortcut{{1}}; name{{?}}; description{{?}}; owner{id={?}; login{{?}} } }</string>
+      <string>Project project {id={?}; id2={?}; id3={?}; shortcut{{?}}; name{{1}}; description{{?}}; owner{id={?}; login{{?}} } }</string>
      </property>
     </widget>
    </item>
@@ -61,7 +61,7 @@
         <string>deleteProject project {id={main.id}}</string>
        </property>
        <property name="datasignal:clicked" stdset="0">
-        <string notr="true">refreshProjects</string>
+        <string notr="true">refreshProjects,showProjectList</string>
        </property>
        <property name="form" stdset="0">
         <string>_CLOSE_</string>

@@ -22,3 +22,10 @@ deleteProject = deleteProject( xml );
 readComponent = readComponent( xml ) : Component;
 updateComponent = updateComponent( xml );
 deleteComponent = deleteComponent( xml );
+
+# Issue
+
+updateIssue = updateIssue( xml );
+
+listIssuePriorities = listIssuePriorities( xml ) : IssuePriorityList;
+listIssueSeverities = listIssueSeverities( xml ) : IssueSeverityList;

@@ -132,30 +132,35 @@ CREATE TABLE IssueSeverity (
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
+	icon		TEXT		NULL,
 	CONSTRAINT issue_priority_unique UNIQUE( normalizedName )
 );
-INSERT INTO IssueSeverity( name, normalizedName, description )
-	VALUES( 'Blocker', 'BLOCKER', 'blocking a milestone' );
-INSERT INTO IssueSeverity( name, normalizedName, description )
-	VALUES( 'Critical', 'CRITICAL', 'a critical bug' );
-INSERT INTO IssueSeverity( name, normalizedName, description )
-	VALUES( 'Major', 'MAJOR', 'major issue' );
-INSERT INTO IssueSeverity( name, normalizedName, description )
-	VALUES( 'Minor', 'MINOR', 'minor issue' );
+INSERT INTO IssueSeverity( name, normalizedName, description, icon )
+	VALUES( 'Blocker', 'BLOCKER', 'blocking a milestone', ':/images/severity_blocker.png' );
+INSERT INTO IssueSeverity( name, normalizedName, description, icon )
+	VALUES( 'Critical', 'CRITICAL', 'a critical bug', ':/images/severity_critical.png' );
+INSERT INTO IssueSeverity( name, normalizedName, description, icon )
+	VALUES( 'Major', 'MAJOR', 'major issue', ':/images/severity_major.png' );
+INSERT INTO IssueSeverity( name, normalizedName, description, icon )
+	VALUES( 'Minor', 'MINOR', 'minor issue', ':/images/severity_minor.png' );
 
 -- Issue
 --
 CREATE TABLE Issue (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
-	issueStateID	INTEGER		REFERENCES IssueState( ID ),
+	title		TEXT		NOT NULL,
+	stateID		INTEGER		REFERENCES IssueState( ID ),
+	severityID	INTEGER		REFERENCES IssueSeverity( ID ),
+	priorityID	INTEGER		REFERENCES IssuePriority( ID ),
 	reporterID	INTEGER		REFERENCES User( ID ),
 	ownerID		INTEGER		REFERENCES User( ID ),
 	assigneeID	INTEGER		REFERENCES User( ID ),
-	creationDate	TIMESTAMP	NOT NULL,
+	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	dueDate		TIMESTAMP,
-	title		TEXT		NOT NULL,
-	componentID	INTEGER		REFERENCES Component( ID )
+	componentID	INTEGER		REFERENCES Component( ID ),
+	description	TEXT		NOT NULL
 );
+  
 -- IssueWatcher
 -- users can register to watch an issue (this may trigger email
 -- notification)

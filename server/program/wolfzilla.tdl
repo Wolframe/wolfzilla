@@ -161,3 +161,19 @@ TRANSACTION deleteComponent
 BEGIN
 	DO DELETE FROM Component WHERE ID = $(id);
 END
+
+-- IssuePriority
+
+TRANSACTION listIssuePriorities
+BEGIN
+	INTO priority DO
+		SELECT ID as "id", name FROM IssuePriority;
+END
+
+-- IssueSeverity
+
+TRANSACTION listIssueSeverities
+BEGIN
+	INTO severity DO
+		SELECT ID AS "id", name, icon FROM IssueSeverity;
+END

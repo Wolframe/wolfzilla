@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/severity_critical.png</file>
+    <file>images/severity_blocker.png</file>
+    <file>images/severity_major.png</file>
+    <file>images/severity_minor.png</file>
     <file>images/wolfzilla.jpg</file>
     <file>images/users.png</file>
     <file>images/bug.png</file>

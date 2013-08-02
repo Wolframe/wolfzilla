@@ -61,7 +61,7 @@
         <string>deleteUser user {id={main.id}}</string>
        </property>
        <property name="datasignal:clicked" stdset="0">
-        <string notr="true">refreshUsers</string>
+        <string notr="true">refreshUsers,showUserList</string>
        </property>
        <property name="form" stdset="0">
         <string>_CLOSE_</string>

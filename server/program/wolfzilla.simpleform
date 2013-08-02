@@ -135,6 +135,12 @@ STRUCT ComponentContent
 	}
 }
 
+STRUCT ComponentReference
+{
+	id	@int
+	name	?string
+}
+
 ; Project
 ; --
 
@@ -236,3 +242,113 @@ FORM deleteComponent
 		id		@int
 	}
 }
+
+; Issue
+; --
+
+FORM Issue
+{
+	issue
+	{
+		id		@int
+		title		string
+		state
+		{
+			id	@int
+			name	?string
+		}
+		severity
+		{
+			id	@int
+			name	?string
+		}
+		priority
+		{
+			id	@int
+			name	?string
+		}
+		reporter
+		{
+			_	UserReference
+		}
+		owner
+		{
+			_	UserReference
+		}
+		assignee
+		{
+			_	UserReference
+		}
+		dueDate		string
+		component
+		{
+			_	ComponentReference
+		}
+		description	string
+	}
+}
+
+FORM readIssue
+{
+	issue
+	{
+		id 		@int
+	}
+}
+
+FORM updateIssue
+{
+	_	Issue
+}
+
+FORM deleteIssue
+{
+	issue
+	{
+		id		@int
+	}
+}
+
+; -- IssuePriority
+
+FORM listIssuePriorities
+{
+	priorities
+	{
+	}
+}
+
+FORM IssuePriorityList
+{
+	priorities
+	{
+		priority []
+		{
+			id 		@int
+			name 		string
+		}
+	}
+}
+
+; -- IssueSeverity
+
+FORM listIssueSeverities
+{
+	severities
+	{
+	}
+}
+
+FORM IssueSeverityList
+{
+	severities
+	{
+		severity []
+		{
+			id		@int
+			name		string
+			icon		string
+		}
+	}
+}
+

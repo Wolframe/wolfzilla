@@ -83,14 +83,15 @@ CREATE TABLE IssueType (
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
+	icon		TEXT		NULL,
 	CONSTRAINT issue_type_name_unique UNIQUE( normalizedName )
 );
-INSERT INTO IssueType( name, normalizedName, description )
-	VALUES( 'Bug', 'BUG', 'a defect, not working as expected' );
-INSERT INTO IssueType( name, normalizedName, description )
-	VALUES( 'Improvement', 'IMPROVEMENT', 'improvement of something existing' );
-INSERT INTO IssueType( name, normalizedName, description )
-	VALUES( 'New feature', 'NEW FEATURE', 'something new, a new idea' );
+INSERT INTO IssueType( name, normalizedName, description, icon )
+	VALUES( 'Bug', 'BUG', 'a defect, not working as expected', ':/images/type_bug.png' );
+INSERT INTO IssueType( name, normalizedName, description, icon )
+	VALUES( 'Improvement', 'IMPROVEMENT', 'improvement of something existing', ':/images/type_improvement.png' );
+INSERT INTO IssueType( name, normalizedName, description, icon )
+	VALUES( 'New feature', 'NEW FEATURE', 'something new, a new idea', ':/images/type_new_feature.png' );
 
 -- IssueState
 -- basically an enum of customizable bug states, default entries
@@ -101,10 +102,15 @@ CREATE TABLE IssueState (
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
+	icon		TEXT		NULL,
 	CONSTRAINT issue_state_unique UNIQUE( normalizedName )
 );
 INSERT INTO IssueState( name, normalizedName, description )
 	VALUES( 'Open', 'OPEN', 'Bug open' );
+INSERT INTO IssueState( name, normalizedName, description )
+	VALUES( 'Assigned', 'ASSIGNED', 'Bug assigned and being fixed' );
+INSERT INTO IssueState( name, normalizedName, description )
+	VALUES( 'Resolved', 'RESOLVED', 'Bug resolved' );
 INSERT INTO IssueState( name, normalizedName, description )
 	VALUES( 'Closed', 'CLOSED', 'Bug closed' );
 
@@ -116,6 +122,7 @@ CREATE TABLE IssuePriority (
 	name		TEXT		NOT NULL,
 	normalizedName	TEXT		NOT NULL,
 	description	TEXT		NULL,
+	icon		TEXT		NULL,
 	CONSTRAINT issue_priority_unique UNIQUE( normalizedName )
 );
 INSERT INTO IssuePriority( name, normalizedName, description )
@@ -144,12 +151,32 @@ INSERT INTO IssueSeverity( name, normalizedName, description, icon )
 INSERT INTO IssueSeverity( name, normalizedName, description, icon )
 	VALUES( 'Minor', 'MINOR', 'minor issue', ':/images/severity_minor.png' );
 
+-- IssueResolution
+-- enum with resolutions of a bug, e.g. FIXED, DUPLICATE, NOT_REPRODUCABLE, WONT_FIX
+CREATE TABLE IssueResolution (
+	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
+	name		TEXT		NOT NULL,
+	normalizedName	TEXT		NOT NULL,
+	description	TEXT		NULL,
+	icon		TEXT		NULL,
+	CONSTRAINT issue_resolution_unique UNIQUE( normalizedName )
+);
+INSERT INTO IssueResolution( name, normalizedName, description )
+	VALUES( 'Fixed', 'FIXED', 'Bug fixed' );
+INSERT INTO IssueResolution( name, normalizedName, description )
+	VALUES( 'Duplicate', 'DUPLICATE', 'Bug is a duplicate of another one' );
+INSERT INTO IssueResolution( name, normalizedName, description )
+	VALUES( 'Not Reproducable', 'NOT REPRODUCABLE', 'Bug cant be reproduced' );
+INSERT INTO IssueResolution( name, normalizedName, description )
+	VALUES( 'Wont Fix', 'WONT FIX', 'Bug will not be fixed' );
+
 -- Issue
 --
 CREATE TABLE Issue (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	title		TEXT		NOT NULL,
 	stateID		INTEGER		REFERENCES IssueState( ID ),
+	typeID		INTEGER		REFERENCES IssueType( ID ),
 	severityID	INTEGER		REFERENCES IssueSeverity( ID ),
 	priorityID	INTEGER		REFERENCES IssuePriority( ID ),
 	reporterID	INTEGER		REFERENCES User( ID ),

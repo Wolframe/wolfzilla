@@ -352,3 +352,46 @@ FORM IssueSeverityList
 	}
 }
 
+; -- IssueStatus
+
+FORM listIssueStati
+{
+	stati
+	{
+	}
+}
+
+FORM IssueStatusList
+{
+	stati
+	{
+		status []
+		{
+			id		@int
+			name		string
+			icon		string
+		}
+	}
+}
+
+; -- IssueType
+
+FORM listIssueTypes
+{
+	types
+	{
+	}
+}
+
+FORM IssueTypeList
+{
+	types
+	{
+		type []
+		{
+			id		@int
+			name		string
+			icon		string
+		}
+	}
+}

@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>5</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent</string>
@@ -505,7 +505,7 @@
        <string>readProject,switchProject</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; id3={main.content.component.componentProject.id}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected:0}; login {{?}} }; component[] { id={projectComponents.row.id}; name {{projectComponents.row.name}}; description {{projectComponents.row.description}} } }</string>
+       <string>Project project { id={main.objects.selected}; id2={main.content.projects.projectList.selected}; id3={main.content.component.componentProject.id}; shortcut {{main.content.project.projectShortcut}}; name {{main.content.project.projectName}}; description {{main.content.project.projectDescription}}; owner { id={main.content.project.projectOwner.selected}; login {{?}} }; component[] { id={projectComponents.row.id}; name {{projectComponents.row.name}}; description {{projectComponents.row.description}} } }</string>
       </property>
       <property name="action:switchProject" stdset="0">
        <string>readProject project { id={main.objects.selected:0} }</string>
@@ -1076,9 +1076,16 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QComboBox" name="issueComponent"/>
+        <widget class="QComboBox" name="issueComponent">
+         <property name="action" stdset="0">
+          <string>listComponents components { project {id={main.content.issue.issueProject.selected}}}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string/>
+         </property>
+        </widget>
        </item>
-       <item row="4" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_28">
          <property name="text">
           <string>Status:</string>
@@ -1088,10 +1095,17 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="issueStatus"/>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="issueStatus">
+         <property name="action" stdset="0">
+          <string>listIssueStati stati {}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+         </property>
+        </widget>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_26">
          <property name="text">
           <string>Severity:</string>
@@ -1101,7 +1115,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="6" column="1">
         <widget class="QComboBox" name="issueSeverity">
          <property name="action" stdset="0">
           <string>listIssueSeverities severities { }</string>
@@ -1111,7 +1125,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_27">
          <property name="text">
           <string>Priority:</string>
@@ -1121,7 +1135,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QComboBox" name="issuePriority">
          <property name="action" stdset="0">
           <string>listIssuePriorities priorities { }</string>
@@ -1131,7 +1145,7 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="label_29">
          <property name="text">
           <string>Reporter:</string>
@@ -1141,7 +1155,7 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <widget class="QComboBox" name="issueReporter">
          <property name="action" stdset="0">
           <string>listUsers users { }</string>
@@ -1157,7 +1171,7 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="label_30">
          <property name="text">
           <string>assigned to:</string>
@@ -1167,7 +1181,7 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="9" column="1">
         <widget class="QComboBox" name="issueAssignee">
          <property name="action" stdset="0">
           <string>listUsers users { }</string>
@@ -1183,10 +1197,10 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="10" column="1">
         <widget class="QTextEdit" name="issueDescription"/>
        </item>
-       <item row="9" column="0">
+       <item row="10" column="0">
         <widget class="QLabel" name="label_31">
          <property name="text">
           <string>Description:</string>
@@ -1196,7 +1210,7 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="0" colspan="2">
+       <item row="11" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <spacer name="horizontalSpacer_7">
@@ -1231,6 +1245,23 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="issueType">
+         <property name="action" stdset="0">
+          <string>listIssueTypes types {}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>Type:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

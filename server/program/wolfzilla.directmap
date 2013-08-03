@@ -29,3 +29,5 @@ updateIssue = updateIssue( xml );
 
 listIssuePriorities = listIssuePriorities( xml ) : IssuePriorityList;
 listIssueSeverities = listIssueSeverities( xml ) : IssueSeverityList;
+listIssueStati = listIssueStati( xml ) : IssueStatusList;
+listIssueTypes = listIssueTypes( xml ) : IssueTypeList;

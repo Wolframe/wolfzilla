@@ -177,3 +177,19 @@ BEGIN
 	INTO severity DO
 		SELECT ID AS "id", name, icon FROM IssueSeverity;
 END
+
+-- IssueType
+
+TRANSACTION listIssueTypes
+BEGIN
+	INTO type DO
+		SELECT ID AS "id", name, icon FROM IssueType;
+END
+
+-- IssueStatus
+
+TRANSACTION listIssueStati
+BEGIN
+	INTO status DO
+		SELECT ID AS "id", name, icon FROM IssueState;
+END

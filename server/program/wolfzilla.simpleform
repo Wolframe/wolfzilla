@@ -19,7 +19,7 @@ STRUCT Item
 	text		string
 	details		string
 	icon		string
-	item		Item[]
+	item		^Item[]
 }
 
 FORM ObjectTree
@@ -222,6 +222,28 @@ FORM Component
 	}
 }
 
+FORM listComponents
+{
+	components
+	{
+		project
+		{
+			id	@int
+		}
+	}
+}
+
+FORM ComponentList
+{
+	components
+	{
+		component []
+		{
+			_ ComponentContent
+		}
+	}
+}
+
 FORM readComponent
 {
 	component
@@ -246,45 +268,72 @@ FORM deleteComponent
 ; Issue
 ; --
 
+STRUCT IssueContent
+{
+	id		@int
+	reference	?string
+	title		string
+	project
+	{
+		id	@int
+		name	?string
+	}
+	component
+	{
+		_	ComponentReference
+	}
+	description	string
+	type
+	{
+		id	@int
+		name	?string
+	}
+	state
+	{
+		id	@int
+		name	?string
+	}
+	severity
+	{
+		id	@int
+		name	?string
+	}
+	priority
+	{
+		id	@int
+		name	?string
+	}
+	reporter
+	{
+		_	UserReference
+	}
+	owner
+	{
+		_	UserReference
+	}
+	assignee
+	{
+		_	UserReference
+	}
+	dueDate		string
+}
+
 FORM Issue
 {
 	issue
 	{
-		id		@int
-		title		string
-		state
+		_	IssueContent
+	}
+}
+
+FORM listIssues
+{
+	issues
+	{
+		issue []
 		{
-			id	@int
-			name	?string
+			_	IssueContent
 		}
-		severity
-		{
-			id	@int
-			name	?string
-		}
-		priority
-		{
-			id	@int
-			name	?string
-		}
-		reporter
-		{
-			_	UserReference
-		}
-		owner
-		{
-			_	UserReference
-		}
-		assignee
-		{
-			_	UserReference
-		}
-		dueDate		string
-		component
-		{
-			_	ComponentReference
-		}
-		description	string
 	}
 }
 
@@ -293,6 +342,10 @@ FORM readIssue
 	issue
 	{
 		id 		@int
+		project
+		{
+			id	?@int
+		}
 	}
 }
 

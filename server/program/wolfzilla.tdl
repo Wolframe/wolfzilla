@@ -122,6 +122,14 @@ END
 
 -- Component
 
+TRANSACTION listComponents
+BEGIN
+	INTO component DO
+		SELECT ID as "id", name, description FROM Component
+			WHERE projectID = $(project/id)
+			ORDER BY ID ASC;
+END
+
 TRANSACTION updateComponent
 BEGIN
 	DO UPDATE Component SET name = $(name), description = $(description),
@@ -192,4 +200,62 @@ TRANSACTION listIssueStati
 BEGIN
 	INTO status DO
 		SELECT ID AS "id", name, icon FROM IssueState;
+END
+
+-- Issue
+
+-- Component
+
+TRANSACTION listIssues
+BEGIN
+	INTO issue DO
+		SELECT ID as "id", Project.shortcut || '-' || IssueReference.ID AS "shortcut",
+			title, description
+			FROM Issue, IssueReference, Project
+			WHERE projectID = $(project/id)
+			AND Issue.projectID = Project.ID
+			AND Issue.referenceID = IssueReference.ID
+			ORDER BY ID ASC;
+END
+
+TRANSACTION updateIssue
+BEGIN
+	DO UPDATE Issue SET title = $(title), description = $(description)
+		WHERE ID = $(id);
+	-- OR IGNORE 
+	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
+		FROM IssueReference
+		WHERE projectID = $(project/id);
+	DO INSERT INTO IssueReference( projectID, reference )
+		VALUES( $(project/id), $1 );
+	DO SELECT ID FROM IssueReference
+		WHERE projectID = $(project/id)
+		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id));
+	DO INSERT INTO Issue( title, description, referenceID )
+		VALUES( $(title), $(description), $1 );
+END
+
+TRANSACTION readIssue
+BEGIN
+	DO SELECT Project.shortcut AS "shortcut", coalesce(max(IssueReference.reference)+1,1) AS "id"
+		FROM Project
+		LEFT JOIN IssueReference
+		ON IssueReference.projectID = Project.ID
+		WHERE Project.ID = $(project/id);
+	INTO . DO
+		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
+			title, Issue.description AS "description"
+			FROM Issue, Project, IssueReference
+			WHERE Issue.ID = $(id)
+			AND IssueReference.projectID = Project.ID
+			AND IssueReference.ID = Issue.referenceID
+		UNION
+		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
+			'' AS "title", '' AS "description"
+			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
+END
+
+TRANSACTION deleteIssue
+BEGIN
+	DO DELETE FROM Issue WHERE ID = $(id);
 END

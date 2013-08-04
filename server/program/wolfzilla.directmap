@@ -19,13 +19,17 @@ deleteProject = deleteProject( xml );
 
 # Component
 
+listComponents = listComponents( xml ) : ComponentList;
 readComponent = readComponent( xml ) : Component;
 updateComponent = updateComponent( xml );
 deleteComponent = deleteComponent( xml );
 
 # Issue
 
+listIssues = listIssues( xml ) : IssueList;
+readIssue = readIssue( xml ) : Issue;
 updateIssue = updateIssue( xml );
+deleteIssue = deleteIssue( xml );
 
 listIssuePriorities = listIssuePriorities( xml ) : IssuePriorityList;
 listIssueSeverities = listIssueSeverities( xml ) : IssueSeverityList;

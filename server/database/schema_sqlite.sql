@@ -170,11 +170,24 @@ INSERT INTO IssueResolution( name, normalizedName, description )
 INSERT INTO IssueResolution( name, normalizedName, description )
 	VALUES( 'Wont Fix', 'WONT FIX', 'Bug will not be fixed' );
 
+-- IssueReference
+-- an issue has an reference (PROJECT-XXX), numbers are usually incremented
+-- and never reused, they may appear in extern SCM logs or documentation
+CREATE TABLE IssueReference (
+	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
+	projectID	INTEGER		REFERENCES Project( ID ),
+	reference	INTEGER		NOT NULL,
+	CONSTRAINT project_reference_unique UNIQUE( projectID, reference )
+);
+
 -- Issue
 --
 CREATE TABLE Issue (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
+	referenceID	INTEGER		NOT NULL REFERENCES IssueReference( ID ),
 	title		TEXT		NOT NULL,
+	description	TEXT		NOT NULL,
+	componentID	INTEGER		REFERENCES Component( ID ),
 	stateID		INTEGER		REFERENCES IssueState( ID ),
 	typeID		INTEGER		REFERENCES IssueType( ID ),
 	severityID	INTEGER		REFERENCES IssueSeverity( ID ),
@@ -183,11 +196,9 @@ CREATE TABLE Issue (
 	ownerID		INTEGER		REFERENCES User( ID ),
 	assigneeID	INTEGER		REFERENCES User( ID ),
 	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	dueDate		TIMESTAMP,
-	componentID	INTEGER		REFERENCES Component( ID ),
-	description	TEXT		NOT NULL
+	dueDate		TIMESTAMP
 );
-  
+
 -- IssueWatcher
 -- users can register to watch an issue (this may trigger email
 -- notification)

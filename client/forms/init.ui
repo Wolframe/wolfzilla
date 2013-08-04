@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent</string>
@@ -1021,6 +1021,12 @@
       </layout>
      </widget>
      <widget class="QWidget" name="issue">
+      <property name="action" stdset="0">
+       <string>readIssue issue  { id={issueID.id:0}; project { id={issueProjectID.id:10001} }</string>
+      </property>
+      <property name="answer" stdset="0">
+       <string>Issue issue { id={issueID.id}; reference {{issueReference.text}}; title {{?}}; description {{?}} }</string>
+      </property>
       <layout class="QFormLayout" name="formLayout_5">
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -1028,14 +1034,23 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_24">
          <property name="text">
-          <string>Issue ID:</string>
+          <string>Issue:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="issueID">
+        <widget class="QLabel" name="issueReference">
          <property name="text">
           <string/>
+         </property>
+         <property name="dataslot" stdset="0">
+          <string>issueProjectListChanged</string>
+         </property>
+         <property name="action:issueProjectListChanged" stdset="0">
+          <string>readIssue issue  { id={issueID.id:0}; project { id={main.content.issue.issueProject.selected} }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>Issue issue { id={id}; reference {{text}}; title {{?}}; description {{?}} }</string>
          </property>
         </widget>
        </item>
@@ -1063,7 +1078,23 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="issueProject"/>
+        <widget class="QComboBox" name="issueProject">
+         <property name="action" stdset="0">
+          <string>listProjects projects { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
+</string>
+         </property>
+         <property name="datasignal:changed" stdset="0">
+          <string>issueProjectListChanged</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>-- choose a project --</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_25">
@@ -1081,22 +1112,33 @@
           <string>listComponents components { project {id={main.content.issue.issueProject.selected}}}</string>
          </property>
          <property name="answer" stdset="0">
-          <string/>
+          <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
          </property>
+         <property name="dataslot" stdset="0">
+          <string>issueProjectListChanged</string>
+         </property>
+         <property name="action:issueProjectListChanged" stdset="0">
+          <string>listComponents components { project {id={main.content.issue.issueProject.selected}}}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>-- choose a component --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_28">
          <property name="text">
-          <string>Status:</string>
+          <string>State:</string>
          </property>
          <property name="buddy">
-          <cstring>issueStatus</cstring>
+          <cstring>issueState</cstring>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QComboBox" name="issueStatus">
+        <widget class="QComboBox" name="issueState">
          <property name="action" stdset="0">
           <string>listIssueStati stati {}</string>
          </property>
@@ -1123,6 +1165,11 @@
          <property name="answer" stdset="0">
           <string>IssueSeverityList severities { severity[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a severity --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="7" column="0">
@@ -1143,6 +1190,11 @@
          <property name="answer" stdset="0">
           <string>IssuePriorityList priorities { priority[] { id={item.id}; name {{item.text}} }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a priority --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="8" column="0">
@@ -1240,7 +1292,7 @@
             <string>readProject,switchProject</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateComponent component { id={main.content.component.componentID.id:0}; project { id={main.content.component.componentProject.id:0} }; name {{main.content.component.componentName}};  description {{main.content.component.componentDescription}}; lead{id={main.content.component.componentLead.selected}}; defaultAssignee {id={main.content.component.componentDefaultAssignee.selected}} }</string>
+            <string>updateIssue issue { id={main.content.issue.issueID.id:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueState.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}} }</string>
            </property>
           </widget>
          </item>
@@ -1254,12 +1306,31 @@
          <property name="answer" stdset="0">
           <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a type --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_32">
          <property name="text">
           <string>Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="issueID">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLabel" name="issueProjectID">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

@@ -9,16 +9,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>274</width>
+    <width>317</width>
     <height>76</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Delete user</string>
+   <string>Delete issue</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../wolfzilla.qrc">
-    <normaloff>:/images/users.png</normaloff>:/images/users.png</iconset>
+    <normaloff>:/images/bug.png</normaloff>:/images/bug.png</iconset>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <property name="fieldGrowthPolicy">
@@ -27,13 +27,13 @@
    <item row="2" column="1">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Do you really want to delete user  '%1' ?</string>
+      <string>Do you really want to delete issue  '%1' ?</string>
      </property>
      <property name="action" stdset="0">
-      <string>readUser user {id={main.id}}</string>
+      <string>readIssue issue { id={main.id} }</string>
      </property>
      <property name="answer" stdset="0">
-      <string>User user {id={?}; id2={?}; login{{1}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+      <string>Issue issue { id={?}; reference {{1}}; title {{?}}; description {{?}}; projectID {{?}}; componentID {{?}} }</string>
      </property>
     </widget>
    </item>
@@ -58,10 +58,10 @@
         <string>Delete</string>
        </property>
        <property name="action" stdset="0">
-        <string>deleteUser user {id={main.id}}</string>
+        <string>deleteIssue issue {id={main.id}}</string>
        </property>
        <property name="datasignal:clicked" stdset="0">
-        <string notr="true">refreshUsers,showUserList</string>
+        <string notr="true">refreshIssues</string>
        </property>
        <property name="form" stdset="0">
         <string>_CLOSE_</string>

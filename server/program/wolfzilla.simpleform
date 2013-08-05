@@ -273,11 +273,13 @@ STRUCT IssueContent
 	id		@int
 	reference	?string
 	title		string
+	projectID	?int
 	project
 	{
 		id	@int
 		name	?string
 	}
+	componentID	?int
 	component
 	{
 		_	ComponentReference

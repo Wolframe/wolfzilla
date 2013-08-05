@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>manufacturer_delete_form</class>
- <widget class="QWidget" name="manufacturer_delete_form">
+ <class>project_delete</class>
+ <widget class="QWidget" name="project_delete">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -14,11 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Delete manufacturer</string>
+   <string>Delete project</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/building.png</normaloff>:/images/building.png</iconset>
+   <iconset resource="../wolfzilla.qrc">
+    <normaloff>:/images/project.png</normaloff>:/images/project.png</iconset>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <property name="fieldGrowthPolicy">

@@ -10,7 +10,7 @@ BEGIN
 	INTO item/item DO
 		SELECT ID AS "id", 'user' AS "type", login AS "text",
 			firstName || ' ' || lastName AS "details",
-			':/images/users.png' AS icon FROM User
+			':/images/users.png' AS "icon" FROM User
 			ORDER BY ID ASC;
 -- here we go out one level, next item
 	INTO item DO
@@ -21,14 +21,18 @@ BEGIN
 		SELECT ID AS "id", 'project' AS "type", name AS "text",
 			description AS "details",
 			':/images/project.png' AS icon FROM Project;
+-- issue search page
+	INTO item DO
+		SELECT 2000000 AS "id", 'issues' AS "type", 'Issues' AS "text",
+			'' AS "details", ':/images/bug.png' AS "icon";
 -- system settings
 	INTO item DO
 		SELECT 1000000 AS "id", 'settings' AS "type", 'Settings' AS "text",
-			'' AS "details", ':/images/settings.png' AS icon;
+			'' AS "details", ':/images/settings.png' AS "icon";
 -- the about/info page (weird, I know)
 	INTO item DO
 		SELECT 99999999 AS "id", 'info' AS "type", 'Info' AS "text",
-			'About Wolfzilla' AS "details", ':/images/bug.png' AS icon;
+			'About Wolfzilla' AS "details", ':/images/bug.png' AS "icon";
 END
 
 TRANSACTION seeObject
@@ -246,14 +250,16 @@ BEGIN
 		WHERE Project.ID = $(project/id);
 	INTO . DO
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
-			title, Issue.description AS "description"
+			title, Issue.description AS "description",
+			IssueReference.projectID AS "projectID",
+			componentID AS "componentID"
 			FROM Issue, Project, IssueReference
 			WHERE Issue.ID = $(id)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
-			'' AS "title", '' AS "description"
+			'' AS "title", '' AS "description", 0, 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

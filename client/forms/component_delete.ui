@@ -14,11 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Delete manufacturer</string>
+   <string>Delete component</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/building.png</normaloff>:/images/building.png</iconset>
+   <iconset resource="../wolfzilla.qrc">
+    <normaloff>:/images/component.png</normaloff>:/images/component.png</iconset>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <property name="fieldGrowthPolicy">

@@ -189,6 +189,7 @@ CREATE TABLE Issue (
 	description	TEXT		NOT NULL,
 	componentID	INTEGER		REFERENCES Component( ID ),
 	stateID		INTEGER		REFERENCES IssueState( ID ),
+	resolutionID	INTEGER		REFERENCES IssueResolution( ID ),
 	typeID		INTEGER		REFERENCES IssueType( ID ),
 	severityID	INTEGER		REFERENCES IssueSeverity( ID ),
 	priorityID	INTEGER		REFERENCES IssuePriority( ID ),

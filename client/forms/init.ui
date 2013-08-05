@@ -84,10 +84,10 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>7</number>
      </property>
      <property name="dataslot" stdset="0">
-      <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent</string>
+      <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue</string>
      </property>
      <property name="action:seeObject" stdset="0">
       <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
@@ -942,8 +942,28 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
+       <item row="2" column="0" colspan="2">
         <widget class="QTreeWidget" name="issueList">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="action" stdset="0">
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {{?}}; typeName {{row.type}}; priorityName {{row.priority}} } }</string>
+         </property>
+         <property name="dataslot" stdset="0">
+          <string>issueProjectListChanged</string>
+         </property>
+         <property name="action:issueProjectListChanged" stdset="0">
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+         </property>
+         <column>
+          <property name="text">
+           <string>type</string>
+          </property>
+         </column>
          <column>
           <property name="text">
            <string>shortcut</string>
@@ -951,12 +971,7 @@
          </column>
          <column>
           <property name="text">
-           <string>state</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>severity</string>
+           <string>title</string>
           </property>
          </column>
          <column>
@@ -964,14 +979,9 @@
            <string>priority</string>
           </property>
          </column>
-         <column>
-          <property name="text">
-           <string>title</string>
-          </property>
-         </column>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <spacer name="horizontalSpacer_5">
@@ -1004,6 +1014,9 @@
            <property name="datasignal:clicked" stdset="0">
             <string>readIssue</string>
            </property>
+           <property name="state:enabled" stdset="0">
+            <string>{main.content.issues.issueList.selected}&gt;0</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -1017,6 +1030,25 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QComboBox" name="issuesProject">
+         <property name="action" stdset="0">
+          <string>listProjects projects { }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
+</string>
+         </property>
+         <property name="datasignal:changed" stdset="0">
+          <string>issueProjectListChanged</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>-- choose a project --</string>
+          </property>
+         </item>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1363,12 +1395,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>38</y>
+     <x>302</x>
+     <y>23</y>
     </hint>
     <hint type="destinationlabel">
-     <x>311</x>
-     <y>38</y>
+     <x>274</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
@@ -1379,12 +1411,12 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>38</y>
+     <x>248</x>
+     <y>30</y>
     </hint>
     <hint type="destinationlabel">
-     <x>311</x>
-     <y>38</y>
+     <x>302</x>
+     <y>23</y>
     </hint>
    </hints>
   </connection>
@@ -1395,12 +1427,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>38</y>
+     <x>302</x>
+     <y>23</y>
     </hint>
     <hint type="destinationlabel">
-     <x>311</x>
-     <y>38</y>
+     <x>287</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
@@ -1411,12 +1443,12 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>38</y>
+     <x>273</x>
+     <y>30</y>
     </hint>
     <hint type="destinationlabel">
-     <x>311</x>
-     <y>38</y>
+     <x>302</x>
+     <y>23</y>
     </hint>
    </hints>
   </connection>
@@ -1427,12 +1459,28 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>297</y>
+     <x>281</x>
+     <y>34</y>
     </hint>
     <hint type="destinationlabel">
-     <x>542</x>
-     <y>294</y>
+     <x>300</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>issueList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>editButton_3</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>379</y>
     </hint>
    </hints>
   </connection>

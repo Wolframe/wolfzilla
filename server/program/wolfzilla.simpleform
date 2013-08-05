@@ -283,21 +283,25 @@ STRUCT IssueContent
 		_	ComponentReference
 	}
 	description	string
+	typeName	?string
 	type
 	{
 		id	@int
 		name	?string
 	}
+	stateName	?string
 	state
 	{
 		id	@int
 		name	?string
 	}
+	severityName	?string
 	severity
 	{
 		id	@int
 		name	?string
 	}
+	priorityName	?string
 	priority
 	{
 		id	@int
@@ -327,6 +331,17 @@ FORM Issue
 }
 
 FORM listIssues
+{
+	issues
+	{
+		project
+		{
+			id	?@int
+		}
+	}
+}
+
+FORM IssueList
 {
 	issues
 	{

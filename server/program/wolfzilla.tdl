@@ -259,7 +259,7 @@ BEGIN
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
-			'' AS "title", '' AS "description", 0, 0
+			'' AS "title", '' AS "description", $(project/id), 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

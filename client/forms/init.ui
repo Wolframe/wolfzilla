@@ -84,10 +84,10 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
-      <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue</string>
+      <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
      </property>
      <property name="action:seeObject" stdset="0">
       <string>seeObject object {id={main.objects.selected}; type={main.objects.selected_type} }</string>
@@ -112,6 +112,9 @@
      </property>
      <property name="action:readIssue" stdset="0">
       <string>seeObject object {id ={issues.issueList.selected:11000}; type='issue' }</string>
+     </property>
+     <property name="action:showIssueList" stdset="0">
+      <string>seeObject object {id ={issues.issueList.selected:11000}; type='issues' }</string>
      </property>
      <widget class="QWidget" name="info">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -1060,10 +1063,10 @@
      </widget>
      <widget class="QWidget" name="issue">
       <property name="action" stdset="0">
-       <string>readIssue issue  { id={issueID.id:0}; project { id={issueProjectID.id:10001} }</string>
+       <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected:10001} }</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Issue issue { id={issueID.id}; reference {{issueReference.text}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}} }</string>
+       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeName {?}; priorityName {?} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readIssue</string>
@@ -1091,10 +1094,10 @@
           <string>issueProjectListChanged</string>
          </property>
          <property name="action:issueProjectListChanged" stdset="0">
-          <string>readIssue issue  { id={issueID.id:0}; project { id={main.content.issue.issueProject.selected} }</string>
+          <string>readIssue issue { id=0; project { id={main.content.issue.issueProject.selected:0} }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>Issue issue { id={id}; reference {{text}}; title {{?}}; description {{?}} }</string>
+          <string>Issue issue { id={?}; reference {{text}}; title {?}; description {?}; typeName {?}; priorityName {?}; projectID {?}; componentID {?} }</string>
          </property>
         </widget>
        </item>
@@ -1167,6 +1170,28 @@
          <item>
           <property name="text">
            <string>-- choose a component --</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="issueType">
+         <property name="action" stdset="0">
+          <string>listIssueTypes types {}</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>-- choose a type --</string>
           </property>
          </item>
         </widget>
@@ -1293,9 +1318,6 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
-        <widget class="QTextEdit" name="issueDescription"/>
-       </item>
        <item row="10" column="0">
         <widget class="QLabel" name="label_31">
          <property name="text">
@@ -1305,6 +1327,9 @@
           <cstring>issueDescription</cstring>
          </property>
         </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QTextEdit" name="issueDescription"/>
        </item>
        <item row="11" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -1333,50 +1358,14 @@
             <bool>false</bool>
            </property>
            <property name="datasignal:clicked" stdset="0">
-            <string>refreshIssues,switchIssues</string>
+            <string>refreshIssues,showIssueList</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateIssue issue { id={main.content.issue.issueID.id:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueState.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}} }</string>
+            <string>updateIssue issue { id={main.content.issues.issueList.selected:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueState.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}} }</string>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="issueType">
-         <property name="action" stdset="0">
-          <string>listIssueTypes types {}</string>
-         </property>
-         <property name="answer" stdset="0">
-          <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>-- choose a type --</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_32">
-         <property name="text">
-          <string>Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="issueID">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="1">
-        <widget class="QLabel" name="issueProjectID">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -1407,12 +1396,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>302</x>
-     <y>23</y>
+     <x>524</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>274</x>
-     <y>30</y>
+     <x>511</x>
+     <y>389</y>
     </hint>
    </hints>
   </connection>
@@ -1423,12 +1412,12 @@
    <slot>clearSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>30</y>
+     <x>430</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
-     <x>302</x>
-     <y>23</y>
+     <x>524</x>
+     <y>80</y>
     </hint>
    </hints>
   </connection>
@@ -1471,12 +1460,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>34</y>
+     <x>509</x>
+     <y>285</y>
     </hint>
     <hint type="destinationlabel">
-     <x>300</x>
-     <y>37</y>
+     <x>591</x>
+     <y>305</y>
     </hint>
    </hints>
   </connection>
@@ -1493,6 +1482,22 @@
     <hint type="destinationlabel">
      <x>466</x>
      <y>379</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>issueList</receiver>
+   <slot>clearSelection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>395</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>331</y>
     </hint>
    </hints>
   </connection>

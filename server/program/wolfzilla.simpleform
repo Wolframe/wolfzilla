@@ -292,10 +292,12 @@ STRUCT IssueContent
 	description	string
 	typeID		?int
 	typeName	?string
+	typeIcon	?string
 	type
 	{
 		id	@int
 		name	?string
+		icon	?string
 	}
 	stateID		?int
 	stateName	?string

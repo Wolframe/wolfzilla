@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>0</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -957,7 +957,7 @@
           <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {{?}}; typeName {{row.type}}; priorityName {{row.priority}} } }</string>
+          <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {{row.tooltip}}; typeName {{row.type}}; priorityName {{row.priority}}; typeIcon {{row.icon}} } }</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>issueProjectListChanged,refreshIssues</string>

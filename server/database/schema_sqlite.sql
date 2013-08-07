@@ -42,7 +42,7 @@ CREATE TABLE Project (
 	description	TEXT		NULL,
 	ownerID		INTEGER		NOT NULL REFERENCES User( ID ),
 --	CONSTRAINT order_check CHECK ( rgt > lft ),
-	CONSTRAINt project_shortcut_unique UNIQUE( shortcut ),
+	CONSTRAINT project_shortcut_unique UNIQUE( shortcut ),
 --	CONSTRAINT project_name_unique UNIQUE( normalizedName, parentID ),
 	CONSTRAINT project_name_unique UNIQUE( name )
 );
@@ -197,6 +197,7 @@ CREATE TABLE Issue (
 	ownerID		INTEGER		REFERENCES User( ID ),
 	assigneeID	INTEGER		REFERENCES User( ID ),
 	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	lastModDate	TIMESTAMP	NOT NULL,
 	dueDate		TIMESTAMP,
 	CONSTRAINT issue_referenceID_unique UNIQUE( referenceID )
 );
@@ -214,9 +215,10 @@ CREATE TABLE IssueWatcher (
 CREATE TABLE IssueComment (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	issueID		INTEGER		REFERENCES Issue( ID ),
-	creationDate	TIMESTAMP,
 	description	TEXT,
-	writerID	INTEGER		REFERENCES User( ID )
+	writerID	INTEGER		REFERENCES User( ID ),
+	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	lastModDate	TIMESTAMP	NOT NULL
 );
 
 -- IssueAttachment
@@ -224,9 +226,12 @@ CREATE TABLE IssueComment (
 CREATE TABLE IssueAttachment (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	issueID		INTEGER		REFERENCES Issue( ID ),
-	writerID	INTEGER		REFERENCES User( ID ),
 	contentType	TEXT,
-	content		TEXT
+	content		TEXT,
+	description	TEXT,
+	writerID	INTEGER		REFERENCES User( ID ),
+	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	lastModDate	TIMESTAMP	NOT NULL
 );
 
 -- IssueLinkType
@@ -250,8 +255,8 @@ INSERT INTO IssueLinkType( name, normalizedName, description, linker, linkee )
 CREATE TABLE IssueLink (
 	ID		INTEGER		PRIMARY KEY AUTOINCREMENT,
 	type		INTEGER		REFERENCES IssueLinkType( ID ),
-	linkerID	INTEGER		REFERENCES Issue( ID ),
-	linkeeID	INTEGER		REFERENCES Issue( ID ),
+	linkerID	INTEGER		REFERENCES IssueReference( ID ),
+	linkeeID	INTEGER		REFERENCES IssueReference( ID ),
 	CONSTRAINT issue_link_not_same CHECK( linkerID <> linkeeID )
 );
 
@@ -273,3 +278,4 @@ CREATE TABLE Milestone (
 -- arbitrary attachable fields (e.g. use case ID)
 -- arbitrary tagging for a tagcloud (for sure for issues)
 -- translations for all data (e.g. description of bugs)
+-- treeish components, projects...

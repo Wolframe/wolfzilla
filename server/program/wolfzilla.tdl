@@ -245,6 +245,7 @@ BEGIN
 	INTO issue DO
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
 			title, Issue.description, IssueType.Name as "typeName",
+			IssueType.Icon as "typeIcon",
 			IssuePriority.Name as "priorityName"
 			FROM IssueReference, Project, Issue
 			LEFT JOIN IssueType ON Issue.typeID = IssueType.ID
@@ -259,7 +260,8 @@ TRANSACTION updateIssue
 BEGIN
 	DO UPDATE Issue SET title = $(title), description = $(description),
 		stateID = $(state/id), typeID = $(type/id),
-		severityID = $(severity/id), priorityID = $(priority/id)
+		severityID = $(severity/id), priorityID = $(priority/id),
+		lastModDate = CURRENT_TIMESTAMP
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
@@ -272,9 +274,10 @@ BEGIN
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
 		AND $(id) = '0';
-	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID )
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, lastModDate )
 		SELECT $(title), $(description), $1,
-		$(state/id), $(type/id), $(severity/id), $(priority/id)
+		$(state/id), $(type/id), $(severity/id), $(priority/id),
+		CURRENT_TIMESTAMP
 		WHERE $(id) = '0';
 END
 

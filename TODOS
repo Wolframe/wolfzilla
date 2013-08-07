@@ -1,0 +1,34 @@
+- wolfzilla
+  - sort out mess with ids (example issue id collides with object it user)
+  - onLoad signal for initial setting in drop boxes, or alternatively have
+    the 0 as '-- select a component --' value for instance (currently
+    a union in the TDL, later maybe smarter handling of defaults/items coming
+    from the designer UI)
+    -> onDomainLoadFinished or something like that?
+  - assign statt id, id2, id3
+  - how to propagate the current project id in the component, the page switch
+    moves away from the project!
+  - delete button: must be rechecked on data signals
+  - new button and races must be solved
+  - how to solve the null project owner mapping problem to empty Owner in
+    widget?
+    - empty default value should set an empty string in the widget
+    - workaround is still to have a local 'clear()' function on the tree
+      of widgets forming the project form
+  - how to assign the currently selected project owner in the user_select
+    form? user.selected=main.id as assignment would be login, but where?!
+  - export and import per project, users are fixed for now. This allows
+    us to play a lot with the data model while having a live collection
+    of data (our projects)
+  - use FTS3/4 for text search
+  - find a better way of object tree construction
+- qtClient
+  - pass login/password to Wolframe
+  - find out why the project object always collapse. Something is wrong
+    with state handle and/or tree expansion mechanism
+  - tree widget
+    - alternative names as dynamic properties instead of English titles
+- Wolframe
+  - activate a simplistic authenticator
+  - make sure the login gets passed to the TDL, there we can use it
+    in a SQL statement to set ownerID

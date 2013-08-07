@@ -48,6 +48,10 @@ END
 TRANSACTION listUsers
 BEGIN
 	INTO user DO
+		SELECT 0 AS "id", '-- choose a user --' AS "login",
+			'' AS "firstName", '' AS "lastName"
+		WHERE $(getNullElem) = '1'
+		UNION	
 		SELECT ID as "id", login, firstName AS "firstName",
 			lastName AS "lastName" FROM User
 			ORDER BY ID ASC;
@@ -85,6 +89,10 @@ END
 TRANSACTION listProjects
 BEGIN
 	INTO project DO
+		SELECT 0 AS "id", '' AS "shortcut", '-- choose a project --' AS "name",
+			'' AS "description"
+		WHERE $(getNullElem) = '1'
+		UNION
 		SELECT ID as "id", shortcut, name, description FROM Project
 			ORDER BY ID ASC;
 END
@@ -131,6 +139,10 @@ END
 TRANSACTION listComponents
 BEGIN
 	INTO component DO
+		SELECT 0 AS "id", '-- choose a component --' AS "name",
+			'' AS "description"
+		WHERE $(getNullElem) = '1'
+		UNION	
 		SELECT ID as "id", name, description FROM Component
 			WHERE projectID = $(project/id)
 			ORDER BY ID ASC;
@@ -181,7 +193,11 @@ END
 TRANSACTION listIssuePriorities
 BEGIN
 	INTO priority DO
-		SELECT ID as "id", name FROM IssuePriority;
+		SELECT 0 AS "id", '-- choose a priority --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
+		SELECT ID as "id", name, icon FROM IssuePriority;
 END
 
 -- IssueSeverity
@@ -189,6 +205,10 @@ END
 TRANSACTION listIssueSeverities
 BEGIN
 	INTO severity DO
+		SELECT 0 AS "id", '-- choose a severity --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
 		SELECT ID AS "id", name, icon FROM IssueSeverity;
 END
 
@@ -197,6 +217,10 @@ END
 TRANSACTION listIssueTypes
 BEGIN
 	INTO type DO
+		SELECT 0 AS "id", '-- choose a type --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
 		SELECT ID AS "id", name, icon FROM IssueType;
 END
 
@@ -205,6 +229,10 @@ END
 TRANSACTION listIssueStati
 BEGIN
 	INTO status DO
+		SELECT 0 AS "id", '-- choose a state --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
 		SELECT ID AS "id", name, icon FROM IssueState;
 END
 
@@ -229,19 +257,24 @@ END
 
 TRANSACTION updateIssue
 BEGIN
-	DO UPDATE Issue SET title = $(title), description = $(description)
+	DO UPDATE Issue SET title = $(title), description = $(description),
+		stateID = $(state/id), typeID = $(type/id),
+		severityID = $(severity/id), priorityID = $(priority/id)
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
-		WHERE projectID = $(project/id);
+		WHERE projectID = $(project/id)
+		AND $(id) = '0';
 	DO INSERT INTO IssueReference( projectID, reference )
 		SELECT $(project/id), $1
 		WHERE $(id) = '0';
 	DO SELECT ID FROM IssueReference
 		WHERE projectID = $(project/id)
-		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id));
-	DO INSERT INTO Issue( title, description, referenceID )
-		SELECT $(title), $(description), $1
+		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
+		AND $(id) = '0';
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID )
+		SELECT $(title), $(description), $1,
+		$(state/id), $(type/id), $(severity/id), $(priority/id)
 		WHERE $(id) = '0';
 END
 
@@ -256,14 +289,19 @@ BEGIN
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
 			title, Issue.description AS "description",
 			IssueReference.projectID AS "projectID",
-			componentID AS "componentID"
+			componentID AS "componentID",
+			coalesce( typeID, '0' ) AS "typeID",
+			coalesce( stateID, '0' ) AS "stateID",
+			coalesce( severityID, '0' ) AS "severityID",
+			coalesce( priorityID, '0' ) AS "priorityID"
 			FROM Issue, Project, IssueReference
 			WHERE Issue.ID = $(id)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
-			'' AS "title", '' AS "description", $(project/id), 0
+			'' AS "title", '' AS "description", $(project/id), 0,
+			0, 0, 0, 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

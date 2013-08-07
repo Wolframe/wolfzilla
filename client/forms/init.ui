@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>8</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -1045,7 +1045,7 @@
          <item row="0" column="1">
           <widget class="QComboBox" name="issuesProject">
            <property name="action" stdset="0">
-            <string>listProjects projects { }</string>
+            <string>listProjects projects { getNullElem=1 }</string>
            </property>
            <property name="answer" stdset="0">
             <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
@@ -1074,10 +1074,10 @@
      </widget>
      <widget class="QWidget" name="issue">
       <property name="action" stdset="0">
-       <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected:10001} }</string>
+       <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected} }</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeName {?}; priorityName {?} }</string>
+       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readIssue</string>
@@ -1108,7 +1108,7 @@
           <string>readIssue issue { id=0; project { id={main.content.issue.issueProject.selected:0} }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>Issue issue { id={?}; reference {{text}}; title {?}; description {?}; typeName {?}; priorityName {?}; projectID {?}; componentID {?} }</string>
+          <string>Issue issue { id={?}; reference {{text}}; title {?}; description {?}; typeName {?}; priorityName {?}; projectID {?}; componentID {?}; typeID {?}; stateID {?}; priorityID {?}; severityID {?} }</string>
          </property>
         </widget>
        </item>
@@ -1138,7 +1138,7 @@
        <item row="2" column="1">
         <widget class="QComboBox" name="issueProject">
          <property name="action" stdset="0">
-          <string>listProjects projects { }</string>
+          <string>listProjects projects { getNullElem=1 }</string>
          </property>
          <property name="answer" stdset="0">
           <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
@@ -1166,9 +1166,6 @@
        </item>
        <item row="3" column="1">
         <widget class="QComboBox" name="issueComponent">
-         <property name="action" stdset="0">
-          <string>listComponents components { project {id={main.content.issue.issueProject.selected}}}</string>
-         </property>
          <property name="answer" stdset="0">
           <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
          </property>
@@ -1176,7 +1173,7 @@
           <string>issueProjectListChanged</string>
          </property>
          <property name="action:issueProjectListChanged" stdset="0">
-          <string>listComponents components { project {id={main.content.issue.issueProject.selected}}}</string>
+          <string>listComponents components { getNullElem='1'; project {id={main.content.issue.issueProject.selected}}}</string>
          </property>
          <item>
           <property name="text">
@@ -1195,7 +1192,7 @@
        <item row="4" column="1">
         <widget class="QComboBox" name="issueType">
          <property name="action" stdset="0">
-          <string>listIssueTypes types {}</string>
+          <string>listIssueTypes types { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
           <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
@@ -1220,11 +1217,16 @@
        <item row="5" column="1">
         <widget class="QComboBox" name="issueState">
          <property name="action" stdset="0">
-          <string>listIssueStati stati {}</string>
+          <string>listIssueStati stati { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
           <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a state --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="6" column="0">
@@ -1240,7 +1242,7 @@
        <item row="6" column="1">
         <widget class="QComboBox" name="issueSeverity">
          <property name="action" stdset="0">
-          <string>listIssueSeverities severities { }</string>
+          <string>listIssueSeverities severities { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
           <string>IssueSeverityList severities { severity[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
@@ -1265,10 +1267,10 @@
        <item row="7" column="1">
         <widget class="QComboBox" name="issuePriority">
          <property name="action" stdset="0">
-          <string>listIssuePriorities priorities { }</string>
+          <string>listIssuePriorities priorities { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssuePriorityList priorities { priority[] { id={item.id}; name {{item.text}} }</string>
+          <string>IssuePriorityList priorities { priority[] { id={item.id}; name {{item.text}}; icon {?} }</string>
          </property>
          <item>
           <property name="text">
@@ -1290,7 +1292,7 @@
        <item row="8" column="1">
         <widget class="QComboBox" name="issueReporter">
          <property name="action" stdset="0">
-          <string>listUsers users { }</string>
+          <string>listUsers users { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
           <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
@@ -1301,6 +1303,11 @@
          <property name="action:refreshUsers" stdset="0">
           <string>listUsers users { }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a user --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="9" column="0">
@@ -1316,7 +1323,7 @@
        <item row="9" column="1">
         <widget class="QComboBox" name="issueAssignee">
          <property name="action" stdset="0">
-          <string>listUsers users { }</string>
+          <string>listUsers users { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
           <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
@@ -1327,6 +1334,11 @@
          <property name="action:refreshUsers" stdset="0">
           <string>listUsers users { }</string>
          </property>
+         <item>
+          <property name="text">
+           <string>-- choose a user --</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="10" column="0">
@@ -1372,7 +1384,7 @@
             <string>refreshIssues,showIssueList</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateIssue issue { id={main.content.issues.issueList.selected:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueState.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}} }</string>
+            <string>updateIssue issue { id={main.content.issues.issueList.selected:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueSeverity.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}} }</string>
            </property>
           </widget>
          </item>

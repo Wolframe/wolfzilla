@@ -1,1 +1,2 @@
 int = number:integer;
+bool = number:integer;

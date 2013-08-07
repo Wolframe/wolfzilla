@@ -1,13 +1,6 @@
 - wolfzilla
   - sort out mess with ids (example issue id collides with object it user)
-  - onLoad signal for initial setting in drop boxes, or alternatively have
-    the 0 as '-- select a component --' value for instance (currently
-    a union in the TDL, later maybe smarter handling of defaults/items coming
-    from the designer UI)
-    -> onDomainLoadFinished or something like that?
-  - assign statt id, id2, id3
-  - how to propagate the current project id in the component, the page switch
-    moves away from the project!
+  - assign statt id, id2, id3?
   - delete button: must be rechecked on data signals
   - new button and races must be solved
   - how to solve the null project owner mapping problem to empty Owner in

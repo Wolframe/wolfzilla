@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -817,7 +817,11 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="componentName"/>
+        <widget class="QLineEdit" name="componentName">
+         <property name="initialFocus" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_19">
@@ -960,12 +964,12 @@
           <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {{row.tooltip}}; typeName {{row.type}}; priorityName {{row.priority}}; typeIcon {{row.icon}} } }</string>
          </property>
          <property name="dataslot" stdset="0">
-          <string>issueProjectListChanged,refreshIssues</string>
-         </property>
-         <property name="action:issueProjectListChanged" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+          <string>issuesProjectListChanged,refreshIssues</string>
          </property>
          <property name="action:refreshIssues" stdset="0">
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+         </property>
+         <property name="action:issuesProjectListChanged" stdset="0">
           <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
          </property>
          <column>
@@ -1052,7 +1056,7 @@
 </string>
            </property>
            <property name="datasignal:changed" stdset="0">
-            <string>issueProjectListChanged</string>
+            <string>issuesProjectListChanged</string>
            </property>
            <item>
             <property name="text">
@@ -1123,7 +1127,11 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="issueTitle"/>
+        <widget class="QLineEdit" name="issueTitle">
+         <property name="initialFocus" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_23">
@@ -1170,10 +1178,13 @@
           <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
          </property>
          <property name="dataslot" stdset="0">
-          <string>issueProjectListChanged</string>
+          <string>issueProjectListChanged,issuesProjectListChanged</string>
          </property>
          <property name="action:issueProjectListChanged" stdset="0">
           <string>listComponents components { getNullElem='1'; project {id={main.content.issue.issueProject.selected}}}</string>
+         </property>
+         <property name="action:issuesProjectListChanged" stdset="0">
+          <string>listComponents components { getNullElem='1'; project {id={main.content.issues.issuesProject.selected}}}</string>
          </property>
          <item>
           <property name="text">

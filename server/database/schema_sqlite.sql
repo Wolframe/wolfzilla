@@ -197,7 +197,8 @@ CREATE TABLE Issue (
 	ownerID		INTEGER		REFERENCES User( ID ),
 	assigneeID	INTEGER		REFERENCES User( ID ),
 	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	dueDate		TIMESTAMP
+	dueDate		TIMESTAMP,
+	CONSTRAINT issue_referenceID_unique UNIQUE( referenceID )
 );
 
 -- IssueWatcher

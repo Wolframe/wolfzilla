@@ -57,9 +57,10 @@ TRANSACTION updateUser
 BEGIN
 	DO UPDATE User SET login = $(login), firstName = $(firstName),
 		lastName = $(lastName), email = $(email)
-		WHERE ID = $(id);
-	DO INSERT OR IGNORE INTO User( login, firstName, lastName, email )
-		VALUES( $(login), $(firstName), $(lastName), $(email) );
+		WHERE $(id) <> '0' AND ID = $(id);
+	DO INSERT INTO User( login, firstName, lastName, email )
+		SELECT $(login), $(firstName), $(lastName), $(email)
+		WHERE $(id) = '0';
 END
 
 -- KLUDGE: id2 is a hack around multiple value assignment to widgets
@@ -92,9 +93,10 @@ TRANSACTION updateProject
 BEGIN
 	DO UPDATE Project SET shortcut = $(shortcut), name = $(name),
 		description = $(description), ownerID = $(owner/id)
-		WHERE ID = $(id);
-	DO INSERT OR IGNORE INTO Project( shortcut, name, description, ownerID )
-		VALUES( $(shortcut), $(name), $(description), $(owner/id) );
+		WHERE $(id) <> '10000' AND ID = $(id);
+	DO INSERT INTO Project( shortcut, name, description, ownerID )
+		SELECT $(shortcut), $(name), $(description), $(owner/id)
+		WHERE $(id) = '10000';
 END
 
 -- KLUDGE: id2 is a hack around multiple value assignment to widgets
@@ -139,10 +141,10 @@ BEGIN
 	DO UPDATE Component SET name = $(name), description = $(description),
 		projectID = $(project/id),
 		leadID = $(lead/id), defaultAssigneeID = $(defaultAssignee/id)
-		WHERE ID = $(id);
-	DO INSERT OR IGNORE INTO Component( name, description, projectID, leadID, defaultAssigneeID )
-		VALUES( $(name), $(description), $(project/id), $(lead/id), $(defaultAssignee/id) );
-
+		WHERE $(id) <> '0' AND ID = $(id);
+	DO INSERT INTO Component( name, description, projectID, leadID, defaultAssigneeID )
+		SELECT $(name), $(description), $(project/id), $(lead/id), $(defaultAssignee/id)
+		WHERE $(id) = '0';
 END
 
 TRANSACTION readComponent
@@ -228,17 +230,19 @@ END
 TRANSACTION updateIssue
 BEGIN
 	DO UPDATE Issue SET title = $(title), description = $(description)
-		WHERE ID = $(id);
+		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
 		WHERE projectID = $(project/id);
-	DO INSERT OR IGNORE INTO IssueReference( projectID, reference )
-		VALUES( $(project/id), $1 );
+	DO INSERT INTO IssueReference( projectID, reference )
+		SELECT $(project/id), $1
+		WHERE $(id) = '0';
 	DO SELECT ID FROM IssueReference
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id));
-	DO INSERT OR IGNORE INTO Issue( title, description, referenceID )
-		VALUES( $(title), $(description), $1 );
+	DO INSERT INTO Issue( title, description, referenceID )
+		SELECT $(title), $(description), $1
+		WHERE $(id) = '0';
 END
 
 TRANSACTION readIssue

@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>7</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -948,7 +948,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <widget class="QTreeWidget" name="issueList">
          <property name="rootIsDecorated">
           <bool>false</bool>
@@ -990,7 +990,7 @@
          </column>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <spacer name="horizontalSpacer_5">
@@ -1041,23 +1041,34 @@
         </layout>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QComboBox" name="issuesProject">
-         <property name="action" stdset="0">
-          <string>listProjects projects { }</string>
-         </property>
-         <property name="answer" stdset="0">
-          <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
+        <layout class="QFormLayout" name="formLayout_6">
+         <item row="0" column="1">
+          <widget class="QComboBox" name="issuesProject">
+           <property name="action" stdset="0">
+            <string>listProjects projects { }</string>
+           </property>
+           <property name="answer" stdset="0">
+            <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
 </string>
-         </property>
-         <property name="datasignal:changed" stdset="0">
-          <string>issueProjectListChanged</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>-- choose a project --</string>
-          </property>
+           </property>
+           <property name="datasignal:changed" stdset="0">
+            <string>issueProjectListChanged</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>-- choose a project --</string>
+            </property>
+           </item>
+          </widget>
          </item>
-        </widget>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>Project:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

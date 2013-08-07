@@ -261,7 +261,7 @@ BEGIN
 	DO UPDATE Issue SET title = $(title), description = $(description),
 		stateID = $(state/id), typeID = $(type/id),
 		severityID = $(severity/id), priorityID = $(priority/id),
-		componentID = $(component/id),
+		componentID = nullif( $(component/id), '0' ),
 		lastModDate = CURRENT_TIMESTAMP
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
@@ -278,7 +278,7 @@ BEGIN
 	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, componentID, lastModDate )
 		SELECT $(title), $(description), $1,
 		$(state/id), $(type/id), $(severity/id), $(priority/id),
-		$(component/id), CURRENT_TIMESTAMP
+		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP
 		WHERE $(id) = '0';
 END
 

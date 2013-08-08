@@ -961,7 +961,7 @@
           <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {?}; typeName {{row.tooltip}}; typeIcon {{row.icon}}; severityName {{row.severity}}; severityIcon {?}; priorityName {{row.priority}}; } }</string>
+          <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {?}; typeName {{row.type}}; typeIcon {{row.icon}}; severityName {{row.severity}}; severityIcon {?}; priorityName {{row.priority}}; } }</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>issuesProjectListChanged,refreshIssues</string>

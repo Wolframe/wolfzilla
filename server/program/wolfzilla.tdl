@@ -257,11 +257,14 @@ BEGIN
 	INTO issue DO
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
 			title, Issue.description, IssueType.Name as "typeName",
-			IssueType.Icon as "typeIcon",
-			IssuePriority.Name as "priorityName"
+			IssueType.Icon AS "typeIcon",
+			IssueSeverity.Name AS "severityName",
+			IssueSeverity.Icon AS "severityIcon",
+			IssuePriority.Name AS "priorityName"
 			FROM IssueReference, Project, Issue
 			LEFT JOIN IssueType ON Issue.typeID = IssueType.ID
 			LEFT JOIN IssuePriority ON Issue.priorityID = IssuePriority.ID
+			LEFT JOIN IssueSeverity ON Issue.severityID = IssueSeverity.ID
 			WHERE IssueReference.projectID = $(project/id)
 			AND IssueReference.projectID = Project.ID
 			AND Issue.referenceID = IssueReference.ID

@@ -315,6 +315,7 @@ STRUCT IssueContent
 	}
 	severityID		?int
 	severityName	?string
+	severityIcon	?string
 	severity
 	{
 		id	@int

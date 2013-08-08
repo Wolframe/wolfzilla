@@ -33,7 +33,7 @@
       <string>readIssue issue { id={main.id} }</string>
      </property>
      <property name="answer" stdset="0">
-      <string>Issue issue { id={?}; reference {{1}}; title {?}; description {?}; typeName {?}; priorityName {?}; projectID {?}; componentID {?}; typeID {?}; stateID {?}; priorityID {?}; severityID {?}; creationDate {?}; lastModDate {?} }</string>
+      <string>Issue issue { id={?}; reference {{1}}; title {?}; description {?}; typeName {?}; priorityName {?}; projectID {?}; componentID {?}; typeID {?}; stateID {?};  resolutionID {? }; priorityID {?}; severityID {?}; creationDate {?}; lastModDate {?} }</string>
      </property>
     </widget>
    </item>

@@ -306,6 +306,13 @@ STRUCT IssueContent
 		id	@int
 		name	?string
 	}
+	resolutionID	?int
+	resolutionName	?string
+	resolution
+	{
+		id	@int
+		name	?string
+	}
 	severityID		?int
 	severityName	?string
 	severity
@@ -454,6 +461,29 @@ FORM IssueStatusList
 	stati
 	{
 		status []
+		{
+			id		@int
+			name		string
+			icon		string
+		}
+	}
+}
+
+; -- IssueResolution
+
+FORM listIssueResolutions
+{
+	resolutions
+	{
+		getNullElem	?@bool
+	}
+}
+
+FORM IssueResolutionList
+{
+	resolutions
+	{
+		resolution []
 		{
 			id		@int
 			name		string

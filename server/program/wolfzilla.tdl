@@ -236,6 +236,18 @@ BEGIN
 		SELECT ID AS "id", name, icon FROM IssueState;
 END
 
+-- IssueResolution
+
+TRANSACTION listIssueResolutions
+BEGIN
+	INTO resolution DO
+		SELECT 0 AS "id", '-- choose a resolution --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
+		SELECT ID AS "id", name, icon FROM IssueResolution;
+END
+
 -- Issue
 
 -- Component
@@ -260,6 +272,7 @@ TRANSACTION updateIssue
 BEGIN
 	DO UPDATE Issue SET title = $(title), description = $(description),
 		stateID = $(state/id), typeID = $(type/id),
+		resolutionID = nullif( $(resolution/id), '0' ),
 		severityID = $(severity/id), priorityID = $(priority/id),
 		componentID = nullif( $(component/id), '0' ),
 		lastModDate = CURRENT_TIMESTAMP,
@@ -276,9 +289,10 @@ BEGIN
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
 		AND $(id) = '0';
-	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate )
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, resolutionID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate )
 		SELECT $(title), $(description), $1,
-		$(state/id), $(type/id), $(severity/id), $(priority/id),
+		$(state/id), $(type/id), nullif( $(resolution/id), '0' ),
+		$(severity/id), $(priority/id),
 		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
 		$(dueDate)
 		WHERE $(id) = '0';
@@ -298,6 +312,7 @@ BEGIN
 			componentID AS "componentID",
 			coalesce( typeID, '0' ) AS "typeID",
 			coalesce( stateID, '0' ) AS "stateID",
+			coalesce( resolutionID, '0' ) AS "resolutionID",
 			coalesce( severityID, '0' ) AS "severityID",
 			coalesce( priorityID, '0' ) AS "priorityID",
 			creationDate AS "creationDate",
@@ -309,7 +324,7 @@ BEGIN
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
-			0, 0, 0, 0, '', ''
+			0, 0, 0, 0, 0, '', ''
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

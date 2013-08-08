@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -1081,7 +1081,7 @@
        <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected} }</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?}; creationDate {{issueCreationDate}}; lastModDate {{issueLastModDate}}; dueDate {{issueDueDate}} }</string>
+       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; resolutionID {{issueResolution.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?}; creationDate {{issueCreationDate}}; lastModDate {{issueLastModDate}}; dueDate {{issueDueDate}} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readIssue</string>
@@ -1268,7 +1268,7 @@
          </item>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="label_26">
          <property name="text">
           <string>Severity:</string>
@@ -1278,7 +1278,7 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="9" column="1">
         <widget class="QComboBox" name="issueSeverity">
          <property name="action" stdset="0">
           <string>listIssueSeverities severities { getNullElem='1' }</string>
@@ -1293,7 +1293,7 @@
          </item>
         </widget>
        </item>
-       <item row="9" column="0">
+       <item row="10" column="0">
         <widget class="QLabel" name="label_27">
          <property name="text">
           <string>Priority:</string>
@@ -1303,7 +1303,7 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="10" column="1">
         <widget class="QComboBox" name="issuePriority">
          <property name="action" stdset="0">
           <string>listIssuePriorities priorities { getNullElem='1' }</string>
@@ -1318,7 +1318,7 @@
          </item>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="11" column="0">
         <widget class="QLabel" name="label_29">
          <property name="text">
           <string>Reporter:</string>
@@ -1328,7 +1328,7 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="11" column="1">
         <widget class="QComboBox" name="issueReporter">
          <property name="action" stdset="0">
           <string>listUsers users { getNullElem='1' }</string>
@@ -1349,7 +1349,7 @@
          </item>
         </widget>
        </item>
-       <item row="11" column="0">
+       <item row="12" column="0">
         <widget class="QLabel" name="label_30">
          <property name="text">
           <string>assigned to:</string>
@@ -1359,7 +1359,7 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="1">
+       <item row="12" column="1">
         <widget class="QComboBox" name="issueAssignee">
          <property name="action" stdset="0">
           <string>listUsers users { getNullElem='1' }</string>
@@ -1380,7 +1380,7 @@
          </item>
         </widget>
        </item>
-       <item row="12" column="0">
+       <item row="13" column="0">
         <widget class="QLabel" name="label_31">
          <property name="text">
           <string>Description:</string>
@@ -1390,10 +1390,10 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
+       <item row="13" column="1">
         <widget class="QTextEdit" name="issueDescription"/>
        </item>
-       <item row="17" column="0" colspan="2">
+       <item row="18" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <spacer name="horizontalSpacer_7">
@@ -1423,13 +1423,13 @@
             <string>refreshIssues,showIssueList</string>
            </property>
            <property name="action" stdset="0">
-            <string>updateIssue issue { id={main.content.issues.issueList.selected:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; severity { id={main.content.issue.issueSeverity.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}}; dueDate {{main.content.issue.issueDueDate}} }</string>
+            <string>updateIssue issue { id={main.content.issues.issueList.selected:0}; title {{main.content.issue.issueTitle}}; description {{main.content.issue.issueDescription}}; project { id={main.content.issue.issueProject.selected:0} }; component { id={main.content.issue.issueComponent.selected:0} }; type { id={main.content.issue.issueType.selected} }; state { id={main.content.issue.issueState.selected} }; resolution {id={main.content.issue.issueResolution.selected} }; severity { id={main.content.issue.issueSeverity.selected}}; priority { id={main.content.issue.issuePriority.selected}}; reporter {id={main.content.issue.issueReporter.selected}}; assignee {id={main.content.issue.issueAssignee.selected}}; dueDate {{main.content.issue.issueDueDate}} }</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
-       <item row="13" column="1">
+       <item row="14" column="1">
         <widget class="QDateEdit" name="issueDueDate">
          <property name="displayFormat">
           <string>yyyy-MM-dd</string>
@@ -1439,10 +1439,32 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="0">
+       <item row="14" column="0">
         <widget class="QLabel" name="label_36">
          <property name="text">
           <string>Due date:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QComboBox" name="issueResolution">
+         <property name="action" stdset="0">
+          <string>listIssueResolutions resolutions { getNullElem='1' }</string>
+         </property>
+         <property name="answer" stdset="0">
+          <string>IssueResolutionList resolutions { resolution[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>-- choose a resolution --</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Resolution:</string>
          </property>
         </widget>
        </item>

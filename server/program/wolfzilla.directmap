@@ -34,4 +34,5 @@ deleteIssue = deleteIssue( xml );
 listIssuePriorities = listIssuePriorities( xml ) : IssuePriorityList;
 listIssueSeverities = listIssueSeverities( xml ) : IssueSeverityList;
 listIssueStati = listIssueStati( xml ) : IssueStatusList;
+listIssueResolutions = listIssueResolutions( xml ) : IssueResolutionList;
 listIssueTypes = listIssueTypes( xml ) : IssueTypeList;

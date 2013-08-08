@@ -262,7 +262,8 @@ BEGIN
 		stateID = $(state/id), typeID = $(type/id),
 		severityID = $(severity/id), priorityID = $(priority/id),
 		componentID = nullif( $(component/id), '0' ),
-		lastModDate = CURRENT_TIMESTAMP
+		lastModDate = CURRENT_TIMESTAMP,
+		dueDate = $(dueDate)
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
@@ -275,10 +276,11 @@ BEGIN
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
 		AND $(id) = '0';
-	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, componentID, creationDate, lastModDate )
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate )
 		SELECT $(title), $(description), $1,
 		$(state/id), $(type/id), $(severity/id), $(priority/id),
-		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
+		$(dueDate)
 		WHERE $(id) = '0';
 END
 

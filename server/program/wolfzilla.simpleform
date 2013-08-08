@@ -332,7 +332,10 @@ STRUCT IssueContent
 	{
 		_	UserReference
 	}
-	dueDate		string
+	creationDate	string
+	lastModDate	string
+	resolvedDate	?string
+	dueDate		?string
 }
 
 FORM Issue

@@ -1081,7 +1081,7 @@
        <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected} }</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?} }</string>
+       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?}; creationDate {{issueCreationDate}}; lastModDate {{issueLastModDate}} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readIssue</string>
@@ -1116,7 +1116,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_22">
          <property name="text">
           <string>Title:</string>
@@ -1126,14 +1126,14 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="issueTitle">
          <property name="initialFocus" stdset="0">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_23">
          <property name="text">
           <string>Project:</string>
@@ -1143,7 +1143,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="4" column="1">
         <widget class="QComboBox" name="issueProject">
          <property name="action" stdset="0">
           <string>listProjects projects { getNullElem=1 }</string>
@@ -1162,7 +1162,7 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_25">
          <property name="text">
           <string>Component:</string>
@@ -1172,7 +1172,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="5" column="1">
         <widget class="QComboBox" name="issueComponent">
          <property name="answer" stdset="0">
           <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
@@ -1193,14 +1193,14 @@
          </item>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_32">
          <property name="text">
           <string>Type:</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="6" column="1">
         <widget class="QComboBox" name="issueType">
          <property name="action" stdset="0">
           <string>listIssueTypes types { getNullElem='1' }</string>
@@ -1215,7 +1215,7 @@
          </item>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_28">
          <property name="text">
           <string>State:</string>
@@ -1225,7 +1225,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="7" column="1">
         <widget class="QComboBox" name="issueState">
          <property name="action" stdset="0">
           <string>listIssueStati stati { getNullElem='1' }</string>
@@ -1240,7 +1240,7 @@
          </item>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="label_26">
          <property name="text">
           <string>Severity:</string>
@@ -1250,7 +1250,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="8" column="1">
         <widget class="QComboBox" name="issueSeverity">
          <property name="action" stdset="0">
           <string>listIssueSeverities severities { getNullElem='1' }</string>
@@ -1265,7 +1265,7 @@
          </item>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="9" column="0">
         <widget class="QLabel" name="label_27">
          <property name="text">
           <string>Priority:</string>
@@ -1275,7 +1275,7 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="9" column="1">
         <widget class="QComboBox" name="issuePriority">
          <property name="action" stdset="0">
           <string>listIssuePriorities priorities { getNullElem='1' }</string>
@@ -1290,7 +1290,7 @@
          </item>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="10" column="0">
         <widget class="QLabel" name="label_29">
          <property name="text">
           <string>Reporter:</string>
@@ -1300,7 +1300,7 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="10" column="1">
         <widget class="QComboBox" name="issueReporter">
          <property name="action" stdset="0">
           <string>listUsers users { getNullElem='1' }</string>
@@ -1321,7 +1321,7 @@
          </item>
         </widget>
        </item>
-       <item row="9" column="0">
+       <item row="11" column="0">
         <widget class="QLabel" name="label_30">
          <property name="text">
           <string>assigned to:</string>
@@ -1331,7 +1331,7 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="11" column="1">
         <widget class="QComboBox" name="issueAssignee">
          <property name="action" stdset="0">
           <string>listUsers users { getNullElem='1' }</string>
@@ -1352,7 +1352,7 @@
          </item>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="12" column="0">
         <widget class="QLabel" name="label_31">
          <property name="text">
           <string>Description:</string>
@@ -1362,10 +1362,10 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="12" column="1">
         <widget class="QTextEdit" name="issueDescription"/>
        </item>
-       <item row="11" column="0" colspan="2">
+       <item row="16" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <spacer name="horizontalSpacer_7">
@@ -1400,6 +1400,34 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="issueCreationDate">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_34">
+         <property name="text">
+          <string>Creation date:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="issueLastModDate">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Last modification:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

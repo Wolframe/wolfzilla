@@ -268,6 +268,8 @@ BEGIN
 			WHERE IssueReference.projectID = $(project/id)
 			AND IssueReference.projectID = Project.ID
 			AND Issue.referenceID = IssueReference.ID
+			AND ( $(component/id) IS NULL OR $(component/id) = '0' OR Issue.componentID = $(component/id) )
+			AND ( $(reporter/id) IS NULL OR $(reporter/id) = '0' OR Issue.reporterID = $(reporter/id) )
 			ORDER BY Issue.ID ASC;
 END
 

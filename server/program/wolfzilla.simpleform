@@ -364,6 +364,14 @@ FORM listIssues
 		{
 			id	?@int
 		}
+		component
+		{
+			_	ComponentReference
+		}
+		reporter
+		{
+			_	UserReference
+		}
 	}
 }
 

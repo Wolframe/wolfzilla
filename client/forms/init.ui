@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
+    <width>627</width>
     <height>495</height>
    </rect>
   </property>
@@ -944,6 +944,12 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <widget class="QLabel" name="label_21">
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -952,13 +958,13 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
         <widget class="QTreeWidget" name="issueList">
          <property name="rootIsDecorated">
           <bool>false</bool>
          </property>
          <property name="action" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
          </property>
          <property name="answer" stdset="0">
           <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {?}; typeName {{row.type}}; typeIcon {{row.icon}}; severityName {{row.severity}}; severityIcon {?}; priorityName {{row.priority}}; } }</string>
@@ -967,10 +973,10 @@
           <string>issuesProjectListChanged,refreshIssues</string>
          </property>
          <property name="action:refreshIssues" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
          </property>
          <property name="action:issuesProjectListChanged" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
          </property>
          <column>
           <property name="text">
@@ -999,7 +1005,7 @@
          </column>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <spacer name="horizontalSpacer_5">
@@ -1077,7 +1083,73 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="issuesComponent">
+           <property name="answer" stdset="0">
+            <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
+           </property>
+           <property name="dataslot" stdset="0">
+            <string>issuesProjectListChanged,issuesProjectListChanged</string>
+           </property>
+           <property name="action:issuesProjectListChanged" stdset="0">
+            <string>listComponents components { getNullElem='1'; project {id={main.content.issues.issuesProject.selected}}}</string>
+           </property>
+           <property name="datasignal:changed" stdset="0">
+            <string>issuesProjectListChanged,refreshIssues</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>-- choose a component --</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_38">
+           <property name="text">
+            <string>Component:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="issuesReporter">
+           <property name="action" stdset="0">
+            <string>listUsers users { getNullElem='1' }</string>
+           </property>
+           <property name="answer" stdset="0">
+            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+           </property>
+           <property name="dataslot" stdset="0">
+            <string>refreshUsers</string>
+           </property>
+           <property name="action:refreshUsers" stdset="0">
+            <string>listUsers users { }</string>
+           </property>
+           <property name="datasignal:changed" stdset="0">
+            <string>refreshIssues</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>-- choose a user --</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_40">
+           <property name="text">
+            <string>reported by:</string>
+           </property>
+          </widget>
+         </item>
         </layout>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_39">
+         <property name="text">
+          <string>Filter issues by..</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

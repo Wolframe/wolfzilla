@@ -279,7 +279,9 @@ BEGIN
 		severityID = $(severity/id), priorityID = $(priority/id),
 		componentID = nullif( $(component/id), '0' ),
 		lastModDate = CURRENT_TIMESTAMP,
-		dueDate = $(dueDate)
+		dueDate = $(dueDate),
+		reporterID = nullif( $(reporter/id), '0' ),
+		assigneeID = nullif( $(assignee/id), '0' )
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
@@ -292,12 +294,13 @@ BEGIN
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
 		AND $(id) = '0';
-	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, resolutionID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate )
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, resolutionID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate, reporterID, assigneeID )
 		SELECT $(title), $(description), $1,
 		$(state/id), $(type/id), nullif( $(resolution/id), '0' ),
 		$(severity/id), $(priority/id),
 		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
-		$(dueDate)
+		$(dueDate), nullif( $(reporter/id), '0' ),
+		nullif( $(assignee/id), '0' )
 		WHERE $(id) = '0';
 END
 
@@ -319,7 +322,9 @@ BEGIN
 			coalesce( severityID, '0' ) AS "severityID",
 			coalesce( priorityID, '0' ) AS "priorityID",
 			creationDate AS "creationDate",
-			lastModDate AS "lastModDate"
+			lastModDate AS "lastModDate",
+			coalesce( reporterID, '0' ) AS "reporterID",
+			coalesce( assigneeID, '0' ) AS "assigneeID"
 			FROM Issue, Project, IssueReference
 			WHERE Issue.ID = $(id)
 			AND IssueReference.projectID = Project.ID
@@ -327,7 +332,7 @@ BEGIN
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
-			0, 0, 0, 0, 0, '', ''
+			0, 0, 0, 0, 0, '', '', 0, 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

@@ -84,7 +84,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="dataslot" stdset="0">
       <string>seeObject,readUser,showUserList,readProject,showProjectList,readComponent,readIssue,showIssueList</string>
@@ -1086,7 +1086,7 @@
        <string>readIssue issue  { id={main.content.issues.issueList.selected:0}; project { id={main.content.issues.issuesProject.selected} }</string>
       </property>
       <property name="answer" stdset="0">
-       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; resolutionID {{issueResolution.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?}; creationDate {{issueCreationDate}}; lastModDate {{issueLastModDate}}; dueDate {{issueDueDate}} }</string>
+       <string>Issue issue { id={?}; reference {{issueReference}}; title {{issueTitle}}; description {{issueDescription}}; projectID {{issueProject.selected}}; componentID {{issueComponent.selected}}; typeID {{issueType.selected}}; stateID {{issueState.selected}}; resolutionID {{issueResolution.selected}}; priorityID {{issuePriority.selected}}; severityID {{issueSeverity.selected}}; typeName {?}; priorityName {?}; creationDate {{issueCreationDate}}; lastModDate {{issueLastModDate}}; dueDate {{issueDueDate}}; reporterID {{issueReporter.selected}}; assigneeID {{issueAssignee.selected}} }</string>
       </property>
       <property name="dataslot" stdset="0">
        <string>readIssue</string>

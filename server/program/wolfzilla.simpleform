@@ -313,7 +313,7 @@ STRUCT IssueContent
 		id	@int
 		name	?string
 	}
-	severityID		?int
+	severityID	?int
 	severityName	?string
 	severityIcon	?string
 	severity
@@ -321,13 +321,14 @@ STRUCT IssueContent
 		id	@int
 		name	?string
 	}
-	priorityID		?int
+	priorityID	?int
 	priorityName	?string
 	priority
 	{
 		id	@int
 		name	?string
 	}
+	reporterID	?int
 	reporter
 	{
 		_	UserReference
@@ -336,6 +337,7 @@ STRUCT IssueContent
 	{
 		_	UserReference
 	}
+	assigneeID	?int
 	assignee
 	{
 		_	UserReference

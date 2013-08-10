@@ -964,7 +964,7 @@
           <bool>false</bool>
          </property>
          <property name="action" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}}; status { id={main.content.issues.issuesState.selected:0}} }</string>
          </property>
          <property name="answer" stdset="0">
           <string>IssueList issues { issue[] { id={row.id}; title {{row.title}}; reference {{row.shortcut}}; description {?}; typeName {{row.type}}; typeIcon {{row.icon}}; severityName {{row.severity}}; severityIcon {?}; priorityName {{row.priority}}; } }</string>
@@ -973,10 +973,10 @@
           <string>issuesProjectListChanged,refreshIssues</string>
          </property>
          <property name="action:refreshIssues" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}}; status { id={main.content.issues.issuesState.selected:0}} }</string>
          </property>
          <property name="action:issuesProjectListChanged" stdset="0">
-          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}} }</string>
+          <string>listIssues issues { project { id={main.content.issues.issuesProject.selected:0}}; component { id={main.content.issues.issuesComponent.selected:0}}; reporter { id={main.content.issues.issuesReporter.selected:0}}; status { id={main.content.issues.issuesState.selected:0}} }</string>
          </property>
          <column>
           <property name="text">
@@ -1057,6 +1057,16 @@
        </item>
        <item row="1" column="0" colspan="2">
         <layout class="QFormLayout" name="formLayout_6">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>Project:</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="1">
           <widget class="QComboBox" name="issuesProject">
            <property name="action" stdset="0">
@@ -1076,14 +1086,14 @@
            </item>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_33">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_38">
            <property name="text">
-            <string>Project:</string>
+            <string>Component:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QComboBox" name="issuesComponent">
            <property name="answer" stdset="0">
             <string>ComponentList components { component[] { id={item.id}; name {{item.text}}; description {{?}} } }</string>
@@ -1104,14 +1114,14 @@
            </item>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_38">
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_40">
            <property name="text">
-            <string>Component:</string>
+            <string>reported by:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <widget class="QComboBox" name="issuesReporter">
            <property name="action" stdset="0">
             <string>listUsers users { getNullElem='1' }</string>
@@ -1135,10 +1145,28 @@
            </item>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_40">
+         <item row="1" column="1">
+          <widget class="QComboBox" name="issuesState">
+           <property name="action" stdset="0">
+            <string>listIssueStati stati { getNullElem='1' }</string>
+           </property>
+           <property name="answer" stdset="0">
+            <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+           </property>
+           <property name="datasignal:changed" stdset="0">
+            <string>refreshIssues</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>-- choose a state --</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_41">
            <property name="text">
-            <string>reported by:</string>
+            <string>State:</string>
            </property>
           </widget>
          </item>

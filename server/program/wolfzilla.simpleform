@@ -364,6 +364,10 @@ FORM listIssues
 		{
 			id	?@int
 		}
+		status
+		{
+			id	?@int
+		}
 		component
 		{
 			_	ComponentReference

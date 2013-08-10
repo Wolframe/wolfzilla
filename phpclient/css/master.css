@@ -1,2 +1,13 @@
 @import url( '/wolfzilla/css/variant-multi.css' );
 
+#description
+{
+	white-space: pre-wrap;
+}
+
+#label
+{
+	font-weight: bold;
+	vertical-align: top;
+	white-space: nowrap;
+}

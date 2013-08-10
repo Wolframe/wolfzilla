@@ -6,7 +6,7 @@
   
   <xsl:include href="image.xslt"/>
   
-  <xsl:template match="/issues">
+  <xsl:template match="/issue">
     <html>
       <head>
         <link rel="stylesheet" type="text/css" href="/wolfzilla/css/master.css"/>
@@ -69,24 +69,51 @@
             </div>
     
             <div id="content">
-              <h2>Bugs of project</h2>
+              <h2>Bug <xsl:value-of select="reference"/></h2>
               <p>
                 <table>
-                  <xsl:for-each select="issue">
-                    <tr>
-                      <td>
-                        <xsl:call-template name="image">
-                          <xsl:with-param name="src" select="typeIcon"/>
-                        </xsl:call-template>                        
-                      </td>
-                      <td>
-                        <a href="/wolfzilla/index.php/issue/{@id}"><xsl:value-of select="reference"/></a>
-                      </td>
-                      <td>
-                        <xsl:value-of select="title"/>
-                      </td>
-                    </tr>
-                  </xsl:for-each>
+                  <tr>
+                    <td id="label">Created:
+                    </td>
+                    <td>
+                      <xsl:value-of select="creationDate"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Last Modification:
+                    </td>
+                    <td>
+                      <xsl:value-of select="lastModDate"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">State:
+                    </td>
+                    <td>
+                      <xsl:value-of select="stateName"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Title:
+                    </td>
+                    <td>
+                      <xsl:value-of select="title"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Description:
+                    </td>
+                    <td id="description">
+                      <xsl:value-of select="description"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Reporter:
+                    </td>
+                    <td>
+                      <xsl:value-of select="reporterName"/>
+                    </td>
+                  </tr>
                 </table>
               </p>
 

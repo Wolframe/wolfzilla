@@ -3,6 +3,8 @@
 require 'session.php';
 use Wolframe\Session as Session;
 
+require 'config.php';
+
 function detect_browser( )
 {
 	$result = '';
@@ -21,10 +23,11 @@ $canDoClientSideXSLT = array(
 	"op12", "ie8", "ie9", "ie10", "moz23", "webkit27", "webkit28"
 );
 
+$clientSideXSLT = false;
+
 try
 {
 // find out whether to use client side XSLT or not
-	$clientSideXSLT = false;
 	if( array_key_exists( "clientSideXSLT", $_GET ) ) {
 		$clientSideXSLT = $_GET["clientSideXSLT"];
 	} else {
@@ -46,13 +49,11 @@ try
 		header( "Content-Type: text/html" );
 	}
 	
-	$sslpath = "certs";
 	$sslopt = array(
-		"local_cert" => "$sslpath/combinedcert.pem",
+		"local_cert" => $WOLFRAME_COMBINED_CERTS,
 		"verify_peer" => false
 	);
-	$conn = new Session( "127.0.0.1", 7961, $sslopt, "NONE");
-	
+	$conn = new Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
 	
 	$uri = $_SERVER["PATH_INFO"];
 	$parts = explode( "/", $uri );
@@ -95,39 +96,41 @@ EOF;
 		$rrr = explode( '>', $rr[1], 2);
 		$xmlDoc = $rrr[1];
 		$xsltFile = $matches[1] . '.xslt';
-		
-		if( $clientSideXSLT ) {
-			$random = uniqid( md5( rand( ) ) );
-			$output = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-				. "\n"
-				. '<?xml-stylesheet type="text/xsl" href="/wolfzilla/xslt/'
-				. $xsltFile
-				. "?random=$random\"?>\n"
-				. $xmlDoc;
-			echo $output;
-		} else {
-			$xslt = new DomDocument;
-			$xslt->load( 'xslt/' . $xsltFile );
-			$xml = new DomDocument;
-			$xml->loadXml( $xmlDoc );
-			$proc = new XsltProcessor( );
-			$proc->importStylesheet( $xslt );
-			$output = $proc->transformToXML( $xml );
-			echo $output;
-			unset( $proc );
-		}
 
+		echo render( $xmlDoc, $xsltFile );
 	}
 }
 catch ( \Exception $e)
 {
-	$random = uniqid( md5( rand( ) ) );
-	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-			. "\n"
-			. '<?xml-stylesheet type="text/xsl" href="/wolfzilla/xslt/error'
-			. ".xslt?random=$random\"?>\n";
-			
-	echo "<error>" . $e->getMessage() . "</error>";
+	$xml = "<error>" . $e->getMessage() . "</error>";
+
+	render( $xml, "error.xslt" );
 }
-?>
+
+function render( $xmlDoc, $xsltFile )
+{
+	global $clientSideXSLT;
+		
+	if( $clientSideXSLT ) {
+		$random = uniqid( md5( rand( ) ) );
+		$output = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+			. "\n"
+			. '<?xml-stylesheet type="text/xsl" href="/wolfzilla/xslt/'
+			. $xsltFile
+			. "?random=$random\"?>\n"
+			. $xmlDoc;
+		echo $output;
+	} else {
+		$xslt = new DomDocument;
+		$xslt->load( 'xslt/' . $xsltFile );
+		$xml = new DomDocument;
+		$xml->loadXml( $xmlDoc );
+		$proc = new XsltProcessor( );
+		$proc->importStylesheet( $xslt );
+		$output = $proc->transformToXML( $xml );
+		echo $output;
+		unset( $proc );
+	}
+}
+
 

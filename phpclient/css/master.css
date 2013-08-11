@@ -3,6 +3,12 @@
 #description
 {
 	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#reference
+{
+	white-space: nowrap;
 }
 
 #label

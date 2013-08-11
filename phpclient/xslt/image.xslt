@@ -2,20 +2,25 @@
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
+<xsl:variable name="images" select="document('images.xml')/images"/>
+
 <xsl:template name="image">
   <xsl:param name="src"/>
-   
-  <xsl:choose>
-    <xsl:when test="$src=':/images/type_bug.png'">
-       <img src="/wolfzilla/images/type_bug.png" alt="Bug" height="16" width="16"/>
-    </xsl:when>
-    <xsl:when test="$src=':/images/type_improvement.png'">
-       <img src="/wolfzilla/images/type_improvement.png" alt="Bug" height="16" width="16"/>
-    </xsl:when>
-    <xsl:when test="$src=':/images/type_new_feature.png'">
-       <img src="/wolfzilla/images/type_new_feature.png" alt="Bug" height="16" width="16"/>
-    </xsl:when>
-  </xsl:choose>
+
+  <xsl:element name="img">
+    <xsl:attribute name="src">
+      <xsl:value-of select="$images/image[src=$src]/url"/> 
+    </xsl:attribute>
+    <xsl:attribute name="alt">
+      <xsl:value-of select="$images/image[src=$src]/alt"/> 
+    </xsl:attribute>
+    <xsl:attribute name="title">
+      <xsl:value-of select="$images/image[src=$src]/alt"/> 
+    </xsl:attribute>
+    <xsl:attribute name="height">16</xsl:attribute>
+    <xsl:attribute name="width">16</xsl:attribute>
+  </xsl:element>
+
 </xsl:template>
 
 </xsl:stylesheet>

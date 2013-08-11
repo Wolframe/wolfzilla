@@ -5,10 +5,11 @@
   <xsl:output method="html" version="1.1" encoding="iso-8859-1" />
   
   <xsl:include href="image.xslt"/>
-  
+    
   <xsl:template match="/issues">
     <html>
       <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10; IE=11"/>
         <link rel="stylesheet" type="text/css" href="/wolfzilla/css/master.css"/>
       </head>
       <body>
@@ -77,9 +78,9 @@
                       <td>
                         <xsl:call-template name="image">
                           <xsl:with-param name="src" select="typeIcon"/>
-                        </xsl:call-template>                        
+                        </xsl:call-template>      
                       </td>
-                      <td>
+                      <td id="reference">
                         <a href="/wolfzilla/index.php/issue/{@id}"><xsl:value-of select="reference"/></a>
                       </td>
                       <td>

@@ -19,10 +19,6 @@ function detect_browser( )
 	return $result;
 }
 
-$canDoClientSideXSLT = array(
-	"op12", "ie8", "ie9", "ie10", "moz23", "webkit27", "webkit28"
-);
-
 $clientSideXSLT = false;
 
 try
@@ -35,7 +31,7 @@ try
 		error_log( $browser );
 		
 		$clientSideXSLT = false;
-		if( in_array( $browser, $canDoClientSideXSLT ) ) {
+		if( in_array( $browser, $BROWSERS_USING_CLIENT_XSLT ) ) {
 			$clientSideXSLT = true;
 		}
 	}
@@ -96,6 +92,8 @@ EOF;
 		$rrr = explode( '>', $rr[1], 2);
 		$xmlDoc = $rrr[1];
 		$xsltFile = $matches[1] . '.xslt';
+		
+		//~ error_log( $xmlDoc );
 
 		echo render( $xmlDoc, $xsltFile );
 	}

@@ -1,0 +1,4 @@
+SELinux on Centos 6 needs:
+setsebool -P httpd_can_network_connect on
+
+So connection to wolframed are possible from the httpd.

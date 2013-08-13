@@ -12,7 +12,6 @@ function detect_browser( )
 	include( 'browser_detection.inc' );
 	if( $browser = browser_detection( 'full' ) ) {
 		$result = $browser[0] . (int)$browser[1];
-//		error_log( print_r( $browser, true ) );
 	}
 	
 	return $result;
@@ -28,7 +27,6 @@ try
 		$clientSideXSLT = $_GET["clientSideXSLT"];
 	} else {
 		$browser = detect_browser( );
-		error_log( $browser );
 		
 		$clientSideXSLT = false;
 		if( in_array( $browser, $BROWSERS_USING_CLIENT_XSLT ) ) {
@@ -102,8 +100,6 @@ EOF;
 		$xmlDoc = $rrr[1];
 		$xsltFile = $matches[1] . '.xslt';
 		
-		//~ error_log( $xmlDoc );
-
 		echo render( $xmlDoc, $xsltFile );
 	}
 }

@@ -70,7 +70,7 @@
             </div>
     
             <div id="content">
-              <h2>Bug <xsl:value-of select="reference"/></h2>
+              <h2><xsl:value-of select="reference"/></h2>
               <p>
                 <table>
                   <tr>
@@ -88,6 +88,13 @@
                     </td>
                   </tr>
                   <tr>
+                    <td id="label">Title:
+                    </td>
+                    <td>
+                      <xsl:value-of select="title"/>
+                    </td>
+                  </tr>
+                  <tr>
                     <td id="label">State:
                     </td>
                     <td>
@@ -95,10 +102,37 @@
                     </td>
                   </tr>
                   <tr>
-                    <td id="label">Title:
+                    <td id="label">Type:
                     </td>
                     <td>
-                      <xsl:value-of select="title"/>
+                        <xsl:call-template name="image">
+                          <xsl:with-param name="src" select="typeIcon"/>
+                        </xsl:call-template>      
+                      <xsl:value-of select="typeName"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">State:
+                    </td>
+                    <td>
+                      <xsl:value-of select="stateName"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Severity:
+                    </td>
+                    <td>
+                        <xsl:call-template name="image">
+                          <xsl:with-param name="src" select="severityIcon"/>
+                        </xsl:call-template>      
+                      <xsl:value-of select="severityName"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Priority:
+                    </td>
+                    <td>
+                      <xsl:value-of select="priorityName"/>
                     </td>
                   </tr>
                   <tr>

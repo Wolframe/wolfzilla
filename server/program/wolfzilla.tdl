@@ -320,22 +320,32 @@ BEGIN
 			IssueReference.projectID AS "projectID",
 			componentID AS "componentID",
 			coalesce( typeID, '0' ) AS "typeID",
+			coalesce( IssueType.name, '' ) AS "typeName",
+			coalesce( IssueType.icon, '' ) AS "typeIcon",
 			coalesce( stateID, '0' ) AS "stateID",
+			coalesce( IssueState.name, '' ) AS "stateName",
 			coalesce( resolutionID, '0' ) AS "resolutionID",
 			coalesce( severityID, '0' ) AS "severityID",
+			coalesce( IssueSeverity.name, '' ) AS "severityName",			
+			coalesce( IssueSeverity.icon, '' ) AS "severityIcon",
 			coalesce( priorityID, '0' ) AS "priorityID",
+			coalesce( IssuePriority.name, '' ) AS "priorityName",
 			creationDate AS "creationDate",
 			lastModDate AS "lastModDate",
 			coalesce( reporterID, '0' ) AS "reporterID",
 			coalesce( assigneeID, '0' ) AS "assigneeID"
 			FROM Issue, Project, IssueReference
+			LEFT JOIN IssueState ON IssueState.ID = Issue.stateID
+			LEFT JOIN IssueType ON IssueType.ID = Issue.typeID
+			LEFT JOIN IssueSeverity ON IssueSeverity.ID = Issue.severityID
+			LEFT JOIN IssuePriority ON IssuePriority.ID = Issue.priorityID
 			WHERE Issue.ID = $(id)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
-			0, 0, 0, 0, 0, '', '', 0, 0
+			0, '', '', 0, '', 0, 0, '', '', 0, '', '', '', 0, 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

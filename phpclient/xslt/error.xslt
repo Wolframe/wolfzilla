@@ -7,6 +7,7 @@
   <xsl:template match="/">
     <html>
       <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10"/>
         <link rel="stylesheet" type="text/css" href="/wolfzilla/css/master.css"/>
       </head>
       <body>

@@ -2,3 +2,18 @@ SELinux on Centos 6 needs:
 setsebool -P httpd_can_network_connect on
 
 So connection to wolframed are possible from the httpd.
+
+DocumentRoot /var/www
+<Directory />
+	...
+	AllowOverride All
+	...
+</Directory>
+
+<Directory /var/www >
+	...
+	AllowOverride All
+</Directory>
+
+Enable .htaccess for nice URLs (needs mod_rewrite and mod_env to work).
+

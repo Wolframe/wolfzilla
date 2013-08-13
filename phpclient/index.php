@@ -1,7 +1,6 @@
 <?php 
 
 require 'session.php';
-use Wolframe\Session as Session;
 
 require 'config.php';
 
@@ -20,6 +19,7 @@ function detect_browser( )
 }
 
 $clientSideXSLT = false;
+$urlRewrite = false;
 
 try
 {
@@ -36,6 +36,12 @@ try
 		}
 	}
 
+// find out whether Apache/mod_rewrite is around and we should beatify
+// URLs
+	if( $_SERVER['HTTP_MOD_REWRITE'] == 'On' ) {
+		$urlRewrite = true;
+	}
+
 // set correct header, whether we return XML and the browser loads XSLT
 // and XML to create XHTML or whether we return XHTML directy after processing
 // it on the server
@@ -44,13 +50,8 @@ try
 	} else {
 		header( "Content-Type: text/html" );
 	}
-	
-	$sslopt = array(
-		"local_cert" => $WOLFRAME_COMBINED_CERTS,
-		"verify_peer" => false
-	);
-	$conn = new Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
-	
+
+// parse URL parameters, TODO: map with XSLT back to requests
 	$uri = $_SERVER["PATH_INFO"];
 	$parts = explode( "/", $uri );
 	$cmd = $parts[1];
@@ -80,6 +81,13 @@ EOF;
 	} else {
 		throw new Exception( "Unknown command '" . $cmd . "'" );
 	}
+
+// connect to wolframe daemon and execute query
+	$sslopt = array(
+		"local_cert" => $WOLFRAME_COMBINED_CERTS,
+		"verify_peer" => false
+	);
+	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
 		
 	if (($result = $conn->request( $query)) === FALSE)
 	{
@@ -87,6 +95,7 @@ EOF;
 	}
 	else
 	{
+// determine name of XSLT stylesheeet from document type
 		preg_match('/[<][!]DOCTYPE[ ]*\w+ SYSTEM[ ]*["](\w+)[.]/', $result, $matches);
 		$rr = explode( '?>', $result, 2);
 		$rrr = explode( '>', $rr[1], 2);

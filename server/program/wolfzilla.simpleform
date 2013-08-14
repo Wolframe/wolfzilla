@@ -329,6 +329,7 @@ STRUCT IssueContent
 		name	?string
 	}
 	reporterID	?int
+	reporterName	?string
 	reporter
 	{
 		_	UserReference

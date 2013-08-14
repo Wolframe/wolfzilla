@@ -333,19 +333,21 @@ BEGIN
 			creationDate AS "creationDate",
 			lastModDate AS "lastModDate",
 			coalesce( reporterID, '0' ) AS "reporterID",
+			coalesce( Reporter.login, '' ) AS "reporterName",
 			coalesce( assigneeID, '0' ) AS "assigneeID"
 			FROM Issue, Project, IssueReference
 			LEFT JOIN IssueState ON IssueState.ID = Issue.stateID
 			LEFT JOIN IssueType ON IssueType.ID = Issue.typeID
 			LEFT JOIN IssueSeverity ON IssueSeverity.ID = Issue.severityID
 			LEFT JOIN IssuePriority ON IssuePriority.ID = Issue.priorityID
+			LEFT JOIN User AS Reporter ON Reporter.ID = Issue.reporterID
 			WHERE Issue.ID = $(id)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
-			0, '', '', 0, '', 0, 0, '', '', 0, '', '', '', 0, 0
+			0, '', '', 0, '', 0, 0, '', '', 0, '', '', '', 0, '', 0
 			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
 END
 

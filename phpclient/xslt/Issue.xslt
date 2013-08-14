@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   
-  <xsl:output method="html" version="1.1" encoding="iso-8859-1" indent="no"/>
+  <xsl:output method="html" version="1.1" encoding="UTF-8" indent="no"/>
   
   <xsl:include href="image.xslt"/>
   
@@ -11,6 +11,7 @@
       <head>
         <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10"/>
         <link rel="stylesheet" type="text/css" href="/wolfzilla/css/master.css"/>
+        <title><xsl:value-of select="reference"/> - <xsl:value-of select="title"/></title>
       </head>
       <body>
                 
@@ -95,13 +96,6 @@
                     </td>
                   </tr>
                   <tr>
-                    <td id="label">State:
-                    </td>
-                    <td>
-                      <xsl:value-of select="stateName"/>
-                    </td>
-                  </tr>
-                  <tr>
                     <td id="label">Type:
                     </td>
                     <td>
@@ -136,17 +130,17 @@
                     </td>
                   </tr>
                   <tr>
-                    <td id="label">Description:
-                    </td>
-                    <td id="description">
-                      <xsl:value-of select="description"/>
-                    </td>
-                  </tr>
-                  <tr>
                     <td id="label">Reporter:
                     </td>
                     <td>
                       <xsl:value-of select="reporterName"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="label">Description:
+                    </td>
+                    <td id="description">
+                      <xsl:value-of select="description"/>
                     </td>
                   </tr>
                 </table>

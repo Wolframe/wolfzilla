@@ -6,7 +6,7 @@
   
   <xsl:include href="image.xslt"/>
     
-  <xsl:template match="/issues">
+  <xsl:template match="issues">
     <html>
       <head>
         <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10"/>

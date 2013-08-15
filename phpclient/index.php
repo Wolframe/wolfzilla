@@ -34,7 +34,7 @@ try
 		}
 	}
 
-// find out whether Apache/mod_rewrite is around and we should beatify
+// find out whether Apache/mod_rewrite is around and we should beautify
 // URLs
 	if( $_SERVER['HTTP_MOD_REWRITE'] == 'On' ) {
 		$urlRewrite = true;
@@ -97,8 +97,10 @@ EOF;
 		preg_match('/[<][!]DOCTYPE[ ]*\w+ SYSTEM[ ]*["](\w+)[.]/', $result, $matches);
 		$rr = explode( '?>', $result, 2);
 		$rrr = explode( '>', $rr[1], 2);
-		$xmlDoc = $rrr[1];
+		$xmlOrig = $rrr[1];
 		$xsltFile = $matches[1] . '.xslt';
+		
+		$xmlDoc = transformData( $xmlOrig );
 		
 		echo render( $xmlDoc, $xsltFile );
 	}
@@ -110,6 +112,38 @@ catch ( \Exception $e)
 	render( $xml, "error.xslt" );
 }
 
+// transform the XML from the wolframe daemon and add Php layer stuff
+// here:
+// - variables
+// - state
+// - the page frame
+function transformData( $xmlOrig )
+{
+	global $urlRewrite;
+	
+	$dom = new DOMDocument( );
+	$root = $dom->createElement( 'page' );
+
+	// TODO: find a dynamic way to do this (PHP_SELF? careful with security!!)
+	$base = '/wolfzilla/';	
+	if( !$urlRewrite ) {
+		$base .= '/index.php';
+	}
+	$root->setAttribute( 'base', $base );
+	$dom->appendChild( $root );                
+	$f = $dom->createDocumentFragment( );
+	$f->appendXML( $xmlOrig );
+	$root->appendChild( $f );
+		
+	$xml = $dom->saveXML( $dom->documentElement );
+	
+	error_log( $xml );
+	
+	return $xml;
+}
+
+// apply the output stylesheet, either by referencing it for client-side XSLT
+// or by mapping it directly in the Php layer on the server
 function render( $xmlDoc, $xsltFile )
 {
 	global $clientSideXSLT;

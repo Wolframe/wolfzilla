@@ -5,14 +5,16 @@
   <xsl:output method="html" version="1.1" encoding="UTF-8" indent="no"/>
   
   <xsl:include href="image.xslt"/>
+
+  <xsl:template match="issue">
   
-  <xsl:template match="/issue">
     <html>
       <head>
         <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10"/>
-        <link rel="stylesheet" type="text/css" href="/wolfzilla/css/master.css"/>
+        <link rel="stylesheet" type="text/css" href="{/page/@base}css/master.css"/>
         <title><xsl:value-of select="reference"/> - <xsl:value-of select="title"/></title>
       </head>
+
       <body>
                 
         <div id="containerfull"> 

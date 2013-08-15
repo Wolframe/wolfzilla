@@ -6,7 +6,7 @@
   
   <xsl:include href="image.xslt"/>
     
-  <xsl:template match="/projects">
+  <xsl:template match="projects">
     <html>
       <head>
         <meta http-equiv="X-UA-Compatible" content="IE=8; IE=9; IE=10"/>
@@ -68,7 +68,7 @@
                 </ul>
               </div>
             </div>
-    
+            
             <div id="content">
               <h2>List of projects</h2>
               <p>

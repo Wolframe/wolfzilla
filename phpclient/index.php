@@ -107,9 +107,11 @@ EOF;
 }
 catch ( \Exception $e)
 {
-	$xml = "<error>" . $e->getMessage() . "</error>";
+	$xmlOrig = "<error>" . $e->getMessage() . "</error>";
+	
+	$xmlDoc = transformData( $xmlOrig );
 
-	render( $xml, "error.xslt" );
+	render( $xmlDoc, "error.xslt" );
 }
 
 // transform the XML from the wolframe daemon and add Php layer stuff

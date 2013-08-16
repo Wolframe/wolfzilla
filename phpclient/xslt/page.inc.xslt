@@ -5,7 +5,9 @@
 <!-- debug only: find unmappd XML, diable in production
      TODO: react to page/@debug flag or similar
   -->
-<!--  <xsl:include href="default.inc.xslt"/>-->
+<!--
+<xsl:include href="default.inc.xslt"/>
+-->
 
 <xsl:include href="header.inc.xslt"/>
 <xsl:include href="footer.inc.xslt"/>

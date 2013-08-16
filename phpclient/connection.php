@@ -28,18 +28,21 @@ class Connection
 		return new \Exception( $str);
 	}
 
-	public function __construct( $address, $port, $ssloptions)
+	public function __construct( $address, $port, $ssloptions=NULL)
 	{
 		$this->context = stream_context_create();
 		$timeout = 30;
-		$protocol = "tcp";
 
-		foreach ($ssloptions as $key => $value)
-		{
-			stream_context_set_option( $this->context, 'ssl', $key, $value);
-			$protocol = "ssl";
+		if( $ssloptions == NULL) {
+			$protocol = "tcp";
+		} else {
+			foreach ($ssloptions as $key => $value)
+			{
+				stream_context_set_option( $this->context, 'ssl', $key, $value);
+				$protocol = "ssl";
+			}
 		}
-
+		
 		$this->socket = stream_socket_client("$protocol://{$address}:{$port}", $errno, $errstr, $timeout, STREAM_CLIENT_CONNECT, $this->context);
 		if ($this->socket === FALSE) throw $this->conn_exception( "socket creation failed");
 

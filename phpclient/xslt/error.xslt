@@ -20,7 +20,7 @@
   </xsl:template>
 
   <xsl:template match="trace">
-    <pre><xsl:value-of select="."/></pre>
+    <div id="trace"><xsl:value-of select="."/></div>
   </xsl:template>
 
 </xsl:stylesheet>

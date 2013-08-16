@@ -364,6 +364,7 @@ FORM listIssues
 		project
 		{
 			id	?@int
+			shortcut	?@string
 		}
 		status
 		{
@@ -396,6 +397,7 @@ FORM readIssue
 	issue
 	{
 		id 		@int
+		reference	?@string
 		project
 		{
 			id	?@int

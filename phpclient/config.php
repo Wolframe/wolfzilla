@@ -4,7 +4,7 @@
 $WOLFRAME_SERVER = "localhost";
  
 # wolframe daemon port
-$WOLFRAME_PORT = 7961;
+$WOLFRAME_PORT = 7661;
 
 # for SSL secured communication, a file with combined client certificate
 # and client key

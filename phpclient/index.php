@@ -61,20 +61,20 @@ try
 <projects/>
 EOF;
 	} elseif( $cmd == "issues" ) {
-		$project = $parts[2];
+		$shortcut = $parts[2];
 		$query = <<<EOF
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE issues SYSTEM 'listIssues'>
 <issues>
-	<project id="$project"/>
+	<project shortcut="$shortcut"/>
 </issues>
 EOF;
 	} elseif( $cmd == "issue" ) {
-		$issue = $parts[2];
+		$reference = $parts[2];
 		$query = <<<EOF
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE issue SYSTEM 'readIssue'>
-<issue id="$issue"/>
+<issue reference="$reference"/>
 EOF;
 	} else {
 		throw new Exception( "Unknown command '" . $cmd . "'" );
@@ -85,7 +85,8 @@ EOF;
 		"local_cert" => $WOLFRAME_COMBINED_CERTS,
 		"verify_peer" => false
 	);
-	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
+//	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
+	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, NULL, "NONE");
 		
 	if (($result = $conn->request( $query)) === FALSE)
 	{

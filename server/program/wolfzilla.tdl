@@ -254,6 +254,9 @@ END
 
 TRANSACTION listIssues
 BEGIN
+	DO SELECT ID as "id" FROM Project
+		WHERE ID = $(project/id)
+		OR Project.shortcut = $(project/shortcut);
 	INTO issue DO
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
 			title, Issue.description, IssueType.Name as "typeName",
@@ -265,7 +268,7 @@ BEGIN
 			LEFT JOIN IssueType ON Issue.typeID = IssueType.ID
 			LEFT JOIN IssuePriority ON Issue.priorityID = IssuePriority.ID
 			LEFT JOIN IssueSeverity ON Issue.severityID = IssueSeverity.ID
-			WHERE IssueReference.projectID = $(project/id)
+			WHERE IssueReference.projectID = $1
 			AND IssueReference.projectID = Project.ID
 			AND Issue.referenceID = IssueReference.ID
 			AND ( $(status/id) IS NULL OR $(status/id) = '0' OR Issue.stateID = $(status/id) )
@@ -341,14 +344,27 @@ BEGIN
 			LEFT JOIN IssueSeverity ON IssueSeverity.ID = Issue.severityID
 			LEFT JOIN IssuePriority ON IssuePriority.ID = Issue.priorityID
 			LEFT JOIN User AS Reporter ON Reporter.ID = Issue.reporterID
-			WHERE Issue.ID = $(id)
+			WHERE ( Issue.ID = $(id) OR Issue.ID IN (
+				SELECT Issue.ID FROM Issue, IssueReference, Project
+					WHERE Project.ID = IssueReference.projectID
+					AND IssueReference.ID = Issue.referenceID
+					AND Project.shortcut = substr( coalesce( $(reference), '' ), 1, instr( coalesce( $(reference), '' ), '-' ) - 1 )
+					AND IssueReference.reference = substr( coalesce( $(reference), '' ), instr( coalesce( $(reference), '' ), '-' ) + 1 )
+				)
+			)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
 			0, '', '', 0, '', 0, 0, '', '', 0, '', '', '', 0, '', 0
-			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
+			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id))
+			AND NOT EXISTS (SELECT Issue.ID FROM Issue, IssueReference, Project
+					WHERE Project.ID = IssueReference.projectID
+					AND IssueReference.ID = Issue.referenceID
+					AND Project.shortcut = substr( coalesce( $(reference), '' ), 1, instr( coalesce( $(reference), '' ), '-' ) - 1 )
+					AND IssueReference.reference = substr( coalesce( $(reference), '' ), instr( coalesce( $(reference), '' ), '-' ) + 1 )
+			);
 END
 
 TRANSACTION deleteIssue

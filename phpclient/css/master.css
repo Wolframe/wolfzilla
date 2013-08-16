@@ -17,3 +17,9 @@
 	vertical-align: top;
 	white-space: nowrap;
 }
+
+#trace
+{
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}

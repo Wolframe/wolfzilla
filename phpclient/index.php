@@ -107,7 +107,8 @@ EOF;
 }
 catch ( \Exception $e)
 {
-	$xmlOrig = "<error>" . $e->getMessage() . "</error>";
+	$xmlOrig = "<error>" . $e->getMessage( ) . "</error>";
+	$xmlOrig .= "<trace>" . $e->getTraceAsString( ) . "</trace>";
 	
 	$xmlDoc = transformData( $xmlOrig );
 

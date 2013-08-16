@@ -8,17 +8,19 @@
   <xsl:include href="image.xslt"/>
 
   <xsl:template match="/page">
-    <xsl:variable name="title" select="issue/title"/>
-    <xsl:variable name="reference" select="issue/reference"/>
     <xsl:call-template name="page">
       <xsl:with-param name="base" select="/page/@base"/>
-      <xsl:with-param name="title" select="concat($reference, ' - ', $title)"/>
+      <xsl:with-param name="title" select="'Wolfzilla error'"/>
     </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="error">
-    <h2>Wolfzilla Error</h2>
+    <h2>Wolfzilla error</h2>
     <h3><xsl:value-of select="."/></h3>
+  </xsl:template>
+
+  <xsl:template match="trace">
+    <pre><xsl:value-of select="."/></pre>
   </xsl:template>
 
 </xsl:stylesheet>

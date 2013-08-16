@@ -120,16 +120,18 @@ catch ( \Exception $e)
 function transformData( $xmlOrig )
 {
 	global $urlRewrite;
-	
+		
 	$dom = new DOMDocument( );
 	$root = $dom->createElement( 'page' );
 
 	// TODO: find a dynamic way to do this (PHP_SELF? careful with security!!)
-	$base = '/wolfzilla/';	
+	$base = '/wolfzilla/';
+	$self = $base;
 	if( !$urlRewrite ) {
-		$base .= '/index.php';
+		$self .= 'index.php/';
 	}
 	$root->setAttribute( 'base', $base );
+	$root->setAttribute( 'self', $self );
 	$dom->appendChild( $root );                
 	$f = $dom->createDocumentFragment( );
 	$f->appendXML( $xmlOrig );

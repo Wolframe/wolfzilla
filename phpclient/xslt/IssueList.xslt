@@ -28,7 +28,7 @@
               </xsl:call-template>      
             </td>
             <td id="reference">
-              <a href="/wolfzilla/index.php/issue/{@id}"><xsl:value-of select="reference"/></a>
+              <a href="{/page/@self}issue/{@id}"><xsl:value-of select="reference"/></a>
             </td>
             <td>
               <xsl:value-of select="title"/>

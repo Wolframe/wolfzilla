@@ -21,7 +21,7 @@
         <xsl:for-each select="project">
           <tr>
             <td>
-              <a href="/wolfzilla/index.php/issues/{@id}"><xsl:value-of select="shortcut"/></a>
+              <a href="{/page/@self}issues/{@id}"><xsl:value-of select="shortcut"/></a>
             </td>
             <td>
               <xsl:value-of select="description"/>

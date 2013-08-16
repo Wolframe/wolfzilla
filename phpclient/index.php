@@ -137,8 +137,6 @@ function transformData( $xmlOrig )
 		
 	$xml = $dom->saveXML( $dom->documentElement );
 	
-	error_log( $xml );
-	
 	return $xml;
 }
 

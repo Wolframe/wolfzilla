@@ -85,8 +85,8 @@ EOF;
 		"local_cert" => $WOLFRAME_COMBINED_CERTS,
 		"verify_peer" => false
 	);
-//	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
-	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, NULL, "NONE");
+	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, $sslopt, "NONE");
+//	$conn = new Wolframe\Session( $WOLFRAME_SERVER, $WOLFRAME_PORT, NULL, "NONE");
 		
 	if (($result = $conn->request( $query)) === FALSE)
 	{

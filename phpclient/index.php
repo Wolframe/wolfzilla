@@ -54,7 +54,7 @@ try
 	$parts = explode( "/", $uri );
 	$cmd = $parts[1];
 	
-	if( $cmd == "projects" ) {
+	if( $cmd == "projects" || $cmd == '' ) {
 		$query = <<<EOF
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projects SYSTEM 'listProjects'>

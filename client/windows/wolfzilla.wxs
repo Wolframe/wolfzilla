@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Copyright (C) 2013 Project Wolframe.
+All rights reserved.
+
+This file is part of Project Wolframe.
+
+Commercial Usage
+   Licensees holding valid Project Wolframe Commercial licenses may
+   use this file in accordance with the Project Wolframe
+   Commercial License Agreement provided with the Software or,
+   alternatively, in accordance with the terms contained
+   in a written agreement between the licensee and Project Wolframe.
+
+GNU General Public License Usage
+   Alternatively, you can redistribute this file and/or modify it
+   under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Wolframe is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with Wolframe.  If not, see <http://www.gnu.org/licenses/>.
+
+If you have questions regarding the use of this file, please contact
+Project Wolframe.
+
+-->
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:firewall="http://schemas.microsoft.com/wix/FirewallExtension"
+	 xmlns:contrib="http://wixtoolset.org/wixcontrib/2008">
+
+	<?define ProductVersion = "0.0.1" ?>
+	<?define ProductCode = "{44751468-3d4c-4606-ac76-5aff042ad999}" ?>
+	<?define ProductUpgradeCode = "{75b50ff9-5530-4d67-b5a5-0a6c040b2221}" ?>
+	
+	<?if $(sys.BUILDARCH) = "x64" ?>
+		<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+		<?ifdef var.debug?>
+			<?define ProductName = "wolfzilla (64-bit, debug version)" ?>
+		<?else?>
+			<?define ProductName = "wolfzilla (64-bit)" ?>
+		<?endif?>
+	<?elseif $(sys.BUILDARCH) = "x86" ?>
+		<?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+		<?ifdef var.debug?>
+			<?define ProductName = "Wolfzilla (32-bit, debug version)" ?>
+		<?else?>
+			<?define ProductName = "Wolfzilla (32-bit)" ?>
+		<?endif?>
+	<?endif?>
+	
+	<Product Name="$(var.ProductName)" Version="$(var.ProductVersion)" Manufacturer="Wolframe Team"
+	         Language="1033" Codepage="1252"
+	         Id="$(var.ProductCode)" 
+	         UpgradeCode="$(var.ProductUpgradeCode)" >
+		 
+		<Package Description="Wolframe wolfzilla Windows Installer Package"
+		         Comments="The Wolframe configuartor"
+		         Manufacturer="Wolframe Team" InstallerVersion="300" Compressed="yes"/>
+
+		<Media Id="1" Cabinet="wolfzilla.cab" EmbedCab="yes"/>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="$(var.PlatformProgramFilesFolder)" Name="PFiles">
+				<Directory Id="WolframeGroup" Name="Wolframe Group">
+					<Directory Id="INSTALLDIR" Name="Wolframe wolfzilla">
+						<Directory Id="UiFormsDir" Name="uiforms">
+<!--
+							<Component Id="wolfzillaPlugins" Guid="{b9fe7b56-d479-4738-9a2e-301e46ffc1b4}">
+								<?ifdef var.debug?>
+									<File Id="wolfzilla.dll" Name="wolfzilla.dll" DiskId="1" Source="..\plugins\wolfzilla\\$(var.builddir)\wolfzillad.dll"/>
+									<File Id="exportplugin.dll" Name="exportplugin.dll" DiskId="1" Source="..\plugins\exportplugin\\$(var.builddir)\exportplugind.dll"/>
+								<?else?>
+									<File Id="wolfzilla.dll" Name="wolfzilla.dll" DiskId="1" Source="..\plugins\wolfzilla\\$(var.builddir)\wolfzilla.dll"/>
+									<File Id="exportplugin.dll" Name="exportplugin.dll" DiskId="1" Source="..\plugins\exportplugin\\$(var.builddir)\exportplugin.dll"/>
+								<?endif?>
+							</Component>							
+-->
+
+							<Component Id="UiForms" Guid="{6c8646a0-1ca5-4c62-866e-96b6fc554c05}">
+								<File Id="init.ui" Name="init.ui" DiskId="1" Source="..\forms\init.ui"/>
+								<File Id="user_delete.ui" Name="user_delete.ui" DiskId="1" Source="..\forms\user_delete.ui"/>
+								<File Id="project_delete.ui" Name="project_delete.ui" DiskId="1" Source="..\forms\project_delete.ui"/>
+								<File Id="issue_delete.ui" Name="category_edit.ui" DiskId="1" Source="..\forms\issue_delete.ui"/>
+							</Component>
+						</Directory>
+
+<!--
+						<Directory Id="MenusDir" Name="menus">
+							<Component Id="Menus" Guid="{66e03cce-b10c-4ac4-9f41-ddaf10fa0635}">
+								<File Id="mainmenu.ui" Name="mainmenu.ui" DiskId="1" Source="..\menus\mainmenu.ui"/>
+							</Component>
+						</Directory>
+-->
+
+						<Directory Id="ResourcesDir" Name="resources">
+							<Component Id="Resources" Guid="{cd10cfc9-4914-4cb8-bcd9-be1fbba1eff0}">
+								<File Id="wolfzilla.rcc" Name="wolfzilla.rcc" DiskId="1" Source="..\resources\wolfzilla.rcc"/>
+							</Component>
+						</Directory>
+						
+<!--
+						<Directory Id="I18nDir" Name="i18n">
+							<Component Id="I18n" Guid="{06c26e35-8f1d-4c2d-bf85-8d28a9f6c8ff}">
+								<File Id="wolfzilla.de_CH.qm" Name="wolfzilla.de_CH.qm" DiskId="1" Source="..\i18n\wolfzilla.de_CH.qm"/>
+								<File Id="wolfzilla.ro_RO.qm" Name="wolfzilla.ro_RO.qm" DiskId="1" Source="..\i18n\wolfzilla.ro_RO.qm"/>
+							</Component>
+						</Directory>
+-->
+						
+					</Directory>
+				</Directory>
+			</Directory>
+			
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="Wolframe"/>
+			</Directory>
+	
+		</Directory>
+				
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="{4f452db1-2db4-45ad-91b1-d391f44a3f7b}">
+				<Shortcut Id="qtClient"
+				          Name="Wolfzilla"
+				          Description="Start Wolfzilla"
+				          Target="[INSTALLDIR]\bin\qtclient.exe"/>
+
+				<Shortcut Id="UninstallProduct"
+				          Name="Uninstall Wolfzilla"
+				          Description="Uninstalls Wolframe wolfzilla"
+				          Target="[System64Folder]msiexec.exe"
+				          Arguments="/x $(var.ProductCode)"/>
+
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="SOFTWARE\WolframeGroup\Wolframe wolfzilla"
+				               Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<Feature Id="Complete" Title="wolfzilla" Description="$(var.ProductName)"
+		         Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+			<Feature Id="wolfzilla" Title="wolfzilla" Description="Wolframe wolfzilla client" Level="1">
+				<ComponentRef Id="ApplicationShortcut"/>
+<!--
+				<ComponentRef Id="wolfzillaPlugins"/>
+-->
+				<ComponentRef Id="UiForms"/>
+<!--
+				<ComponentRef Id="Menus"/>
+-->
+				<ComponentRef Id="Resources"/>
+<!--
+				<ComponentRef Id="I18n"/>
+-->
+			</Feature>
+		</Feature>
+
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+
+		<WixVariable Id="WixUILicenseRtf" Value="license.rtf"/>
+		<WixVariable Id="WixUIDialogBmp" Value="bitmaps/Wolf.bmp"/>
+		<Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Check out http://www.wolframe.net for additional information."/>
+
+		<Property Id="APPHELPLINK">http://www.wolframe.net</Property>
+		<Icon Id="Wolframe.ico" SourceFile="bitmaps/Wolframe.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="Wolframe.ico"/>
+
+		<UIRef Id="WixUI_wolfzilla"/>
+		<UIRef Id="WixUI_ErrorProgressText"/>
+	</Product>
+</Wix>

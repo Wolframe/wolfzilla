@@ -1,0 +1,3 @@
+cd client
+qmake-qt4 -config debug
+make 

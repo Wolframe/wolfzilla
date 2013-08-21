@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<images>
+  <image>
+    <src>:/images/type_bug.png</src>
+    <url>/wolfzilla/images/type_bug.png</url>
+    <alt>Bug</alt>
+  </image>
+  <image>
+    <src>:/images/type_improvement.png</src>
+    <url>/wolfzilla/images/type_improvement.png</url>
+    <alt>Improvement</alt>
+  </image>
+  <image>
+    <src>:/images/type_new_feature.png</src>
+    <url>/wolfzilla/images/type_new_feature.png</url>
+    <alt>New feature</alt>
+  </image>
+  <image>
+    <src>:/images/severity_blocker.png</src>
+    <url>/wolfzilla/images/severity_blocker.png</url>
+    <alt>Blocker</alt>
+  </image>
+  <image>
+    <src>:/images/severity_critical.png</src>
+    <url>/wolfzilla/images/severity_critical.png</url>
+    <alt>Critical</alt>
+  </image>
+  <image>
+    <src>:/images/severity_major.png</src>
+    <url>/wolfzilla/images/severity_major.png</url>
+    <alt>Major</alt>
+  </image>
+  <image>
+    <src>:/images/severity_minor.png</src>
+    <url>/wolfzilla/images/severity_minor.png</url>
+    <alt>Minor</alt>
+  </image>
+</images>

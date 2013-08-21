@@ -236,23 +236,44 @@ BEGIN
 		SELECT ID AS "id", name, icon FROM IssueState;
 END
 
+-- IssueResolution
+
+TRANSACTION listIssueResolutions
+BEGIN
+	INTO resolution DO
+		SELECT 0 AS "id", '-- choose a resolution --' AS "name",
+			'' AS "icon"
+		WHERE $(getNullElem) = '1'
+		UNION	
+		SELECT ID AS "id", name, icon FROM IssueResolution;
+END
+
 -- Issue
 
 -- Component
 
 TRANSACTION listIssues
 BEGIN
+	DO SELECT ID as "id" FROM Project
+		WHERE ID = $(project/id)
+		OR Project.shortcut = $(project/shortcut);
 	INTO issue DO
 		SELECT Issue.ID as "id", Project.shortcut || '-' || IssueReference.reference AS "reference",
 			title, Issue.description, IssueType.Name as "typeName",
-			IssueType.Icon as "typeIcon",
-			IssuePriority.Name as "priorityName"
+			IssueType.Icon AS "typeIcon",
+			IssueSeverity.Name AS "severityName",
+			IssueSeverity.Icon AS "severityIcon",
+			IssuePriority.Name AS "priorityName"
 			FROM IssueReference, Project, Issue
 			LEFT JOIN IssueType ON Issue.typeID = IssueType.ID
 			LEFT JOIN IssuePriority ON Issue.priorityID = IssuePriority.ID
-			WHERE IssueReference.projectID = $(project/id)
+			LEFT JOIN IssueSeverity ON Issue.severityID = IssueSeverity.ID
+			WHERE IssueReference.projectID = $1
 			AND IssueReference.projectID = Project.ID
 			AND Issue.referenceID = IssueReference.ID
+			AND ( $(status/id) IS NULL OR $(status/id) = '0' OR Issue.stateID = $(status/id) )
+			AND ( $(component/id) IS NULL OR $(component/id) = '0' OR Issue.componentID = $(component/id) )
+			AND ( $(reporter/id) IS NULL OR $(reporter/id) = '0' OR Issue.reporterID = $(reporter/id) )
 			ORDER BY Issue.ID ASC;
 END
 
@@ -260,9 +281,13 @@ TRANSACTION updateIssue
 BEGIN
 	DO UPDATE Issue SET title = $(title), description = $(description),
 		stateID = $(state/id), typeID = $(type/id),
+		resolutionID = nullif( $(resolution/id), '0' ),
 		severityID = $(severity/id), priorityID = $(priority/id),
 		componentID = nullif( $(component/id), '0' ),
-		lastModDate = CURRENT_TIMESTAMP
+		lastModDate = CURRENT_TIMESTAMP,
+		dueDate = $(dueDate),
+		reporterID = nullif( $(reporter/id), '0' ),
+		assigneeID = nullif( $(assignee/id), '0' )
 		WHERE $(id) <> '0' AND ID = $(id);
 	DO SELECT coalesce(max(IssueReference.reference)+1,1) AS "id"
 		FROM IssueReference
@@ -275,10 +300,13 @@ BEGIN
 		WHERE projectID = $(project/id)
 		AND reference = (SELECT MAX(reference) FROM IssueReference WHERE projectID=$(project/id))
 		AND $(id) = '0';
-	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, severityID, priorityID, componentID, lastModDate )
+	DO INSERT INTO Issue( title, description, referenceID, stateID, typeID, resolutionID, severityID, priorityID, componentID, creationDate, lastModDate, dueDate, reporterID, assigneeID )
 		SELECT $(title), $(description), $1,
-		$(state/id), $(type/id), $(severity/id), $(priority/id),
-		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP
+		$(state/id), $(type/id), nullif( $(resolution/id), '0' ),
+		$(severity/id), $(priority/id),
+		nullif( $(component/id), '0' ), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
+		$(dueDate), nullif( $(reporter/id), '0' ),
+		nullif( $(assignee/id), '0' )
 		WHERE $(id) = '0';
 END
 
@@ -295,18 +323,48 @@ BEGIN
 			IssueReference.projectID AS "projectID",
 			componentID AS "componentID",
 			coalesce( typeID, '0' ) AS "typeID",
+			coalesce( IssueType.name, '' ) AS "typeName",
+			coalesce( IssueType.icon, '' ) AS "typeIcon",
 			coalesce( stateID, '0' ) AS "stateID",
+			coalesce( IssueState.name, '' ) AS "stateName",
+			coalesce( resolutionID, '0' ) AS "resolutionID",
 			coalesce( severityID, '0' ) AS "severityID",
-			coalesce( priorityID, '0' ) AS "priorityID"
+			coalesce( IssueSeverity.name, '' ) AS "severityName",			
+			coalesce( IssueSeverity.icon, '' ) AS "severityIcon",
+			coalesce( priorityID, '0' ) AS "priorityID",
+			coalesce( IssuePriority.name, '' ) AS "priorityName",
+			creationDate AS "creationDate",
+			lastModDate AS "lastModDate",
+			coalesce( reporterID, '0' ) AS "reporterID",
+			coalesce( Reporter.login, '' ) AS "reporterName",
+			coalesce( assigneeID, '0' ) AS "assigneeID"
 			FROM Issue, Project, IssueReference
-			WHERE Issue.ID = $(id)
+			LEFT JOIN IssueState ON IssueState.ID = Issue.stateID
+			LEFT JOIN IssueType ON IssueType.ID = Issue.typeID
+			LEFT JOIN IssueSeverity ON IssueSeverity.ID = Issue.severityID
+			LEFT JOIN IssuePriority ON IssuePriority.ID = Issue.priorityID
+			LEFT JOIN User AS Reporter ON Reporter.ID = Issue.reporterID
+			WHERE ( Issue.ID = $(id) OR Issue.ID IN (
+				SELECT Issue.ID FROM Issue, IssueReference, Project
+					WHERE Project.ID = IssueReference.projectID
+					AND IssueReference.ID = Issue.referenceID
+					AND Project.shortcut = substr( coalesce( $(reference), '' ), 1, instr( coalesce( $(reference), '' ), '-' ) - 1 )
+					AND IssueReference.reference = substr( coalesce( $(reference), '' ), instr( coalesce( $(reference), '' ), '-' ) + 1 )
+				)
+			)
 			AND IssueReference.projectID = Project.ID
 			AND IssueReference.ID = Issue.referenceID
 		UNION
 		SELECT $(id) AS "id", $1 || '-' || $2 AS "reference",
 			'' AS "title", '' AS "description", $(project/id), 0,
-			0, 0, 0, 0
-			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id));
+			0, '', '', 0, '', 0, 0, '', '', 0, '', '', '', 0, '', 0
+			WHERE NOT EXISTS (SELECT ID FROM Issue WHERE ID=$(id))
+			AND NOT EXISTS (SELECT Issue.ID FROM Issue, IssueReference, Project
+					WHERE Project.ID = IssueReference.projectID
+					AND IssueReference.ID = Issue.referenceID
+					AND Project.shortcut = substr( coalesce( $(reference), '' ), 1, instr( coalesce( $(reference), '' ), '-' ) - 1 )
+					AND IssueReference.reference = substr( coalesce( $(reference), '' ), instr( coalesce( $(reference), '' ), '-' ) + 1 )
+			);
 END
 
 TRANSACTION deleteIssue

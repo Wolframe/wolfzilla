@@ -306,20 +306,30 @@ STRUCT IssueContent
 		id	@int
 		name	?string
 	}
-	severityID		?int
+	resolutionID	?int
+	resolutionName	?string
+	resolution
+	{
+		id	@int
+		name	?string
+	}
+	severityID	?int
 	severityName	?string
+	severityIcon	?string
 	severity
 	{
 		id	@int
 		name	?string
 	}
-	priorityID		?int
+	priorityID	?int
 	priorityName	?string
 	priority
 	{
 		id	@int
 		name	?string
 	}
+	reporterID	?int
+	reporterName	?string
 	reporter
 	{
 		_	UserReference
@@ -328,11 +338,15 @@ STRUCT IssueContent
 	{
 		_	UserReference
 	}
+	assigneeID	?int
 	assignee
 	{
 		_	UserReference
 	}
-	dueDate		string
+	creationDate	string
+	lastModDate	string
+	resolvedDate	?string
+	dueDate		?string
 }
 
 FORM Issue
@@ -350,6 +364,19 @@ FORM listIssues
 		project
 		{
 			id	?@int
+			shortcut	?@string
+		}
+		status
+		{
+			id	?@int
+		}
+		component
+		{
+			_	ComponentReference
+		}
+		reporter
+		{
+			_	UserReference
 		}
 	}
 }
@@ -370,6 +397,7 @@ FORM readIssue
 	issue
 	{
 		id 		@int
+		reference	?@string
 		project
 		{
 			id	?@int
@@ -451,6 +479,29 @@ FORM IssueStatusList
 	stati
 	{
 		status []
+		{
+			id		@int
+			name		string
+			icon		string
+		}
+	}
+}
+
+; -- IssueResolution
+
+FORM listIssueResolutions
+{
+	resolutions
+	{
+		getNullElem	?@bool
+	}
+}
+
+FORM IssueResolutionList
+{
+	resolutions
+	{
+		resolution []
 		{
 			id		@int
 			name		string

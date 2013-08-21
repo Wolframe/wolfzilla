@@ -196,8 +196,9 @@ CREATE TABLE Issue (
 	reporterID	INTEGER		REFERENCES User( ID ),
 	ownerID		INTEGER		REFERENCES User( ID ),
 	assigneeID	INTEGER		REFERENCES User( ID ),
-	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	creationDate	TIMESTAMP	NOT NULL,
 	lastModDate	TIMESTAMP	NOT NULL,
+	resolvedDate	TIMESTAMP,
 	dueDate		TIMESTAMP,
 	CONSTRAINT issue_referenceID_unique UNIQUE( referenceID )
 );
@@ -217,7 +218,7 @@ CREATE TABLE IssueComment (
 	issueID		INTEGER		REFERENCES Issue( ID ),
 	description	TEXT,
 	writerID	INTEGER		REFERENCES User( ID ),
-	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	creationDate	TIMESTAMP	NOT NULL,
 	lastModDate	TIMESTAMP	NOT NULL
 );
 
@@ -230,7 +231,7 @@ CREATE TABLE IssueAttachment (
 	content		TEXT,
 	description	TEXT,
 	writerID	INTEGER		REFERENCES User( ID ),
-	creationDate	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	creationDate	TIMESTAMP	NOT NULL,
 	lastModDate	TIMESTAMP	NOT NULL
 );
 

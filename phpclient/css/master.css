@@ -1,0 +1,25 @@
+@import url( 'variant-multi.css' );
+
+#description
+{
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#reference
+{
+	white-space: nowrap;
+}
+
+#label
+{
+	font-weight: bold;
+	vertical-align: top;
+	white-space: nowrap;
+}
+
+#trace
+{
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}

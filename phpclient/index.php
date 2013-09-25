@@ -129,7 +129,7 @@ function transformData( $xmlOrig )
 	$root = $dom->createElement( 'page' );
 
 	// TODO: find a dynamic way to do this (PHP_SELF? careful with security!!)
-	$base = '/wolfzilla/';
+	$base = '/develop/wolfzilla/';
 	$self = $base;
 	if( !$urlRewrite ) {
 		$self .= 'index.php/';
@@ -156,7 +156,7 @@ function render( $xmlDoc, $xsltFile )
 		$random = uniqid( md5( rand( ) ) );
 		$output = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
 			. "\n"
-			. '<?xml-stylesheet type="text/xsl" href="/wolfzilla/xslt/'
+			. '<?xml-stylesheet type="text/xsl" href="/develop/wolfzilla/xslt/'
 			. $xsltFile
 			. "?random=$random\"?>\n"
 			. $xmlDoc;

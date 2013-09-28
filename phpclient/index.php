@@ -66,7 +66,7 @@ EOF;
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE issues SYSTEM 'listIssues'>
 <issues>
-	<project shortcut="$shortcut"/>
+	<project><shortcut>$shortcut</shortcut></project>
 </issues>
 EOF;
 	} elseif( $cmd == "issue" ) {

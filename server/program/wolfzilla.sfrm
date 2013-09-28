@@ -14,11 +14,11 @@ FORM listObjects
 
 STRUCT Item
 {
-	id		@int
-	type		string
-	text		string
-	details		string
-	icon		string
+	id		?@int
+	type		?string
+	text		?string
+	details		?string
+	icon		?string
 	item		^Item[]
 }
 
@@ -100,7 +100,7 @@ FORM User
 
 STRUCT UserReference
 {
-	id	@int
+	id	?@int
 	login	?string
 }
 
@@ -117,23 +117,21 @@ FORM deleteUser
 	}
 }
 
+STRUCT ProjectReference
+{
+	id		?@int
+	name		?string
+	shortcut	?string
+}
+
 STRUCT ComponentContent
 {
-	id 		@int
-	name 		string
-	description	string
-	project
-	{
-		id	@int
-	}
-	lead
-	{
-		_	UserReference
-	}
-	defaultAssignee
-	{
-		_	UserReference
-	}
+	id 		?@int
+	name 		?string
+	description	?string
+	project		?ProjectReference
+	lead		?UserReference
+	defaultAssignee	?UserReference
 }
 
 STRUCT ComponentReference
@@ -163,10 +161,7 @@ FORM ProjectList
 			name 		string
 			description	string
 			shortcut	string
-			owner
-			{
-				_	UserReference
-			}
+			owner		?UserReference
 		}
 	}
 }
@@ -189,11 +184,8 @@ FORM Project
 		name 		string
 		description	string
 		shortcut	string
-		owner
-		{
-			_	UserReference
-		}
-		component []
+		owner		?UserReference
+		component ?[]
 		{
 			_	ComponentContent
 		}
@@ -271,80 +263,75 @@ FORM deleteComponent
 ; Issue
 ; --
 
+STRUCT Meta
+{
+	id	@int
+	name	?string
+	icon	?string
+}
+
+STRUCT Type
+{
+	_	Meta
+}
+
+STRUCT State
+{
+	_	Meta
+}
+
+STRUCT Resolution
+{
+	_	Meta
+}
+
+STRUCT Severity
+{
+	_	Meta
+}
+
+STRUCT Priority
+{
+	_	Meta
+}
+
 ; TODO: plenty of hacks here because mapping into an array of structs is
 ; currently not possible
 STRUCT IssueContent
 {
-	id		@int
+	id		?@int
 	reference	?string
-	title		string
+	title		?string
 	projectID	?int
-	project
-	{
-		id	@int
-		name	?string
-	}
+	project		?ProjectReference
 	componentID	?int
-	component
-	{
-		_	ComponentReference
-	}
-	description	string
+	component	?ComponentReference
+	description	?string
 	typeID		?int
 	typeName	?string
 	typeIcon	?string
-	type
-	{
-		id	@int
-		name	?string
-		icon	?string
-	}
+	type		?Type
 	stateID		?int
 	stateName	?string
-	state
-	{
-		id	@int
-		name	?string
-	}
+	state		?State
 	resolutionID	?int
 	resolutionName	?string
-	resolution
-	{
-		id	@int
-		name	?string
-	}
+	resolution	?Resolution
 	severityID	?int
 	severityName	?string
 	severityIcon	?string
-	severity
-	{
-		id	@int
-		name	?string
-	}
+	severity	?Severity
 	priorityID	?int
 	priorityName	?string
-	priority
-	{
-		id	@int
-		name	?string
-	}
+	priority	?Priority
 	reporterID	?int
 	reporterName	?string
-	reporter
-	{
-		_	UserReference
-	}
-	owner
-	{
-		_	UserReference
-	}
+	reporter	?UserReference
+	owner		?UserReference
 	assigneeID	?int
-	assignee
-	{
-		_	UserReference
-	}
-	creationDate	string
-	lastModDate	string
+	assignee	?UserReference
+	creationDate	?string
+	lastModDate	?string
 	resolvedDate	?string
 	dueDate		?string
 }
@@ -361,23 +348,10 @@ FORM listIssues
 {
 	issues
 	{
-		project
-		{
-			id	?@int
-			shortcut	?@string
-		}
-		status
-		{
-			id	?@int
-		}
-		component
-		{
-			_	ComponentReference
-		}
-		reporter
-		{
-			_	UserReference
-		}
+		project		?ProjectReference
+		status		?State
+		component	?ComponentReference
+		reporter	?UserReference
 	}
 }
 
@@ -396,12 +370,9 @@ FORM readIssue
 {
 	issue
 	{
-		id 		@int
+		id 		?@int
 		reference	?@string
-		project
-		{
-			id	?@int
-		}
+		project		?ProjectReference
 	}
 }
 
@@ -436,7 +407,7 @@ FORM IssuePriorityList
 		{
 			id 		@int
 			name 		string
-			icon		string
+			icon		?string
 		}
 	}
 }
@@ -459,7 +430,7 @@ FORM IssueSeverityList
 		{
 			id		@int
 			name		string
-			icon		string
+			icon		?string
 		}
 	}
 }
@@ -482,7 +453,7 @@ FORM IssueStatusList
 		{
 			id		@int
 			name		string
-			icon		string
+			icon		?string
 		}
 	}
 }
@@ -505,7 +476,7 @@ FORM IssueResolutionList
 		{
 			id		@int
 			name		string
-			icon		string
+			icon		?string
 		}
 	}
 }
@@ -528,7 +499,7 @@ FORM IssueTypeList
 		{
 			id		@int
 			name		string
-			icon		string
+			icon		?string
 		}
 	}
 }

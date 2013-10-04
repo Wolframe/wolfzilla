@@ -1,38 +1,38 @@
 # Object
 
-listObjects = listObjects( xml ) : ObjectTree;
-seeObject = seeObject( xml ) : Object;
+listObjects = listObjects( libxml2 ) : ObjectTree;
+seeObject = seeObject( libxml2 ) : Object;
 
 # User
 
-listUsers = listUsers( xml ) : UserList;
-readUser = readUser( xml ) : User;
-updateUser = updateUser( xml );
-deleteUser = deleteUser( xml );
+listUsers = listUsers( libxml2 ) : UserList;
+readUser = readUser( libxml2 ) : User;
+updateUser = updateUser( libxml2 );
+deleteUser = deleteUser( libxml2 );
 
 # Project
 
-listProjects = listProjects( xml ) : ProjectList;
-readProject = readProject( xml ) : Project;
-updateProject = updateProject( xml );
-deleteProject = deleteProject( xml );
+listProjects = listProjects( libxml2 ) : ProjectList;
+readProject = readProject( libxml2 ) : Project;
+updateProject = updateProject( libxml2 );
+deleteProject = deleteProject( libxml2 );
 
 # Component
 
-listComponents = listComponents( xml ) : ComponentList;
-readComponent = readComponent( xml ) : Component;
-updateComponent = updateComponent( xml );
-deleteComponent = deleteComponent( xml );
+listComponents = listComponents( libxml2 ) : ComponentList;
+readComponent = readComponent( libxml2 ) : Component;
+updateComponent = updateComponent( libxml2 );
+deleteComponent = deleteComponent( libxml2 );
 
 # Issue
 
-listIssues = listIssues( xml ) : IssueList;
-readIssue = readIssue( xml ) : Issue;
-updateIssue = updateIssue( xml );
-deleteIssue = deleteIssue( xml );
+listIssues = listIssues( libxml2 ) : IssueList;
+readIssue = readIssue( libxml2 ) : Issue;
+updateIssue = updateIssue( libxml2 );
+deleteIssue = deleteIssue( libxml2 );
 
-listIssuePriorities = listIssuePriorities( xml ) : IssuePriorityList;
-listIssueSeverities = listIssueSeverities( xml ) : IssueSeverityList;
-listIssueStati = listIssueStati( xml ) : IssueStatusList;
-listIssueResolutions = listIssueResolutions( xml ) : IssueResolutionList;
-listIssueTypes = listIssueTypes( xml ) : IssueTypeList;
+listIssuePriorities = listIssuePriorities( libxml2 ) : IssuePriorityList;
+listIssueSeverities = listIssueSeverities( libxml2 ) : IssueSeverityList;
+listIssueStati = listIssueStati( libxml2 ) : IssueStatusList;
+listIssueResolutions = listIssueResolutions( libxml2 ) : IssueResolutionList;
+listIssueTypes = listIssueTypes( libxml2 ) : IssueTypeList;

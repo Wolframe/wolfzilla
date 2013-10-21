@@ -1,0 +1,16 @@
+.history
+server/database/wolfzilla.db
+server/wolframe-pf.conf
+setenv.sh
+client/Andreas.Baumann.crt
+client/Andreas.Baumann.key
+client/Makefile
+client/WolframeCA.crt
+client/resources/Makefile
+client/resources/libresources.so
+client/resources/libresources.so.1
+client/resources/libresources.so.1.0
+client/resources/libresources.so.1.0.0
+client/resources/qrc_wolfzilla.cpp
+client/resources/qrc_wolfzilla.o
+client/resources/wolfzilla.rcc

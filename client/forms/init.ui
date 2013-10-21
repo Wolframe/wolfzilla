@@ -159,7 +159,7 @@
           <string>listUsers users {}</string>
          </property>
          <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={row.id}; login {{row.login}}; firstName {{row.firstName}}; lastName {{row.lastName}} }</string>
+          <string>UserList users { user[] { id={row.id}; login {{row.login}}; firstName {{row.firstName}}; lastName {{row.lastName}} }}</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
@@ -595,7 +595,7 @@
             <string>listUsers users { }</string>
            </property>
            <property name="answer" stdset="0">
-            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
            </property>
            <property name="dataslot" stdset="0">
             <string>refreshUsers</string>
@@ -852,7 +852,7 @@
           <string>listUsers users { }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
@@ -878,7 +878,7 @@
           <string>listUsers users { }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
@@ -1073,8 +1073,7 @@
             <string>listProjects projects { getNullElem=1 }</string>
            </property>
            <property name="answer" stdset="0">
-            <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
-</string>
+            <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }}</string>
            </property>
            <property name="datasignal:changed" stdset="0">
             <string>issuesProjectListChanged</string>
@@ -1127,7 +1126,7 @@
             <string>listUsers users { getNullElem='1' }</string>
            </property>
            <property name="answer" stdset="0">
-            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+            <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
            </property>
            <property name="dataslot" stdset="0">
             <string>refreshUsers</string>
@@ -1151,7 +1150,7 @@
             <string>listIssueStati stati { getNullElem='1' }</string>
            </property>
            <property name="answer" stdset="0">
-            <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+            <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }}</string>
            </property>
            <property name="datasignal:changed" stdset="0">
             <string>refreshIssues</string>
@@ -1282,8 +1281,7 @@
           <string>listProjects projects { getNullElem=1 }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }
-</string>
+          <string>ProjectList projects { project[] { id={item.id}; shortcut {{?}}; name {{item.text}}; description {{?}} }}</string>
          </property>
          <property name="datasignal:changed" stdset="0">
           <string>issueProjectListChanged</string>
@@ -1339,7 +1337,7 @@
           <string>listIssueTypes types { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+          <string>IssueTypeList types { type[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }}</string>
          </property>
          <item>
           <property name="text">
@@ -1364,7 +1362,7 @@
           <string>listIssueStati stati { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+          <string>IssueStatusList stati { status[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }}</string>
          </property>
          <item>
           <property name="text">
@@ -1389,7 +1387,7 @@
           <string>listIssueSeverities severities { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueSeverityList severities { severity[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+          <string>IssueSeverityList severities { severity[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }}</string>
          </property>
          <item>
           <property name="text">
@@ -1414,7 +1412,7 @@
           <string>listIssuePriorities priorities { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssuePriorityList priorities { priority[] { id={item.id}; name {{item.text}}; icon {?} }</string>
+          <string>IssuePriorityList priorities { priority[] { id={item.id}; name {{item.text}}; icon {?} }}</string>
          </property>
          <item>
           <property name="text">
@@ -1439,7 +1437,7 @@
           <string>listUsers users { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
@@ -1470,7 +1468,7 @@
           <string>listUsers users { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }</string>
+          <string>UserList users { user[] { id={item.id}; login {{item.text}}; firstName{{?}}; lastName{{?}}; email{{?}} }}</string>
          </property>
          <property name="dataslot" stdset="0">
           <string>refreshUsers</string>
@@ -1557,7 +1555,7 @@
           <string>listIssueResolutions resolutions { getNullElem='1' }</string>
          </property>
          <property name="answer" stdset="0">
-          <string>IssueResolutionList resolutions { resolution[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }</string>
+          <string>IssueResolutionList resolutions { resolution[] { id={item.id}; name {{item.text}}; icon {{item.icon}} }}</string>
          </property>
          <item>
           <property name="text">

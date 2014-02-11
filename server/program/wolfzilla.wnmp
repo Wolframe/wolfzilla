@@ -1,2 +1,2 @@
-int = number:integer;
-bool = number:integer;
+int = integer;
+bool = integer;
